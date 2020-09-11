@@ -7,15 +7,13 @@
     "test": "test"
   },
   "precommit": [
-    "pre-commit-msg",
-    "test"
+    "pre-commit-msg"
   ],
   "scripts": {
     "test": "jest",
     "pre-commit-msg": "echo 'Pre-commit checks\n'",
     "build-dev": "webpack -d --mode development --watch",
-    "build-prod": "webpack -p --mode production",
-    "start": "nodemon src/server/index.js"
+    "build-prod": "webpack -p --mode production"
   },
   "author": "",
   "license": "ISC",
