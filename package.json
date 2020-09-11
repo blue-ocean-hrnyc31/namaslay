@@ -1,5 +1,5 @@
 {
-  "name": "namaslay",
+  "name": "namaslay-client",
   "version": "1.0.0",
   "description": "",
   "main": "src/server/index.js",
@@ -11,13 +11,15 @@
   ],
   "scripts": {
     "test": "jest",
-    "pre-commit-msg": "echo 'Pre-commit checks\n'",
+    "pre-commit-msg": "echo '\nPre-commit checks\n'",
     "build-dev": "webpack -d --mode development --watch",
-    "build-prod": "webpack -p --mode production"
+    "build-prod": "webpack -p --mode production",
+    "start": "nodemon src/server/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
