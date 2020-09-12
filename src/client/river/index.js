@@ -13,7 +13,71 @@ const generateDataset = (userList) => (
       status: userList[randUserIndex].status,
     };
   })
-)
+);
+
+const Chart = () => {
+    const [dataset, setDataset] = useState(
+      generateDataset(dummyUsers)
+    );
+
+    const [hoveredObj, updateHovered] = useState({
+      isHovered: false,
+      name: 'No one',
+      location: 'No where',
+      status: 'Not existing'
+    });
+
+    //console.log(dataset);
+
+    return (
+      <svg className='river-container'width='50%' height='50%' viewBox="0 0 100 100">
+        {
+          hoveredObj.isHovered ? <p>{hoveredObj.name} , {hoveredObj.location}</p> : <p></p>
+        }
+        <rect width="100%" height="100%" fill="black" />
+        {dataset.map(({x, y, name, location, status}, i) => (
+          <>
+            <defs>
+              <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                <stop offset="0%" stopColor='rgb(255,255,255)' stopOpacity='1' />
+                <stop offset="100%" stopColor='rgb(0,0,255)' stopOpacity='0' />
+              </radialGradient>
+            </defs>
+
+            <circle
+              onMouseEnter={() => {
+                console.log(name, location, status);
+                updateHovered({
+                  isHovered: true,
+                  name,
+                  location,
+                  status
+                })
+              }}
+              onMouseLeave={() => {
+                console.log(name, location, status);
+                updateHovered({
+                  isHovered: false,
+                  name,
+                  location,
+                  status
+                })
+              }}
+              cx={x}
+              cy={y}
+              r="1.7"
+              fill="url(#grad1)"
+            />
+          </>
+        ))}
+      </svg>
+
+    )
+}
+
+export default Chart;
+
+
 
 const dummyUsers = [
   {
@@ -37,37 +101,3 @@ const dummyUsers = [
     status: "Beep booping"
   }
 ];
-
-const Chart = () => {
-    const [dataset, setDataset] = useState(
-      generateDataset(dummyUsers)
-    );
-
-    console.log(dataset);
-    return (
-
-      <svg className='river-container'width='50%' height='50%' viewBox="0 0 100 100">
-        <rect width="100%" height="100%" fill="black" />
-        {dataset.map(({x, y}, i) => (
-          <>
-            <defs>
-              <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                <stop offset="0%" stopColor='rgb(255,255,255)' stopOpacity='1' />
-                <stop offset="100%" stopColor='rgb(0,0,255)' stopOpacity='0' />
-              </radialGradient>
-            </defs>
-
-            <circle
-              cx={x}
-              cy={y}
-              r=".7"
-              fill="url(#grad1)"
-            />
-          </>
-        ))}
-      </svg>
-
-    )
-  }
-export default Chart;
-
