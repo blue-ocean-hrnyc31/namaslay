@@ -11,6 +11,14 @@ app.get('*', (req, res) => {
   res.sendFile('index.html', { root: path.join(__dirname, '../../dist/') });
 });
 
+app.post('/signup', (req, res) => {
+  res.send('success');
+});
+
+app.post('/login', (req, res) => {
+  res.send('success');
+})
+
 app.listen(PORT, () => {
   console.log(`listening on port: ${PORT}`);
 });

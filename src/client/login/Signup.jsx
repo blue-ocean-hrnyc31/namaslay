@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class Login extends React.Component {
   constructor(props) {
@@ -22,7 +23,12 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    console.log('this values have been submited', this.state);
+    axios.post('/signup', {username: this.state.username, password: this.state.password})
+    .then(response => {
+      if (response.data === 'success') {
+        this.props.handleLog(true);
+      }
+    });
   }
 
   render() {

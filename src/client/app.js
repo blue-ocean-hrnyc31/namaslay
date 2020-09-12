@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './stylesheets/app.scss';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import LeaderBoard from './leaderBoard/index.js';
 import {Signup, Login} from './login/index.jsx';
 import Home from "./Home.js";
 
 const App = (props) => {
+  const [isLoggedIn, setLogged ] = useState(false);
+  const [isSignedUp, setSignup ] = useState(false);
+
   return (
     <Router>
       <div>
@@ -27,10 +30,10 @@ const App = (props) => {
             </Route>
             <Route path="/bulletinboard"></Route>
             <Route path="/login">
-              <Login />
+              {isLoggedIn ? <Redirect to="/" /> : <Login handleLog={setLogged} />}
             </Route>
             <Route path="/signup">
-              <Signup />
+              {isSignedUp ? <Redirect to="/login" /> : <Signup handleLog={setSignup} />}
             </Route>
             <Route path="/rivers"></Route>
           </Switch>
@@ -43,7 +46,7 @@ const App = (props) => {
 
 export default App;
 
-<ul>
+{/* <ul>
   <li>
     <Link to="/">Home</Link>
   </li>
@@ -59,4 +62,4 @@ export default App;
   <li>
     <Link to="/rivers">Rivers</Link>
   </li>
-</ul>;
+</ul>; */}
