@@ -19,6 +19,7 @@ const App = (props) => {
         </div>
         <div className="content">
           <Switch>
+            <Route exact path="/" component={Home} />
             <Route path="/about"></Route>
             <Route path="/leaderboard">
               <LeaderBoard></LeaderBoard>
