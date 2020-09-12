@@ -23,7 +23,12 @@ class Login extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    axios.post('/signup', {username: this.state.username, password: this.state.password})
+    const body = {
+      username: this.state.username,
+      password: this.state.password
+    };
+
+    axios.post('/signup', body)
     .then(response => {
       if (response.data === 'success') {
         this.props.handleLog(true);

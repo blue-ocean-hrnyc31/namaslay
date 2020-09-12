@@ -26,6 +26,8 @@ class Login extends React.Component {
       .then(response => {
         if (response.data === 'success') {
           this.props.handleLog(true);
+        }  else if (response.data === 'wrong password') {
+          this.setState({password: ''});
         }
       });
   }
@@ -40,6 +42,7 @@ class Login extends React.Component {
           <input
             type='text'
             name='username'
+            value={this.state.username}
             onChange={this.handleChange}
           />
         </label>
@@ -49,6 +52,7 @@ class Login extends React.Component {
           <input
             type='text'
             name='password'
+            value={this.state.password}
             onChange={this.handleChange}
           />
         </label>
