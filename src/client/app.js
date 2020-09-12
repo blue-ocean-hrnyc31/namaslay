@@ -2,6 +2,7 @@ import React from 'react';
 import './stylesheets/app.scss';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import LeaderBoard from './leaderBoard/index.js';
+import {Signup, Login} from './login/index.jsx';
 
 const App = (props) => {
   return (
@@ -30,11 +31,17 @@ const App = (props) => {
             <LeaderBoard></LeaderBoard>
           </Route>
           <Route path='/bulletinboard'></Route>
-          <Route path='/login'></Route>
+          <Route path='/login'>
+            <Login/>
+          </Route>
+          <Route path='/signup'>
+            <Signup/>
+          </Route>
           <Route path='/rivers'></Route>
         </Switch>
       </div>
     </Router>
+
   );
 };
 
