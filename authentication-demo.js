@@ -110,6 +110,8 @@ app.get(
   (req, res, next) => {
     if (req.user) {
       res.redirect(`/user/${req.user.username}`);
+    } else {
+      next();
     }
   },
   (req, res) => {
