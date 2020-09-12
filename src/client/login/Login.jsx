@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import { logIn } from '../apiHelpers';
 
 class Login extends React.Component {
   constructor(props) {
@@ -7,7 +7,7 @@ class Login extends React.Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -16,24 +16,18 @@ class Login extends React.Component {
 
   handleChange(e) {
     const name = e.target.name;
-    const newState = {[name]: e.target.value};
+    const newState = { [name]: e.target.value };
     this.setState(newState);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    axios.post('/login', {username: this.state.username, password: this.state.password})
-      .then(response => {
-        if (response.data === 'success') {
-          this.props.handleLog(true);
-        }
-      });
+    logIn(this.state.username, this.state.password);
   }
 
   render() {
     return (
-
-      <form onSubmit={this.handleSubmit} >
+      <form onSubmit={this.handleSubmit}>
         <h3>Login</h3>
         <label>
           Username:
@@ -41,6 +35,7 @@ class Login extends React.Component {
             type='text'
             name='username'
             onChange={this.handleChange}
+            value={this.state.username}
           />
         </label>
 
@@ -50,14 +45,13 @@ class Login extends React.Component {
             type='text'
             name='password'
             onChange={this.handleChange}
+            value={this.state.password}
           />
         </label>
         <input type='submit' value='Submit' />
       </form>
-
     );
-  };
-
+  }
 }
 
 export default Login;

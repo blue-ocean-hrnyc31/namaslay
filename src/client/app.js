@@ -23,13 +23,14 @@ const App = (props) => {
           <Link to="/about">About</Link>
           <Link to="/login">Log in</Link>
         </div>
-        <div className="content">
+        <div className='content'>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/about"></Route>
-            <Route path="/leaderboard">
+            <Route exact path='/' component={Home} />
+            <Route path='/about'></Route>
+            <Route path='/leaderboard'>
               <LeaderBoard></LeaderBoard>
             </Route>
+
             <Route path="/bulletinboard"></Route>
             <Route path="/login">
               {isLoggedIn ? <Redirect to="/" /> : <Login handleLog={setLogged} />}
@@ -38,11 +39,11 @@ const App = (props) => {
               {isSignedUp ? <Redirect to="/login" /> : <Signup handleLog={setSignup} />}
             </Route>
             <Route path="/rivers"><Chart/></Route>
+
           </Switch>
         </div>
       </div>
     </Router>
-
   );
 };
 
