@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './stylesheets/app.scss';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
 import LeaderBoard from './leaderBoard/index.js';
-import { Signup, Login } from './login/index.jsx';
-import Home from './Home.js';
+import {Signup, Login} from './login/index.jsx';
+import Home from "./Home.js";
+import Chart from './river/index.js'
 
 const App = (props) => {
+  const [isLoggedIn, setLogged ] = useState(false);
+  const [isSignedUp, setSignup ] = useState(false);
+
   return (
     <Router>
-      <div>
-        <div className='menu'>
-          <Link to='/'>Home</Link>
-          <Link to='/rivers'>Meditation River</Link>
-          <Link to='/rivers'>Asana River</Link>
-          <Link to='/bulletinboard'>Upcoming Events</Link>
-          <Link to='/leaderboard'>Leader Board</Link>
-          <Link to='/about'>About</Link>
-          <Link to='/login'>Log in</Link>
+      <div className="grid-container">
+        <header></header>
+        <div className="menu">
+          <Link to="/">Home</Link>
+          <Link to="/rivers">Meditation River</Link>
+          <Link to="/rivers">Asana River</Link>
+          <Link to="/bulletinboard">Upcoming Events</Link>
+          <Link to="/leaderboard">Leader Board</Link>
+          <Link to="/about">About</Link>
+          <Link to="/login">Log in</Link>
         </div>
         <div className='content'>
           <Switch>
@@ -25,11 +30,16 @@ const App = (props) => {
             <Route path='/leaderboard'>
               <LeaderBoard></LeaderBoard>
             </Route>
-            <Route path='/bulletinboard'></Route>
-            <Route path='/login'>
-              <Signup />
+
+            <Route path="/bulletinboard"></Route>
+            <Route path="/login">
+              {isLoggedIn ? <Redirect to="/" /> : <Login handleLog={setLogged} />}
             </Route>
-            <Route path='/rivers'></Route>
+            <Route path="/signup">
+              {isSignedUp ? <Redirect to="/login" /> : <Signup handleLog={setSignup} />}
+            </Route>
+            <Route path="/rivers"><Chart/></Route>
+
           </Switch>
         </div>
       </div>
@@ -38,21 +48,3 @@ const App = (props) => {
 };
 
 export default App;
-
-<ul>
-  <li>
-    <Link to='/'>Home</Link>
-  </li>
-  <li>
-    <Link to='/leaderboard'>LeaderBoard</Link>
-  </li>
-  <li>
-    <Link to='/bulletinboard'>Bulletinboard</Link>
-  </li>
-  <li>
-    <Link to='/login'>Login</Link>
-  </li>
-  <li>
-    <Link to='/rivers'>Rivers</Link>
-  </li>
-</ul>;
