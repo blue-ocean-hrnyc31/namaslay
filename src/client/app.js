@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-ro
 import LeaderBoard from './leaderBoard/index.js';
 import {Signup, Login} from './login/index.jsx';
 import Home from "./Home.js";
+import Chart from './river/index.js'
 
 const App = (props) => {
   const [isLoggedIn, setLogged ] = useState(false);
@@ -36,7 +37,7 @@ const App = (props) => {
             <Route path="/signup">
               {isSignedUp ? <Redirect to="/login" /> : <Signup handleLog={setSignup} />}
             </Route>
-            <Route path="/rivers"></Route>
+            <Route path="/rivers"><Chart/></Route>
           </Switch>
         </div>
       </div>
