@@ -1,11 +1,15 @@
-import React from "react";
-import "./stylesheets/app.scss";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import LeaderBoard from "./leaderBoard/index.js";
+import React, { useState } from 'react';
+import './stylesheets/app.scss';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from 'react-router-dom';
+import LeaderBoard from './leaderBoard/index.js';
+import {Signup, Login} from './login/index.jsx';
 import Home from "./Home.js";
 import Chart from './river/index.js'
 
 const App = (props) => {
+  const [isLoggedIn, setLogged ] = useState(false);
+  const [isSignedUp, setSignup ] = useState(false);
+
   return (
     <Router>
       <div className="grid-container">
@@ -27,12 +31,18 @@ const App = (props) => {
               <LeaderBoard></LeaderBoard>
             </Route>
             <Route path="/bulletinboard"></Route>
-            <Route path="/login"></Route>
+            <Route path="/login">
+              {isLoggedIn ? <Redirect to="/" /> : <Login handleLog={setLogged} />}
+            </Route>
+            <Route path="/signup">
+              {isSignedUp ? <Redirect to="/login" /> : <Signup handleLog={setSignup} />}
+            </Route>
             <Route path="/rivers"><Chart/></Route>
           </Switch>
         </div>
       </div>
     </Router>
+
   );
 };
 
