@@ -29,6 +29,9 @@ const App = (props) => {
             <Route path="/login">
               <Login />
             </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
             <Route path="/rivers"></Route>
           </Switch>
         </div>
