@@ -7,7 +7,7 @@ import Home from "./Home.js";
 const App = (props) => {
   return (
     <Router>
-      <div>
+      <div className="grid-container">
         <header></header>
         <div className="menu">
           <Link to="/">Home</Link>
