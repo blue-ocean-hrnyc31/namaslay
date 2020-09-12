@@ -3,6 +3,7 @@ import "./stylesheets/app.scss";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import LeaderBoard from "./leaderBoard/index.js";
 import Home from "./Home.js";
+import Chart from './river/index.js'
 
 const App = (props) => {
   return (
@@ -27,7 +28,7 @@ const App = (props) => {
             </Route>
             <Route path="/bulletinboard"></Route>
             <Route path="/login"></Route>
-            <Route path="/rivers"></Route>
+            <Route path="/rivers"><Chart/></Route>
           </Switch>
         </div>
       </div>
