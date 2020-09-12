@@ -2,18 +2,45 @@ import React, {useState, useEffect} from 'react';
 // import * as d3 from 'd3'
 
 
-const generateDataset = () => (
-  Array(200).fill(0).map(() => ({
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-  }
-  ))
-
+const generateDataset = (userList) => (
+  Array(200).fill(0).map(() => {
+    const randUserIndex = Math.floor(Math.random() * userList.length);
+    return {
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      name: userList[randUserIndex].name,
+      location: userList[randUserIndex].location,
+      status: userList[randUserIndex].status,
+    };
+  })
 )
+
+const dummyUsers = [
+  {
+    name: "Liam",
+    location: "NYC",
+    status: "Chilllllllllin"
+  },
+  {
+    name: "Bobbito",
+    location: "Cali",
+    status: "Shredding gnar"
+  },
+  {
+    name: "Nuri",
+    location: "NYC",
+    status: "Just vibingggg"
+  },
+  {
+    name: "Trent",
+    location: "NYC",
+    status: "Beep booping"
+  }
+];
 
 const Chart = () => {
     const [dataset, setDataset] = useState(
-      generateDataset()
+      generateDataset(dummyUsers)
     );
 
     console.log(dataset);
