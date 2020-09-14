@@ -53,7 +53,6 @@ passport.use(
           [username]
         )
         .then(({ rows }) => {
-          //if user exists
           client.release();
           if (rows.length === 0) {
             done(null, false, { message: 'no user exists in database' });
@@ -76,7 +75,7 @@ passport.use(
         .catch((err) => {
           client.release();
           console.log('unexpected error querying database for user:', err);
-          done(err, {});
+          done(err);
         });
     });
   })

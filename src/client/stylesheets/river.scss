@@ -1,0 +1,49 @@
+.practice-room-container {
+  display: grid;
+  margin: auto;
+  grid-template-columns: 3fr 2fr;
+  padding: 2em;
+
+  .chart-container {
+    padding: 3em;
+    grid-column: 1;
+  }
+  .river-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 3em;
+  }
+  .practice-timer {
+    font-size: 1.5em;
+    width: 15em;
+    border-radius: 5px;
+  }
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+  .practice-timer:hover {
+    background-color: rgb(210, 210, 210)
+  }
+  .practice-board-container {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+
+  }
+  .practice-board {
+    margin-top: 3em;
+    width: 80%;
+    opacity: 80%;
+    background-color: white;
+    padding: 1em;
+    text-align: center;
+  }
+
+  .practice-stream-input {
+    width: 20em;
+  }
+  .practice-stream {
+    padding: .5em;
+  }
+}
