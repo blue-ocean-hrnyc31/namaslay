@@ -26,6 +26,7 @@ const App = (props) => {
   const [authTokens, setAuthTokens] = useState(connectSID);
   const [isLoggedIn, setLogged] = useState(connectSID);
   const [isSignedUp, setSignup] = useState(false);
+  const [user, setUser] = useState({});
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens }}>
@@ -62,6 +63,7 @@ const App = (props) => {
                 path='/login'
                 render={(props) => (
                   <Login
+                    handleUser={setUser}
                     handleLog={setAuthTokens}
                     isLoggedIn={authTokens}
                     {...props}
