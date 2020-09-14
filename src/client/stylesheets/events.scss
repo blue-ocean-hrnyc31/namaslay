@@ -1,8 +1,28 @@
+button {
+  padding: 5px;
+  margin: 25px;
+}
 .calendar {
   float: left;
   width: 50%;
+  height: 55vh;
+  width: 70vh;
+  background-color: whitesmoke;
+  justify-items: center;
+  padding: 1em;
+  margin-left: 4em;
+  text-align: center;
 }
 .event {
   float: right;
-  width: 50%;
+  height: 55vh;
+  width: 40%;
+  background-color: whitesmoke;
+  opacity: 80%;
+  margin-right: 5em;
+  text-align: center;
+}
+.title {
+  font-weight: bold;
+  font-size: 2em;
 }
