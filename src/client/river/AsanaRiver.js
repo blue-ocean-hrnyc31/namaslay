@@ -3,44 +3,50 @@ import Chart from "./index";
 import "../stylesheets/river.scss";
 import axios from "axios"
 import moment from 'moment'
+const host = 'localhost:4444';
 
 const AsanaRiver = ({riverView, setRiverView}) => {
-  const [inputValue, setInputValue] = useState('')
-  const [postStream, setPostStream] = useState(mockStreamData)
+  const [chatInput, setChatInput] = useState('')
+  const [chatStream, setChatStream] = useState(mockStreamData)
   const [inRiver, setInRiver] = useState(false)
 
   const handleInputChange = (e) => {
     e.preventDefault()
-    setInputValue(e.target.value)
+    setChatInput(e.target.value)
   }
   //fetch user posts in the stream
-  const fetchStream = () => {
-    return axios.get('/asana-river/stream')
-    console.log(data)
-    .then(({data}) => {
-      setPostStream(data)
+  const fetchChatStream = () => {
+    axios({
+      method: 'get',
+      url: `http://${host}/asana-river/chat`
     })
-    .catch(err=> {
-      console.log(err)
+    .then(({data}) => {
+      console.log('Chat stream data:', data);
+      setChatStream(data);
+    })
+    .catch(err => {
+      console.log('Error in getting chat data:', err);
+      setChatStream
     })
   }
 
   //post current user's practice to the stream
   //need to get current user as prop
-  const handleInputSubmit = (e) => {
-    e.preventDefault()
-    //riverView==="asana"
-    return axios.post('/asana-river/post', {
-      currentUser: '',
-      meditationPost: inputValue,
-      submitTime: moment()
+  const handleSendChat = () => {
+    axios({
+      method: 'post',
+      url: `http://${host}/asana-river/chat`,
+      data: {
+        currentUser: 'Bob', // From props hopefully
+        message: chatInput,
+        submitTime: moment()
+      }
     })
-    .then(()=> {
-      console.log('Hello')
-      setInputValue('')
-      fetchStream()
+    .then(res => {
+      setChatInput('')
+      fetchChatStream()
     })
-    .catch(err=> {
+    .catch(err => {
       console.log(err)
     })
   }
@@ -88,12 +94,12 @@ const AsanaRiver = ({riverView, setRiverView}) => {
         <div className='practice-board'>
         <iframe src="https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8" width="300" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         <h2>Tell us about today's practice</h2>
-      <input className='practice-stream-input' type='text' value={inputValue} onChange={handleInputChange}></input>
-      <button onClick={handleInputSubmit}>Submit</button>
+      <input className='practice-stream-input' type='text' value={chatInput} onChange={handleInputChange}></input>
+      <button onClick={handleSendChat}>Submit</button>
       <br/><br/>
-      <div >
-        {postStream.length ?
-        postStream.map(post => {
+      <div>
+        {chatStream.length ?
+        chatStream.map(post => {
           return (
             <div className='practice-stream'>
              {post.user}: {post.post} <span style={{fontSize:'0.2em'}}>{post.postedAt}</span>
