@@ -11,7 +11,9 @@ const AsanaRiver = ({riverView, setRiverView}) => {
   const [inRiver, setInRiver] = useState(false)
 
 
-  //fetch user posts in the stream
+  /********************************************/
+  /********** Fetch the Chat Stream! **********/
+  /********************************************/
   const fetchChatStream = () => {
     axios({
       method: 'get',
@@ -27,9 +29,11 @@ const AsanaRiver = ({riverView, setRiverView}) => {
     })
   }
 
-  //post current user's practice to the stream
-  //need to get current user as prop
+  /********************************************/
+  /******** Post Chat to Chat Stream! *********/
+  /********************************************/
   const handleSendChat = () => {
+    //need to get current user as prop
     axios({
       method: 'post',
       url: `http://${host}/asana-river/chat`,
@@ -49,6 +53,9 @@ const AsanaRiver = ({riverView, setRiverView}) => {
     })
   }
 
+  /********************************************/
+  /***** Handler for River In/Out Button ******/
+  /********************************************/
   const handlePracticeClick = () => {
     let enterRiver; // Retrieved from server
     let practicedTime; // Will this calculate if leaving river
