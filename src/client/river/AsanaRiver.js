@@ -33,7 +33,8 @@ const AsanaRiver = ({riverView, setRiverView}) => {
   /******** Post Chat to Chat Stream! *********/
   /********************************************/
   const handleSendChat = () => {
-    //need to get current user as prop
+    // Might need to pass chat in for when user enters River
+    // need to get current user as prop
     axios({
       method: 'post',
       url: `http://${host}/asana-river/chat`,
@@ -103,6 +104,7 @@ const AsanaRiver = ({riverView, setRiverView}) => {
         className='practice-stream-input'
         type='text'
         value={chatInput}
+        placeholder='Keep messages under 50 characters please'
         onChange={(e) => {
           setChatInput(e.target.value);
         }}>
@@ -115,7 +117,7 @@ const AsanaRiver = ({riverView, setRiverView}) => {
         chatStream.map(post => {
           return (
             <div className='practice-stream'>
-             {post.user}: {post.post} <span style={{fontSize:'0.2em'}}>{post.postedAt}</span>
+             {post.user}: {post.content} <span style={{fontSize:'0.2em'}}>{post.postedAt}</span>
              <br/>
             </div>
           )
@@ -132,7 +134,13 @@ const AsanaRiver = ({riverView, setRiverView}) => {
 export default AsanaRiver;
 
 const mockStreamData = [
-  {user: 'nuri' , post: 'Practicing vinyasa', postedAt: 'few seconds ago'},
-  {user: 'liam' , post: 'Practicing hatha', postedAt: '2 minutes ago'},
-  {user: 'jeremy' , post: 'Practicing bikram', postedAt: '5 minutes ago'},
+  {user: 'nuri' , content: 'Practicing vinyasa askdfjasdkf;jasdl jasdf;l ', postedAt: 'few seconds ago'},
+  {user: 'liam' , content: 'Practicing hatha', postedAt: '2 minutes ago'},
+  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '5 minutes ago'},
+  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '6 minutes ago'},
+  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '7 minutes ago'},
+  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '20 minutes ago'},
+  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '30 minutes ago'},
+  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '1 hour ago'},
+  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '2 hours ago'},
 ]
