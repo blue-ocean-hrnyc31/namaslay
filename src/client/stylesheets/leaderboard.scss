@@ -4,7 +4,6 @@
 
 table {
   margin: auto;
-  border: 1px solid black;
   width: 90%;
 }
 
@@ -16,4 +15,18 @@ table {
 
 .leaderboard {
   text-align: center;
+  height: 300px;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: auto;
+  table {
+    th {
+      background-image: url("../images/backgroung.jpg");
+      border-bottom: 1px solid black;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+  }
 }
