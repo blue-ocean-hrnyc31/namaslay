@@ -12,9 +12,9 @@
   "scripts": {
     "test": "jest",
     "pre-commit-msg": "echo '\nPre-commit checks\n'",
-    "build-dev": "webpack -d --mode development --watch",
+    "build-dev": "webpack-dev-server",
     "build-prod": "webpack -p --mode production",
-    "start": "webpack-dev-server"
+    "start": "nodemon src/server/index.js"
   },
   "author": "",
   "license": "ISC",
