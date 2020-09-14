@@ -14,7 +14,7 @@
     "pre-commit-msg": "echo '\nPre-commit checks\n'",
     "build-dev": "webpack -d --mode development --watch",
     "build-prod": "webpack -p --mode production",
-    "start": "nodemon src/server/index.js"
+    "start": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
@@ -51,6 +51,7 @@
     "style-loader": "^1.2.1",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }
