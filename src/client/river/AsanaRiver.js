@@ -46,9 +46,10 @@ const AsanaRiver = ({riverView, setRiverView}) => {
   }
 
   const handlePracticeClick = () => {
-    let enterRiver;
-    let practicedTime;
+    let enterRiver; // Retrieved from server
+    let practicedTime; // Will this calculate if leaving river
     if (inRiver){
+      // If currently in river, leave the river, update user's total time
       practicedTime = moment().diff(enterRiver);
       setInRiver(false)
       return axios.post('/user/practicedTime', {
@@ -61,6 +62,7 @@ const AsanaRiver = ({riverView, setRiverView}) => {
         console.log(err)
       })
     } else {
+      // If not in the river, enter and tell DB what enter time is
       setInRiver(true)
       enterRiver = moment();
     }
