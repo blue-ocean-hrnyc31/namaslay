@@ -1,6 +1,7 @@
 import React from 'react';
 import { signUp } from '../apiHelpers';
 import { Link } from 'react-router-dom';
+import '../stylesheets/loginSignup.scss';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -55,19 +56,19 @@ class Signup extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <h3>Signup</h3>
           <label>
-            First Name:
+            <p>First Name:</p>
             <input type='text' name='firstName' onChange={this.handleChange} />
           </label>
           <label>
-            Last Name:
+            <p>Last Name:</p>
             <input type='text' name='lastName' onChange={this.handleChange} />
           </label>
           <label>
-            Username:
+            <p>Username:</p>
             <input type='text' name='username' onChange={this.handleChange} />
           </label>
           <label>
-            Password:
+            <p>Password:</p>
             <input
               type='password'
               name='password'
@@ -75,12 +76,12 @@ class Signup extends React.Component {
             />
           </label>
           <label>
-            Email:
+            <p>Email:</p>
             <input type='email' name='email' onChange={this.handleChange} />
           </label>
-          <input type='submit' value='Submit' />
+          <input id='button' type='submit' value='Submit' />
+          <Link id='link' to='/login'>Already have an account?</Link>
         </form>
-        <Link to='/login'>Already have an account?</Link>
       </>
     );
   }
