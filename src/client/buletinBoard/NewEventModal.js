@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const NewEventModal = (props) => {
@@ -12,19 +12,39 @@ const NewEventModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          Create a new event
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+        <Form>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Event title</Form.Label>
+            <Form.Control as="textarea" rows="1" />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Full description</Form.Label>
+            <Form.Control as="textarea" rows="3" />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Event starts</Form.Label>
+            <Form.Control as="date" rows="1" />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Event ends</Form.Label>
+            <Form.Control as="textarea" rows="1" />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Event location</Form.Label>
+            <Form.Control as="textarea" rows="1" />
+          </Form.Group>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Event host</Form.Label>
+            <Form.Control as="textarea" rows="1" />
+          </Form.Group>
+        </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button>Add</Button>
       </Modal.Footer>
     </Modal>
   );

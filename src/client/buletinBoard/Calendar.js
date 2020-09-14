@@ -6,7 +6,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../stylesheets/events.scss";
 import axios from "axios";
 import NewEventModal from "./NewEventModal.js";
-
+//sample data
+import data from "./data.js";
 const localizer = momentLocalizer(moment);
 
 class Events extends React.Component {
@@ -14,44 +15,8 @@ class Events extends React.Component {
     super(props);
     this.state = {
       modalIsOpen: false,
-      events: [
-        {
-          title: "Some title",
-          start: new Date(2020, 8, 14, 10, 0),
-          end: new Date(2020, 8, 14, 12, 0),
-          location: "zoom link",
-          event_host: "Jane Doe",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        },
-        {
-          title: "One more",
-          start: new Date(2020, 8, 15, 10, 0),
-          end: new Date(2020, 8, 15, 12, 0),
-          location: "zoom link",
-          event_host: "Jane Doe",
-          description:
-            "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        },
-        {
-          title: "Test event",
-          start: new Date(2020, 8, 18, 10, 0),
-          end: new Date(2020, 8, 18, 12, 0),
-          location: "zoom link",
-          event_host: "Jane Doe",
-          description:
-            "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-        },
-      ],
-      selectedEvent: {
-        title: "Test event",
-        start: new Date(2020, 8, 18, 10, 0),
-        end: new Date(2020, 8, 18, 12, 0),
-        location: "zoom link",
-        event_host: "Jane Doe",
-        description:
-          "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-      },
+      events: data,
+      selectedEvent: {},
     };
     this.setModalShow = this.setModalShow.bind(this);
   }
@@ -91,7 +56,9 @@ class Events extends React.Component {
               this.setState({ selectedEvent: selected })
             }
           />
-          <button onClick={() => this.setModalShow(true)}>New Event</button>
+          <button className="add-event" onClick={() => this.setModalShow(true)}>
+            New Event
+          </button>
           <NewEventModal
             show={this.state.modalIsOpen}
             onHide={() => this.setModalShow(false)}
