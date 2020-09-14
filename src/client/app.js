@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './stylesheets/app.scss';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,12 +10,14 @@ import {
 } from 'react-router-dom';
 import LeaderBoard from './leaderBoard/index.js';
 import { Signup, Login } from './login/index.jsx';
-import Home from './Home.js';
 import Chart from './river/index.js';
 import { logOut } from './apiHelpers';
 import { AuthContext, useAuth } from './login/auth';
 import ProtectedRoute from './login/protectedRoute';
 import { useCookies } from 'react-cookie';
+import Home from './Home.js';
+import MeditationRiver from './river/MeditationRiver.js';
+import AsanaRiver from './river/AsanaRiver.js';
 
 const App = (props) => {
   // const [cookies, removeCookie] = useCookies();
@@ -31,8 +34,8 @@ const App = (props) => {
           <header></header>
           <div className='menu'>
             <Link to='/'>Home</Link>
-            <Link to='/rivers'>Meditation River</Link>
-            <Link to='/rivers'>Asana River</Link>
+            <Link to='/meditation-river'>Meditation River</Link>
+            <Link to='/asana-river'>Asana River</Link>
             <Link to='/bulletinboard'>Upcoming Events</Link>
             <Link to='/leaderboard'>Leader Board</Link>
             <Link to='/about'>About</Link>
@@ -68,8 +71,12 @@ const App = (props) => {
 
               <Route path='/signup' render={(props) => <Signup {...props} />} />
 
-              <Route path='/rivers'>
-                <Chart />
+              <Route path='/meditation-river'>
+                <MeditationRiver />
+              </Route>
+
+              <Route path='/asana-river'>
+                <AsanaRiver />
               </Route>
               <ProtectedRoute component={Admin} path='/admin' />
               <Route path='/logout'>
