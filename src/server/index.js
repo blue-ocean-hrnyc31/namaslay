@@ -88,7 +88,7 @@ passport.deserializeUser(function (id, done) {
       done(err);
     })
     .then((rows) => {
-      console.log('deserialize:', rows[0]);
+      // console.log('deserialize:', rows[0]);
       done(null, rows[0]);
     });
 });
@@ -101,22 +101,22 @@ app.get('*', (req, res) => {
 app.post(
   '/login',
   (req, res, next) => {
-    console.log('req.body.username:', req.body.username);
-    console.log('req.body.password:', req.body.password);
+    // console.log('req.body.username:', req.body.username);
+    // console.log('req.body.password:', req.body.password);
     next();
   },
   passport.authenticate('local', {
     failureFlash: true,
   }),
   (req, res) => {
-    console.log('req.user:', req.user);
-    console.log('req.body:', req.body);
+    // console.log('req.user:', req.user);
+    // console.log('req.body:', req.body);
     res.sendStatus(200);
   }
 );
 
 app.post('/signup', (req, res) => {
-  console.log('post /signup req.body:', req.body);
+  // console.log('post /signup req.body:', req.body);
   const { firstName, lastName, username, password, email } = req.body;
   User.findByUsername(username)
     .then((rows) => {
@@ -136,21 +136,24 @@ app.post('/signup', (req, res) => {
               })
               .catch((err) => {
                 // if unexpected error occured while user info was being stored
-                console.log(err);
+                // console.log(err);
                 res.sendStatus(500);
+                throw err;
               });
           })
           .catch((err) => {
             // if unexpected error while the plaintext password was being hashed
-            console.log(err);
+            // console.log(err);
             res.sendStatus(500);
+            throw err;
           });
       }
     })
     .catch((err) => {
       // if unexpected error occurred while trying to determine if the username already exists in the database
-      console.log(err);
+      //console.log(err);
       res.sendStatus(500);
+      throw err;
     });
 });
 

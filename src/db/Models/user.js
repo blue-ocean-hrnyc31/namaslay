@@ -12,7 +12,7 @@ class User {
           )
           .then((res) => {
             client.release();
-            console.log('successfully inserted new user into db');
+            // console.log('successfully inserted new user into db');
           })
           .catch((err) => {
             client.release();
@@ -20,13 +20,13 @@ class User {
           });
       })
       .catch((err) => {
-        console.log('error connecting pool to db');
+        // console.log('error connecting pool to db');
         throw err;
       });
   }
 
   static findByUsername(username) {
-    console.log('username:', username);
+    // console.log('username:', username);
     return pool
       .connect()
       .then((client) => {
@@ -51,7 +51,7 @@ class User {
         return client
           .query('SELECT * FROM users WHERE id = $1', [id])
           .then(({ rows }) => {
-            console.log('rows:', rows);
+            // console.log('rows:', rows);
             return rows;
           })
           .catch((err) => {
