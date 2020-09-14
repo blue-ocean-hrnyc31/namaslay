@@ -15,9 +15,11 @@ const generateDataset = (userList) => (
   })
 );
 
-const Chart = () => {
+const Chart = (view) => {
     const [dataset, setDataset] = useState(
+
       generateDataset(dummyUsers)
+
     );
 
     const [hoveredObj, updateHovered] = useState({
@@ -30,7 +32,8 @@ const Chart = () => {
     //console.log(dataset);
 
     return (
-      <svg className='river-container'width='50%' height='50%' viewBox="0 0 100 100">
+      <div className='river-container'>
+      <svg width='90%' height='90%' viewBox="0 0 100 100">
         {
           hoveredObj.isHovered ? <p>{hoveredObj.name} , {hoveredObj.location}</p> : <p></p>
         }
@@ -65,13 +68,13 @@ const Chart = () => {
               }}
               cx={x}
               cy={y}
-              r="1.7"
+              r="1.3"
               fill="url(#grad1)"
             />
           </>
         ))}
       </svg>
-
+      </div>
     )
 }
 
