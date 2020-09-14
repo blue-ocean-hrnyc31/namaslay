@@ -1,5 +1,6 @@
 import React from 'react';
 import { logIn } from '../apiHelpers';
+import '../stylesheets/login.scss';
 
 class Login extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form id='login' onSubmit={this.handleSubmit}>
         <h3>Login</h3>
         <label>
           Username:
