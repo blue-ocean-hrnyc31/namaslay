@@ -5,7 +5,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../stylesheets/events.scss";
 import axios from "axios";
-import Modal from "react-modal";
+import NewEventModal from "./NewEventModal.js";
 
 const localizer = momentLocalizer(moment);
 
@@ -53,7 +53,7 @@ class Events extends React.Component {
           "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
       },
     };
-    this.handleClick = this.handleClick.bind(this);
+    this.setModalShow = this.setModalShow.bind(this);
   }
 
   convertDate(date) {
@@ -74,12 +74,8 @@ class Events extends React.Component {
     //   });
   }
 
-  handleClick() {
-    this.setState({ modalIsOpen: true });
-  }
-
-  closeModal() {
-    this.setState({ modalIsOpen: false });
+  setModalShow(bool) {
+    this.setState({ modalIsOpen: bool });
   }
 
   render() {
@@ -95,7 +91,11 @@ class Events extends React.Component {
               this.setState({ selectedEvent: selected })
             }
           />
-          <button onClick={this.handleClick}>New Event</button>
+          <button onClick={() => this.setModalShow(true)}>New Event</button>
+          <NewEventModal
+            show={this.state.modalIsOpen}
+            onHide={() => this.setModalShow(false)}
+          />
         </div>
         <div className="event-container">
           <Event selectedEvent={this.state.selectedEvent} />
