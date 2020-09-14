@@ -29,13 +29,14 @@ const AsanaRiver = ({riverView, setRiverView}) => {
   //need to get current user as prop
   const handleInputSubmit = (e) => {
     e.preventDefault()
-    riverView==="asana"
+    //riverView==="asana"
     return axios.post('/asana-river/post', {
       currentUser: '',
       meditationPost: inputValue,
       submitTime: moment()
     })
     .then(()=> {
+      console.log('Hello')
       setInputValue('')
       fetchStream()
     })
@@ -86,7 +87,7 @@ const AsanaRiver = ({riverView, setRiverView}) => {
         <iframe src="https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8" width="300" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         <h2>Tell us about today's practice</h2>
       <input className='practice-stream-input' type='text' value={inputValue} onChange={handleInputChange}></input>
-      <input type='submit' onSubmit={handleInputSubmit}></input>
+      <button onClick={handleInputSubmit}>Submit</button>
       <br/><br/>
       <div >
         {postStream.length ?
