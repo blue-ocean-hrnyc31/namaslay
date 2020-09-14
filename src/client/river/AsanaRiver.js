@@ -7,13 +7,10 @@ const host = 'localhost:4444';
 
 const AsanaRiver = ({riverView, setRiverView}) => {
   const [chatInput, setChatInput] = useState('')
-  const [chatStream, setChatStream] = useState(mockStreamData)
+  const [chatStream, setChatStream] = useState([])
   const [inRiver, setInRiver] = useState(false)
 
-  const handleInputChange = (e) => {
-    e.preventDefault()
-    setChatInput(e.target.value)
-  }
+
   //fetch user posts in the stream
   const fetchChatStream = () => {
     axios({
@@ -26,7 +23,7 @@ const AsanaRiver = ({riverView, setRiverView}) => {
     })
     .catch(err => {
       console.log('Error in getting chat data:', err);
-      setChatStream
+      setChatStream(mockStreamData);
     })
   }
 
@@ -44,9 +41,10 @@ const AsanaRiver = ({riverView, setRiverView}) => {
     })
     .then(res => {
       setChatInput('')
-      fetchChatStream()
+      fetchChatStream();
     })
     .catch(err => {
+      fetchChatStream();
       console.log(err)
     })
   }
@@ -94,7 +92,15 @@ const AsanaRiver = ({riverView, setRiverView}) => {
         <div className='practice-board'>
         <iframe src="https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8" width="300" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         <h2>Tell us about today's practice</h2>
-      <input className='practice-stream-input' type='text' value={chatInput} onChange={handleInputChange}></input>
+      <input
+        className='practice-stream-input'
+        type='text'
+        value={chatInput}
+        onChange={(e) => {
+          setChatInput(e.target.value);
+        }}>
+
+        </input>
       <button onClick={handleSendChat}>Submit</button>
       <br/><br/>
       <div>
