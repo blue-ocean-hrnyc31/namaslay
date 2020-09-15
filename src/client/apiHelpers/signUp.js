@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function signUp(firstName, lastName, username, password, email, handleLog) {
+function signUp(firstName, lastName, username, password, email, location, travels, certification, handleLog) {
   return axios
     .post('http://localhost:3000/signUp', {
       firstName,
@@ -8,13 +8,16 @@ function signUp(firstName, lastName, username, password, email, handleLog) {
       username,
       password,
       email,
+      location,
+      travels,
+      certification,
     })
     .then((response) => {
-      console.log('post /signup response:', response);
+      // console.log('post /signup response:', response);
       if (response.status === 201) {
-        console.log('successfully signed up');
+        // console.log('successfully signed up');
       }
-      return response.status;
+      return response;
     });
 }
 

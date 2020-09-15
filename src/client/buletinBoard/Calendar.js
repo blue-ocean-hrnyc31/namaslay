@@ -15,10 +15,11 @@ class Events extends React.Component {
     super(props);
     this.state = {
       modalIsOpen: false,
-      events: data,
+      events: [],
       selectedEvent: {},
     };
     this.setModalShow = this.setModalShow.bind(this);
+    this.submitNewEntry = this.submitNewEntry.bind(this);
   }
 
   convertDate(date) {
@@ -26,17 +27,48 @@ class Events extends React.Component {
   }
 
   componentDidMount() {
-    // axios
-    //   .get("http://localhost:3000/events")
-    //   .then(({ data }) => {
-    //     console.log(data);
-    //     this.setState({
-    //       events: data,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log("error getting events: ", err);
-    //   });
+    axios
+      .get(`http://34.229.137.235:4444/events`)
+      .then(({ data }) => {
+        let events = data.reduce((acc, cur) => {
+          let obj = {
+            title: cur.title,
+            start: cur.start_time,
+            end: cur.end_time,
+            location: cur.location,
+            event_host: cur.host,
+            description: cur.description
+          };
+          acc.push(obj);
+          return acc;
+        }, []);
+        console.log(events);
+        this.setState({
+          events: events
+        });
+        console.log(this.state.events);
+      })
+      .catch((err) => {
+        console.log("error getting events: ", err);
+      });
+  }
+
+  submitNewEntry(entry) {
+    axios
+      .post(`http://34.229.137.235:4444/events`, {
+        title: entry.title,
+        description: entry.description,
+        start: entry.start,
+        end: entry.end,
+        location: entry.location,
+        event_host: entry.event_host,
+      })
+      .then(() => {
+        console.log("new entry posted successfully!");
+      })
+      .catch((err) => {
+        console.log("error submitting new entry: ", err);
+      });
   }
 
   setModalShow(bool) {
@@ -62,6 +94,7 @@ class Events extends React.Component {
           <NewEventModal
             show={this.state.modalIsOpen}
             onHide={() => this.setModalShow(false)}
+            submitNewEntry={this.submitNewEntry}
           />
         </div>
         <div className="event-container">

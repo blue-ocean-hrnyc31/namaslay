@@ -5,18 +5,18 @@ import axios from "axios"
 import moment from 'moment'
 const host = 'localhost:4444';
 
-const AsanaRiver = ({userId}) => {
+const AsanaRiver = ({user}) => {
   const [chatInput, setChatInput] = useState('')
   const [chatStream, setChatStream] = useState([])
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [allUsersInAsana, setAllUsersInAsana] = useState([]);
+  const [allUsersInAsana, setAllUsersInAsana] = useState(dummyUsers);
   const [activityValue, setActivityValue] = useState("");
 
 
-  useEffect(() => {
-    fetchUsersInAsana();
-  }, []);
+  // useEffect(() => {
+  //   fetchUsersInAsana();
+  // }, []);
 
 
   /********************************************/
@@ -41,7 +41,8 @@ const AsanaRiver = ({userId}) => {
   /******** Post Chat to Chat Stream! *********/
   /********************************************/
   const handleSendChat = () => {
-    //need to get current user as prop
+    // Might need to pass chat in for when user enters River
+    // need to get current user as prop
     axios({
       method: 'post',
       url: `http://${host}/asana-river/chat`,
@@ -85,12 +86,13 @@ const AsanaRiver = ({userId}) => {
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${userId}`, {
+      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
         current_river: "asana",
         activity: activityValue,
       })
       .then(() => {
         console.log("Successfully updated.");
+        setActivityValue('')
       })
       .catch((err) => {
         console.log(err);
@@ -100,8 +102,8 @@ const AsanaRiver = ({userId}) => {
   //when user exits, update the practiced time and reset the inAsana property to false in the user table in the database
   const handleUserExit = (practicedTime) => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${userId}`, {
-        total_mins: total_mins + practicedTime,
+      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
+        total_mins: practicedTime,
         current_river: null,
       })
       .then(() => {
@@ -159,6 +161,7 @@ const AsanaRiver = ({userId}) => {
         className='practice-stream-input'
         type='text'
         value={chatInput}
+        placeholder='Keep messages under 50 characters please'
         onChange={(e) => {
           setChatInput(e.target.value);
         }}>
@@ -171,7 +174,7 @@ const AsanaRiver = ({userId}) => {
         chatStream.map(post => {
           return (
             <div className='practice-stream'>
-             {post.user}: {post.post} <span style={{fontSize:'0.2em'}}>{post.postedAt}</span>
+             {post.user}: {post.content} <span style={{fontSize:'0.2em'}}>{post.postedAt}</span>
              <br/>
             </div>
           )
@@ -188,7 +191,30 @@ const AsanaRiver = ({userId}) => {
 export default AsanaRiver;
 
 const mockStreamData = [
-  { user: "nuri", post: "Practicing vinyasa", postedAt: "few seconds ago" },
-  { user: "liam", post: "Practicing hatha", postedAt: "2 minutes ago" },
-  { user: "jeremy", post: "Practicing bikram", postedAt: "5 minutes ago" },
+  { user: "nuri", content: "Practicing vinyasa", postedAt: "few seconds ago" },
+  { user: "liam", content: "Practicing hatha", postedAt: "2 minutes ago" },
+  { user: "jeremy", content: "Practicing bikram", postedAt: "5 minutes ago" },
+];
+
+const dummyUsers = [
+  {
+    username: "Liam",
+    location: "NYC",
+    current_activity: "Chilllllllllin",
+  },
+  {
+    username: "Bobbito",
+    location: "Cali",
+    current_activity: "Shredding gnar",
+  },
+  {
+    username: "Nuri",
+    location: "NYC",
+    current_activity: "Just vibingggg",
+  },
+  {
+    username: "Trent",
+    location: "NYC",
+    current_activity: "Beep booping",
+  },
 ];

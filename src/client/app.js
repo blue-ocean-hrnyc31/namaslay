@@ -1,24 +1,22 @@
-import React, { useState } from "react";
-import "./stylesheets/app.scss";
-import LeaderBoard from "./leaderBoard/index.js";
-import Events from "./buletinBoard/Calendar.js";
+import React, { useState } from 'react';
+import './stylesheets/app.scss';
+import LeaderBoard from './leaderBoard/index.js';
+import Events from './buletinBoard/Calendar.js';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   Redirect,
-} from "react-router-dom";
-import { Signup, Login } from "./login/index.jsx";
-import Chart from "./river/index.js";
-import { logOut } from "./apiHelpers";
-import { AuthContext, useAuth } from "./login/auth";
-import ProtectedRoute from "./login/protectedRoute";
-import { useCookies } from "react-cookie";
-import Home from "./Home.js";
-import MeditationRiver from "./river/MeditationRiver.js";
-import AsanaRiver from "./river/AsanaRiver.js";
-import About from "./about";
+} from 'react-router-dom';
+import { Signup, Login, Logout, Admin } from './login/index.jsx';
+import Chart from './river/index.js';
+import { AuthContext, useAuth } from './login/auth';
+import ProtectedRoute from './login/protectedRoute';
+import Home from './Home.js';
+import MeditationRiver from './river/MeditationRiver.js';
+import AsanaRiver from './river/AsanaRiver.js';
+import About from './about';
 import ScrollToTop from "./ScrollToTop.js";
 import Menu from "./Menu";
 
@@ -64,33 +62,19 @@ const App = (props) => {
 
               <Route path="/signup" render={(props) => <Signup {...props} />} />
 
-              <Route path="/meditation-river">
-                <MeditationRiver />
+              <Route path='/meditation-river'>
+                <MeditationRiver user={user} />
               </Route>
 
-              <Route path="/asana-river">
-                <AsanaRiver />
+              <Route path='/asana-river'>
+                <AsanaRiver user={user} />
               </Route>
               <ProtectedRoute component={Admin} path="/admin" />
               <Route path="/logout">
                 {(!authTokens || authTokens === "undefined") && (
                   <Redirect to="/" />
                 )}
-                <button
-                  onClick={() => {
-                    logOut().then((login) => {
-                      if (!login) {
-                        setAuthTokens(false);
-                        // removeCookie('connect.sid');
-                        document.cookie =
-                          "connect.sid" +
-                          "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-                      }
-                    });
-                  }}
-                >
-                  Log Out
-                </button>
+                <Logout setAuthTokens={setAuthTokens} />
               </Route>
             </Switch>
           </div>
@@ -101,7 +85,3 @@ const App = (props) => {
 };
 
 export default App;
-
-function Admin() {
-  return <div>Admin</div>;
-}

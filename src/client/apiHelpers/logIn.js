@@ -7,9 +7,9 @@ function logIn(username, password, handleUser) {
       password,
     })
     .then((response) => {
-      console.log('post /login response:', response);
+      // console.log('post /login response:', response);
       if (response.status === 200) {
-        console.log('post /login response:', response);
+        // console.log('post /login response:', response);
         handleUser(response.data);
         return response.status;
       }
