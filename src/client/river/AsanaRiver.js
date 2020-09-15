@@ -5,7 +5,7 @@ import axios from "axios"
 import moment from 'moment'
 const host = 'localhost:4444';
 
-const AsanaRiver = () => {
+const AsanaRiver = ({userId}) => {
   const [chatInput, setChatInput] = useState('')
   const [chatStream, setChatStream] = useState([])
   const [inRiver, setInRiver] = useState(false);
@@ -68,7 +68,7 @@ const AsanaRiver = () => {
 
     const fetchUsersInAsana = () => {
       return axios
-        .get("/user/asana")
+        .get(`http://${host}/asana-river/users`)
         .then(({ data }) => {
           setAllUsersInAsana(data);
         })
@@ -85,28 +85,9 @@ const AsanaRiver = () => {
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
     return axios
-      .patch("/user/enter-asana", {
+      .patch(`http://${host}/asana-river/user-enter/${userId}`, {
         current_river: "asana",
         activity: activityValue,
-      })
-      .then(() => {
-        console.log("Successfully updated.");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-
-  const handlePracticeClick = () => {
-    let enterRiver; // Retrieved from server
-    let practicedTime; // Will this calculate if leaving river
-    if (inRiver){
-      // If currently in river, leave the river, update user's total time
-      practicedTime = moment().diff(enterRiver);
-      setInRiver(false)
-      return axios.post('/user/practicedTime', {
-        practicedTime: practicedTime
       })
       .then(() => {
         console.log("Successfully updated.");
@@ -119,7 +100,7 @@ const AsanaRiver = () => {
   //when user exits, update the practiced time and reset the inAsana property to false in the user table in the database
   const handleUserExit = (practicedTime) => {
     return axios
-      .patch("/user/exit-asana", {
+      .patch(`http://${host}/asana-river/user-enter/${userId}`, {
         total_mins: total_mins + practicedTime,
         current_river: null,
       })
