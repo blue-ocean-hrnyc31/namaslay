@@ -12,7 +12,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      error: false,
+      error: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,6 +52,11 @@ class Login extends React.Component {
       <>
         <form id='login' onSubmit={this.handleSubmit}>
           <h3>Login</h3>
+          {this.state.error && (
+            <div className='form-error'>
+              The username or password provided were incorrect!
+            </div>
+          )}
           <input
             type='text'
             name='username'
@@ -73,9 +78,6 @@ class Login extends React.Component {
           <Link id='link' to='/signup'>
             Don't have an account?
           </Link>
-          {this.state.error && (
-            <div>The username or password provided were incorrect!</div>
-          )}
         </form>
       </>
     );

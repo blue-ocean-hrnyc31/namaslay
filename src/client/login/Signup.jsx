@@ -14,7 +14,7 @@ class Signup extends React.Component {
       password: '',
       confirmPassword: '',
       email: '',
-      error: false,
+      error: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -61,6 +61,9 @@ class Signup extends React.Component {
       <>
         <form onSubmit={this.handleSubmit}>
           <h3>Signup</h3>
+          <div className='form-error'>
+            {this.state.error && this.state.error}
+          </div>
           <label>
             <p>First Name:</p>
             <input
@@ -85,7 +88,11 @@ class Signup extends React.Component {
               type='text'
               name='username'
               onChange={this.handleChange}
-              className='login-input'
+              className={
+                this.state.error.includes('username')
+                  ? 'login-input login-error'
+                  : 'login-input'
+              }
             />
           </label>
           <label>
@@ -94,7 +101,11 @@ class Signup extends React.Component {
               type='password'
               name='password'
               onChange={this.handleChange}
-              className='login-input'
+              className={
+                this.state.error.includes('password')
+                  ? 'login-input login-error'
+                  : 'login-input'
+              }
             />
           </label>
           <label>
@@ -103,7 +114,11 @@ class Signup extends React.Component {
               type='password'
               name='confirmPassword'
               onChange={this.handleChange}
-              className='login-input'
+              className={
+                this.state.error.includes('password')
+                  ? 'login-input login-error'
+                  : 'login-input'
+              }
             />
           </label>
           <label>
@@ -119,7 +134,6 @@ class Signup extends React.Component {
           <Link id='link' to='/login'>
             Already have an account?
           </Link>
-          {this.state.error && this.state.error}
         </form>
       </>
     );

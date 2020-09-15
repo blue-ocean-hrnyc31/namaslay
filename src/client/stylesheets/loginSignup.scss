@@ -8,6 +8,7 @@ form {
   border: 1px solid black;
   border-radius: 5px;
   background: white;
+  position: relative;
 
   p {
     margin: 0;
@@ -26,6 +27,11 @@ form {
     line-height: 16pxa;
   }
 
+  .login-error {
+    @extend .login-input;
+    border: red 5px solid;
+  }
+
   #button {
     width: 30%;
     justify-self: center;
@@ -36,5 +42,11 @@ form {
   #link {
     margin-top: 5px;
     text-align: center;
+  }
+  .form-error {
+    position: 'absolute';
+    bottom: '10px';
+    width: '100%';
+    color: red;
   }
 }
