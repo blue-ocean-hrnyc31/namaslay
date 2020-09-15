@@ -29,7 +29,6 @@ const MeditationRiver = () => {
   //need to get current user as prop
   const handleInputSubmit = (e) => {
     e.preventDefault()
-    riverView==="meditation"
     return axios.post('/meditation-river/post', {
       currentUser: '',
       meditationPost: inputValue,
