@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './stylesheets/app.scss';
-import LeaderBoard from "./leaderBoard/index.js";
-import Events from "./buletinBoard/Calendar.js";
+import LeaderBoard from './leaderBoard/index.js';
+import Events from './buletinBoard/Calendar.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,17 +9,14 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
-import { Signup, Login, Logout } from './login/index.jsx';
+import { Signup, Login, Logout, Admin } from './login/index.jsx';
 import Chart from './river/index.js';
-import { logOut } from './apiHelpers';
 import { AuthContext, useAuth } from './login/auth';
 import ProtectedRoute from './login/protectedRoute';
-import { useCookies } from 'react-cookie';
 import Home from './Home.js';
 import MeditationRiver from './river/MeditationRiver.js';
 import AsanaRiver from './river/AsanaRiver.js';
 import About from './about';
-
 
 const App = (props) => {
   // const [cookies, removeCookie] = useCookies();
@@ -45,9 +42,9 @@ const App = (props) => {
             {(!authTokens || authTokens === 'undefined') && (
               <Link to='/login'>Log In</Link>
             )}
-            {(!authTokens || authTokens === 'undefined') && (
+            {/* {(!authTokens || authTokens === 'undefined') && (
               <Link to='/signup'>Sign Up</Link>
-            )}
+            )} */}
             {authTokens && authTokens !== 'undefined' && (
               <Link to='/logout'>Log Out</Link>
             )}
@@ -61,7 +58,9 @@ const App = (props) => {
               <Route path='/leaderboard'>
                 <LeaderBoard></LeaderBoard>
               </Route>
-              <Route path='/bulletinboard'><Events/></Route>
+              <Route path='/bulletinboard'>
+                <Events />
+              </Route>
               <Route
                 path='/login'
                 render={(props) => (
@@ -77,11 +76,11 @@ const App = (props) => {
               <Route path='/signup' render={(props) => <Signup {...props} />} />
 
               <Route path='/meditation-river'>
-                <MeditationRiver user={user}/>
+                <MeditationRiver user={user} />
               </Route>
 
               <Route path='/asana-river'>
-                <AsanaRiver user={user}/>
+                <AsanaRiver user={user} />
               </Route>
               <ProtectedRoute component={Admin} path='/admin' />
               <Route path='/logout'>
@@ -99,7 +98,3 @@ const App = (props) => {
 };
 
 export default App;
-
-function Admin() {
-  return <div>Admin</div>;
-}

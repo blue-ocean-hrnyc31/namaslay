@@ -2,21 +2,35 @@ form {
   display: grid;
   grid-template-rows: auto;
   min-width: 400px;
-  max-width: 50vw;
+  max-width: 30vw;
   margin: auto;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
   background-color: rgba(255, 255, 255, 0.5);
   padding: 2em;
 
-  label {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    margin-top: 5px;
-    margin-bottom: 5px;
+  p {
+    margin: 0;
+  }
 
-    p {
-      margin: 0;
-      justify-self: right;
+  h3 {
+    margin-top: 20px;
+  }
+  .login-input {
+    width: 90%;
+    margin: {
+      top: 10px;
+      bottom: 10px;
     }
+    justify-self: center;
+    line-height: 16pxa;
+  }
+
+  .login-error {
+    @extend .login-input;
+    border: red 5px solid;
   }
 
   #button {
@@ -32,8 +46,29 @@ form {
     margin-top: 5px;
     text-align: center;
   }
+  .form-error {
+    position: 'absolute';
+    bottom: '10px';
+    width: '100%';
+    color: red;
+  }
 }
 
 button {
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+.name-input {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.username-email-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.passwords-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

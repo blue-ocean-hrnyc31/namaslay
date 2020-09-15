@@ -8,11 +8,11 @@ import '../stylesheets/loginSignup.scss';
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    console.log('login route props:', props);
+    // console.log('login route props:', props);
     this.state = {
       username: '',
       password: '',
-      error: false,
+      error: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,7 +36,7 @@ class Login extends React.Component {
         }
       })
       .catch((err) => {
-        console.log('error logging in:', err);
+        // console.log('error logging in:', err);
         // HANDLE INCORRECT CREDENTIALS
         this.setState({ error: true });
       });
@@ -52,30 +52,32 @@ class Login extends React.Component {
       <>
         <form id='login' onSubmit={this.handleSubmit}>
           <h3>Login</h3>
-          <label>
-            <p>Username:</p>
-            <input
-              type='text'
-              name='username'
-              onChange={this.handleChange}
-              value={this.state.username}
-            />
-          </label>
-
-          <label>
-            <p>Password:</p>
-            <input
-              type='password'
-              name='password'
-              onChange={this.handleChange}
-              value={this.state.password}
-            />
-          </label>
-          <input id='button' type='submit' value='Submit' />
-          <Link id='link' to='/signup'>Don't have an account?</Link>
           {this.state.error && (
-            <div>The username or password provided were incorrect!</div>
+            <div className='form-error'>
+              The username or password provided were incorrect!
+            </div>
           )}
+          <input
+            type='text'
+            name='username'
+            onChange={this.handleChange}
+            value={this.state.username}
+            placeholder='Username'
+            className='login-input'
+          />
+
+          <input
+            type='password'
+            name='password'
+            onChange={this.handleChange}
+            value={this.state.password}
+            placeholder='Password'
+            className='login-input'
+          />
+          <input id='button' type='submit' value='Sign In' />
+          <Link id='link' to='/signup'>
+            Don't have an account?
+          </Link>
         </form>
       </>
     );
