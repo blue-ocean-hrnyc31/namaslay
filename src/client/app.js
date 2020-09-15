@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './stylesheets/app.scss';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import LeaderBoard from "./leaderBoard/index.js";
-import Home from "./Home.js";
 import Events from "./buletinBoard/Calendar.js";
 import {
   BrowserRouter as Router,
@@ -11,7 +9,6 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
-import LeaderBoard from './leaderBoard/index.js';
 import { Signup, Login } from './login/index.jsx';
 import Chart from './river/index.js';
 import { logOut } from './apiHelpers';
