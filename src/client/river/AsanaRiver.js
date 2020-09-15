@@ -190,20 +190,7 @@ const AsanaRiver = ({userId}) => {
 export default AsanaRiver;
 
 const mockStreamData = [
-<<<<<<< HEAD
-  {user: 'nuri' , content: 'Practicing vinyasa askdfjasdkf;jasdl jasdf;l ', postedAt: 'few seconds ago'},
-  {user: 'liam' , content: 'Practicing hatha', postedAt: '2 minutes ago'},
-  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '5 minutes ago'},
-  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '6 minutes ago'},
-  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '7 minutes ago'},
-  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '20 minutes ago'},
-  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '30 minutes ago'},
-  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '1 hour ago'},
-  {user: 'jeremy' , content: 'Practicing bikram', postedAt: '2 hours ago'},
-]
-=======
-  { user: "nuri", post: "Practicing vinyasa", postedAt: "few seconds ago" },
-  { user: "liam", post: "Practicing hatha", postedAt: "2 minutes ago" },
-  { user: "jeremy", post: "Practicing bikram", postedAt: "5 minutes ago" },
+  { user: "nuri", content: "Practicing vinyasa", postedAt: "few seconds ago" },
+  { user: "liam", content: "Practicing hatha", postedAt: "2 minutes ago" },
+  { user: "jeremy", content: "Practicing bikram", postedAt: "5 minutes ago" },
 ];
->>>>>>> fadf2472063c14d0e1a793231f4b693736f41027
