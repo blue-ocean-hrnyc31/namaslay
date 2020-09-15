@@ -19,6 +19,7 @@ class Events extends React.Component {
       selectedEvent: {},
     };
     this.setModalShow = this.setModalShow.bind(this);
+    this.submitNewEntry = this.submitNewEntry.bind(this);
   }
 
   convertDate(date) {
@@ -52,6 +53,24 @@ class Events extends React.Component {
       });
   }
 
+  submitNewEntry(entry) {
+    axios
+      .post(`http://34.229.137.235:4444/events`, {
+        title: entry.title,
+        description: entry.description,
+        start: entry.start,
+        end: entry.end,
+        location: entry.location,
+        event_host: entry.event_host,
+      })
+      .then(() => {
+        console.log("new entry posted successfully!");
+      })
+      .catch((err) => {
+        console.log("error submitting new entry: ", err);
+      });
+  }
+
   setModalShow(bool) {
     this.setState({ modalIsOpen: bool });
   }
@@ -75,6 +94,7 @@ class Events extends React.Component {
           <NewEventModal
             show={this.state.modalIsOpen}
             onHide={() => this.setModalShow(false)}
+            submitNewEntry={this.submitNewEntry}
           />
         </div>
         <div className="event-container">
