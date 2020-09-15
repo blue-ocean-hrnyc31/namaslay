@@ -29,13 +29,22 @@ class Events extends React.Component {
     axios
       .get(`http://34.229.137.235:4444/events`)
       .then(({ data }) => {
-        let events;
-        for (let i = 0; i < data.length; i++) {
-          console.log("data: ", data[i]);
-        }
-        // this.setState({
-        //   events: data,
-        // });
+        let events = data.reduce((acc, cur) => {
+          let obj = {
+            title: cur.title,
+            start: cur.start_time,
+            end: cur.end_time,
+            location: cur.location,
+            event_host: cur.host,
+            description: cur.description
+          };
+          acc.push(obj);
+          return acc;
+        }, []);
+        console.log(events);
+        this.setState({
+          events: events
+        });
         console.log(this.state.events);
       })
       .catch((err) => {
