@@ -46,7 +46,7 @@ const AsanaRiver = ({user}) => {
       method: 'post',
       url: `http://${host}/asana-river/chat`,
       data: {
-        currentUser: 'Bob', // From props hopefully
+        currentUser: 'user.username',
         message: chatInput,
         submitTime: moment()
       }
@@ -61,14 +61,36 @@ const AsanaRiver = ({user}) => {
     })
   }
 
+  /********************************************/
+  /**** Post User entrance to Chat Stream! ****/
+  /********************************************/
+  const handleSendChatUserEntrance = () => {
+    axios({
+      method: 'post',
+      url: `http://${host}/asana-river/chat`,
+      data: {
+        currentUser: user.username,
+        message: 'Just entered the Asana River',
+        submitTime: moment()
+      }
+    })
+    .then(res => {
+      fetchChatStream();
+    })
+    .catch(err => {
+      fetchChatStream();
+      console.log(err)
+    })
+  }
 
   /********************************************/
   /****** Fetch all Users in the River! *******/
   /********************************************/
 
     const fetchUsersInAsana = () => {
+      const river='asana'
       return axios
-        .get(`http://${host}/asana-river/users`)
+        .get(`http://${host}/asana-river/users/${river}`)
         .then(({ data }) => {
           setAllUsersInAsana(data);
         })
@@ -85,9 +107,9 @@ const AsanaRiver = ({user}) => {
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
+      .put(`http://${host}/asana-river/user/${user.user_id}`, {
         current_river: "asana",
-        activity: activityValue,
+        current_activity: activityValue,
       })
       .then(() => {
         console.log("Successfully updated.");
@@ -101,7 +123,7 @@ const AsanaRiver = ({user}) => {
   //when user exits, update the practiced time and reset the inAsana property to false in the user table in the database
   const handleUserExit = (practicedTime) => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
+      .put(`http://${host}/asana-river/user/${user.user_id}`, {
         total_mins: practicedTime,
         current_river: null,
       })
@@ -113,7 +135,7 @@ const AsanaRiver = ({user}) => {
       });
   };
 
-  //when start/end practice button is clicked, start/stop the timer, reset inRiver status for button rendering logic, handles user exit/enter, and refreshes the users in the river.
+  //when start/end practice button is clicked, start/stop the timer, reset inRiver status for button rendering logic, handles user exit/enter, send message to the chat stream, and refreshes the users in the river.
   const handleClickPractice = () => {
     if (inRiver) {
       let practicedTime = Math.round((Date.now() - startTime) / 60000);
@@ -125,6 +147,7 @@ const AsanaRiver = ({user}) => {
       setStartTime(Date.now());
       handleUserEnter();
       fetchUsersInAsana();
+      handleSendChatUserEntrance()
     }
   };
 

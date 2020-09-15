@@ -52,7 +52,6 @@ const Chart = ({allUsersInAsana, allUsersInMeditation}) => {
 
             <circle
               onMouseEnter={() => {
-                console.log(username, location, current_activity);
                 updateHovered({
                   isHovered: true,
                   username,
@@ -61,7 +60,6 @@ const Chart = ({allUsersInAsana, allUsersInMeditation}) => {
                 })
               }}
               onMouseLeave={() => {
-                console.log(username, location, current_activity);
                 updateHovered({
                   isHovered: false,
                   username,
@@ -81,7 +79,7 @@ const Chart = ({allUsersInAsana, allUsersInMeditation}) => {
       <div className='river-users-info'>
         <div className='users-info'>
           {hoveredObj.isHovered ?
-          <div>{hoveredObj.username}: {hoveredObj.current_activity} in {hoveredObj.location}</div>
+          <span>{hoveredObj.username}: {hoveredObj.current_activity} in {hoveredObj.location}</span>
           : <span className='placeholder'>Hover over the dots in the river to see other users' status</span>
           }
           </div>
