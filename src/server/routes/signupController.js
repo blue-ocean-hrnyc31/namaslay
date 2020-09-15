@@ -11,7 +11,9 @@ module.exports = {
       .then((rows) => {
         if (rows.length > 0) {
           // if user already exists
-          res.sendStatus(409);
+          res.status(409).send({
+            error: 'username already exists',
+          });
         } else {
           //if user doesn't exist
           bcrypt
@@ -44,5 +46,5 @@ module.exports = {
         res.sendStatus(500);
         throw err;
       });
-  }
-}
+  },
+};
