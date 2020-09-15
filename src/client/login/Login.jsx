@@ -26,7 +26,7 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    logIn(this.state.username, this.state.password)
+    logIn(this.state.username, this.state.password, this.props.handleUser)
       .then((status) => {
         if (status === 200) {
           this.props.handleLog(true); // set app logged in state to true
