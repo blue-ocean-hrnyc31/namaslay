@@ -14,7 +14,7 @@ function signUp(firstName, lastName, username, password, email, handleLog) {
       if (response.status === 201) {
         console.log('successfully signed up');
       }
-      return response.status;
+      return response;
     });
 }
 

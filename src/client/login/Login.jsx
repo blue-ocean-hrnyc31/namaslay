@@ -52,27 +52,27 @@ class Login extends React.Component {
       <>
         <form id='login' onSubmit={this.handleSubmit}>
           <h3>Login</h3>
-          <label>
-            <p>Username:</p>
-            <input
-              type='text'
-              name='username'
-              onChange={this.handleChange}
-              value={this.state.username}
-            />
-          </label>
+          <input
+            type='text'
+            name='username'
+            onChange={this.handleChange}
+            value={this.state.username}
+            placeholder='Username'
+            className='login-input'
+          />
 
-          <label>
-            <p>Password:</p>
-            <input
-              type='password'
-              name='password'
-              onChange={this.handleChange}
-              value={this.state.password}
-            />
-          </label>
-          <input id='button' type='submit' value='Submit' />
-          <Link id='link' to='/signup'>Don't have an account?</Link>
+          <input
+            type='password'
+            name='password'
+            onChange={this.handleChange}
+            value={this.state.password}
+            placeholder='Password'
+            className='login-input'
+          />
+          <input id='button' type='submit' value='Sign In' />
+          <Link id='link' to='/signup'>
+            Don't have an account?
+          </Link>
           {this.state.error && (
             <div>The username or password provided were incorrect!</div>
           )}
