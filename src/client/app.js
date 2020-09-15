@@ -9,7 +9,7 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
-import { Signup, Login } from './login/index.jsx';
+import { Signup, Login, Logout } from './login/index.jsx';
 import Chart from './river/index.js';
 import { logOut } from './apiHelpers';
 import { AuthContext, useAuth } from './login/auth';
@@ -88,21 +88,7 @@ const App = (props) => {
                 {(!authTokens || authTokens === 'undefined') && (
                   <Redirect to='/' />
                 )}
-                <button
-                  onClick={() => {
-                    logOut().then((login) => {
-                      if (!login) {
-                        setAuthTokens(false);
-                        // removeCookie('connect.sid');
-                        document.cookie =
-                          'connect.sid' +
-                          '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                      }
-                    });
-                  }}
-                >
-                  Log Out
-                </button>
+                <Logout setAuthTokens={setAuthTokens} />
               </Route>
             </Switch>
           </div>
