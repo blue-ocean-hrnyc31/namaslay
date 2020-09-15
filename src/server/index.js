@@ -8,7 +8,6 @@ const pgSession = require('connect-pg-simple')(session);
 const passport = require('../auth/passport.config.js');
 const flash = require('connect-flash');
 const cors = require('cors');
-require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
 const pool = require('../db');
@@ -19,7 +18,6 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-console.log(process.env.SESSION_SECRET);
 app.use(
   session({
     store: new pgSession({
