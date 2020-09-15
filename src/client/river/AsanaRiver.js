@@ -5,12 +5,12 @@ import axios from "axios"
 import moment from 'moment'
 const host = 'localhost:4444';
 
-const AsanaRiver = ({userId}) => {
+const AsanaRiver = ({user}) => {
   const [chatInput, setChatInput] = useState('')
   const [chatStream, setChatStream] = useState([])
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [allUsersInAsana, setAllUsersInAsana] = useState([]);
+  const [allUsersInAsana, setAllUsersInAsana] = useState(dummyUsers);
   const [activityValue, setActivityValue] = useState("");
 
 
@@ -85,7 +85,7 @@ const AsanaRiver = ({userId}) => {
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${userId}`, {
+      .patch(`http://${host}/asana-river/user-enter/${user.userId}`, {
         current_river: "asana",
         activity: activityValue,
       })
@@ -191,4 +191,27 @@ const mockStreamData = [
   { user: "nuri", post: "Practicing vinyasa", postedAt: "few seconds ago" },
   { user: "liam", post: "Practicing hatha", postedAt: "2 minutes ago" },
   { user: "jeremy", post: "Practicing bikram", postedAt: "5 minutes ago" },
+];
+
+const dummyUsers = [
+  {
+    username: "Liam",
+    location: "NYC",
+    current_activity: "Chilllllllllin",
+  },
+  {
+    username: "Bobbito",
+    location: "Cali",
+    current_activity: "Shredding gnar",
+  },
+  {
+    username: "Nuri",
+    location: "NYC",
+    current_activity: "Just vibingggg",
+  },
+  {
+    username: "Trent",
+    location: "NYC",
+    current_activity: "Beep booping",
+  },
 ];
