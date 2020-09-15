@@ -16,6 +16,7 @@ class Signup extends React.Component {
       error: false,
       travel: '',
       certification: '',
+      location: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,8 +31,18 @@ class Signup extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { firstName, lastName, username, password, email } = this.state;
-    signUp(firstName, lastName, username, password, email)
+    const { firstName,
+      lastName,
+      username,
+      password,
+      email,
+      location,
+      travel,
+      certification } = this.state;
+
+    const travelsArr = travel.split(', ');
+    console.log(travelsArr);
+    signUp(firstName, lastName, username, password, email, location, travelsArr, certification)
       .then((status) => {
         if (status === 201) {
           // HANDLE SUCCESSFUL SIGNUP
@@ -80,6 +91,10 @@ class Signup extends React.Component {
           <label>
             <p>Email:</p>
             <input type='email' name='email' onChange={this.handleChange} />
+          </label>
+          <label>
+            <p>Location:</p>
+            <input type='text' name='location' onChange={this.handleChange} />
           </label>
           <label>
             <p>Travels:</p>

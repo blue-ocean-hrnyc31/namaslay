@@ -6,7 +6,7 @@ const saltRounds = 10;
 module.exports = {
   post: (req, res) => {
     // console.log('post /signup req.body:', req.body);
-    const { firstName, lastName, username, password, email } = req.body;
+    const { firstName, lastName, username, password, email, location, travels, certification} = req.body;
     User.findByUsername(username)
       .then((rows) => {
         if (rows.length > 0) {
@@ -18,7 +18,7 @@ module.exports = {
             .hash(password, saltRounds) // hash the user's plaintext password
             .then(function (passwordHash) {
               // store passwordHash in your password DB.
-              User.create(firstName, lastName, username, passwordHash, email)
+              User.create(firstName, lastName, username, passwordHash, email, location, travels, certification)
                 .then(() => {
                   // once passwordHash and other user info are stored
                   res.sendStatus(201);

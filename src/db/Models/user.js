@@ -1,14 +1,14 @@
 const pool = require('../index');
 
 class User {
-  static create(firstName, lastName, username, passwordHash, email) {
+  static create(firstName, lastName, username, passwordHash, email, location, travels, certification) {
     return pool
       .connect()
       .then((client) => {
         return client
           .query(
-            'INSERT INTO users (first_name, last_name, username,password, email ) VALUES ($1, $2, $3, $4, $5)',
-            [firstName, lastName, username, passwordHash, email]
+            'INSERT INTO users (first_name, last_name, username, password, email, location, travel_history, certification) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+            [firstName, lastName, username, passwordHash, email, location, travels, certification]
           )
           .then((res) => {
             client.release();
@@ -49,7 +49,7 @@ class User {
       .connect()
       .then((client) => {
         return client
-          .query('SELECT * FROM users WHERE id = $1', [id])
+          .query('SELECT * FROM users WHERE user_id = $1', [id])
           .then(({ rows }) => {
             // console.log('rows:', rows);
             return rows;
