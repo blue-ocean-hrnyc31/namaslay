@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './stylesheets/app.scss';
-
+import LeaderBoard from "./leaderBoard/index.js";
+import Events from "./buletinBoard/Calendar.js";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +9,6 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
-import LeaderBoard from './leaderBoard/index.js';
 import { Signup, Login } from './login/index.jsx';
 import Chart from './river/index.js';
 import { logOut } from './apiHelpers';
@@ -19,6 +19,7 @@ import Home from './Home.js';
 import MeditationRiver from './river/MeditationRiver.js';
 import AsanaRiver from './river/AsanaRiver.js';
 import About from './about';
+
 
 const App = (props) => {
   // const [cookies, removeCookie] = useCookies();
@@ -60,8 +61,7 @@ const App = (props) => {
               <Route path='/leaderboard'>
                 <LeaderBoard></LeaderBoard>
               </Route>
-
-              <Route path='/bulletinboard'></Route>
+              <Route path='/bulletinboard'><Events/></Route>
               <Route
                 path='/login'
                 render={(props) => (
