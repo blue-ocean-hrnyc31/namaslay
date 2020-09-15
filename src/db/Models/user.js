@@ -49,7 +49,7 @@ class User {
       .connect()
       .then((client) => {
         return client
-          .query('SELECT * FROM users WHERE id = $1', [id])
+          .query('SELECT * FROM users WHERE user_id = $1', [id])
           .then(({ rows }) => {
             // console.log('rows:', rows);
             return rows;
