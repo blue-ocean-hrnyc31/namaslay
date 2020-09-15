@@ -53,10 +53,12 @@ const AsanaRiver = ({user}) => {
       }
     })
     .then(res => {
+      console.log(`Successfully posted chat!`);
       setChatInput('')
       fetchChatStream();
     })
     .catch(err => {
+      console.log(`Error in posting chat!`);
       fetchChatStream();
       console.log(err)
     })
@@ -170,17 +172,17 @@ const AsanaRiver = ({user}) => {
       <button onClick={handleSendChat}>Submit</button>
       <br/><br/>
       <div>
-        {chatStream.length ?
-        chatStream.map(post => {
+        {chatStream.map((post, ind) => {
           return (
-            <div className='practice-stream'>
+            <div
+              className='practice-stream'
+              key={ind}
+            >
              {post.user}: {post.content} <span style={{fontSize:'0.2em'}}>{post.postedAt}</span>
-             <br/>
+            <br/>
             </div>
           )
-        })
-        :<></>
-      }
+        })}
         </div>
       </div>
     </div>
