@@ -77,11 +77,11 @@ const App = (props) => {
               <Route path='/signup' render={(props) => <Signup {...props} />} />
 
               <Route path='/meditation-river'>
-                <MeditationRiver />
+                <MeditationRiver user={user}/>
               </Route>
 
               <Route path='/asana-river'>
-                <AsanaRiver />
+                <AsanaRiver user={user}/>
               </Route>
               <ProtectedRoute component={Admin} path='/admin' />
               <Route path='/logout'>

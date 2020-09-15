@@ -8,6 +8,9 @@ const MeditationRiver = () => {
   const [inputValue, setInputValue] = useState('')
   const [postStream, setPostStream] = useState(mockStreamData)
   const [inRiver, setInRiver] = useState(false)
+  const [startTime, setStartTime] = useState(0);
+  const [allUsersInMeditation, setAllUsersInMeditation] = useState(dummyUsers);
+  const [activityValue, setActivityValue] = useState("");
 
   const handleInputChange = (e) => {
     e.preventDefault()
@@ -68,7 +71,7 @@ const MeditationRiver = () => {
   return (
     <div className="practice-room-container">
       <div className="chart-conatainer">
-        <Chart view='meditation'/>
+        <Chart allUsersInMeditation={allUsersInMeditation}/>
         <br />
         <div className="center">
           {
@@ -113,3 +116,25 @@ const mockStreamData = [
   {user: 'liam' , post: 'Practicing mindfulness', postedAt: '2 minutes ago'},
   {user: 'jeremy' , post: 'Practicing mindfulness', postedAt: '5 minutes ago'},
 ]
+const dummyUsers = [
+  {
+    username: "Liam",
+    location: "NYC",
+    current_activity: "Chilllllllllin",
+  },
+  {
+    username: "Bobbito",
+    location: "Cali",
+    current_activity: "Shredding gnar",
+  },
+  {
+    username: "Nuri",
+    location: "NYC",
+    current_activity: "Just vibingggg",
+  },
+  {
+    username: "Trent",
+    location: "NYC",
+    current_activity: "Beep booping",
+  },
+];
