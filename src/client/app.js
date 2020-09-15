@@ -54,7 +54,9 @@ const App = (props) => {
           <div className='content'>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route path='/about'><About /></Route>
+              <Route path='/about'>
+                <About />
+              </Route>
               <Route path='/leaderboard'>
                 <LeaderBoard></LeaderBoard>
               </Route>

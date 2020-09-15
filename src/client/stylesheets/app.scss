@@ -7,13 +7,13 @@ body,
 }
 header {
   height: 200px;
-  background-image: url("../images/logo.png");
+  background-image: url('../images/logo.png');
   background-repeat: no-repeat;
   background-position: center;
   grid-area: header;
 }
 .content {
-  background-image: url("../images/backgroung.jpg");
+  background-image: url('../images/backgroung.jpg');
   opacity: 70%;
   height: 100%;
 }
@@ -23,19 +23,18 @@ header {
   grid-template-rows: 1fr 0.5fr 3fr;
   gap: 1px 1px;
   grid-template-areas:
-    "header . . ."
-    "menu . . ."
-    "content . . .";
+    'header . . .'
+    'menu . . .'
+    'content . . .';
 }
 
 * {
   box-sizing: border-box;
 }
 
-
 h1 {
   font: {
-    family: "Papyrus", sans-serif;
+    family: 'Papyrus', sans-serif;
   }
 }
 

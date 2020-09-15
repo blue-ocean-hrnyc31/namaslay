@@ -37,10 +37,25 @@ const config = {
     extensions: ['.js', '.jsx'],
   },
   devServer: {
+    index: '',
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,
+    open: true,
+    historyApiFallback: true,
+    liveReload: false,
+    hot: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST',
+      'Access-Control-Allow-Headers':
+        'X-Requested-With, content-type, Authorization',
+    },
+    proxy: {
+      context: () => true,
+      target: 'http://localhost:3000',
+    },
   },
 };
-git;
+
 module.exports = config;
