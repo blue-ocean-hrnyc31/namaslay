@@ -17,6 +17,7 @@ class Signup extends React.Component {
       error: '',
       travel: '',
       certification: '',
+      location: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -31,13 +32,25 @@ class Signup extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
     if (this.state.password !== this.state.confirmPassword) {
       return this.setState({
         error: 'passwords do not match',
       });
     }
-    const { firstName, lastName, username, password, email } = this.state;
-    signUp(firstName, lastName, username, password, email)
+    const { firstName,
+      lastName,
+      username,
+      password,
+      email,
+      location,
+      travel,
+      certification } = this.state;
+
+    const travelsArr = travel.split(', ');
+    console.log(travelsArr);
+
+    signUp(firstName, lastName, username, password, email, location, travelsArr, certification)
       .then((response) => {
         if (response.status === 201) {
           // HANDLE SUCCESSFUL SIGNUP
@@ -150,6 +163,15 @@ class Signup extends React.Component {
             />
           </label>
           <label>
+            <p>Location:</p>
+            <input
+              type='text'
+              name='location'
+              onChange={this.handleChange}
+              className='login-input'
+            />
+          </label>
+          <label>
             <p>Certification:</p>
             <input
               type='text'
@@ -170,6 +192,3 @@ class Signup extends React.Component {
 
 export default Signup;
 
-// - Location (Geolocation based or manually entry)
-// - Travel history
-// - Certification
