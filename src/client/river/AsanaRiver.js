@@ -14,9 +14,9 @@ const AsanaRiver = ({user}) => {
   const [activityValue, setActivityValue] = useState("");
 
 
-  useEffect(() => {
-    fetchUsersInAsana();
-  }, []);
+  // useEffect(() => {
+  //   fetchUsersInAsana();
+  // }, []);
 
 
   /********************************************/
@@ -85,12 +85,13 @@ const AsanaRiver = ({user}) => {
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${user.userId}`, {
+      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
         current_river: "asana",
         activity: activityValue,
       })
       .then(() => {
         console.log("Successfully updated.");
+        setActivityValue('')
       })
       .catch((err) => {
         console.log(err);
@@ -100,8 +101,8 @@ const AsanaRiver = ({user}) => {
   //when user exits, update the practiced time and reset the inAsana property to false in the user table in the database
   const handleUserExit = (practicedTime) => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${userId}`, {
-        total_mins: total_mins + practicedTime,
+      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
+        total_mins: practicedTime,
         current_river: null,
       })
       .then(() => {

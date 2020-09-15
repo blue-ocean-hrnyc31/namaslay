@@ -3,43 +3,45 @@ import * as d3 from 'd3'
 
 
 const generateDataset = (userList) => (
-  Array(200).fill(0).map(() => {
+  Array(userList.length).fill(0).map((e,i) => {
     const randUserIndex = Math.floor(Math.random() * userList.length);
     return {
       x: Math.random() * 100,
       y: Math.random() * 100,
-      name: userList[randUserIndex].name,
-      location: userList[randUserIndex].location,
-      status: userList[randUserIndex].status,
+      username: userList[i].username,
+      location: userList[i].location,
+      current_activity: userList[i].current_activity,
     };
   })
 );
 
-const Chart = (view, allUsersInAsana) => {
+const Chart = ({allUsersInAsana, allUsersInMeditation}) => {
     const [dataset, setDataset] = useState(
-
-      generateDataset(dummyUsers)
+      allUsersInAsana?
+      generateDataset(allUsersInAsana)
+      :generateDataset(allUsersInMeditation)
 
     );
 
     const [hoveredObj, updateHovered] = useState({
       isHovered: false,
-      name: 'No one',
+      username: 'No one',
       location: 'No where',
-      status: 'Not existing'
+      current_activity: 'Not existing'
     });
 
     //console.log(dataset);
 
 
     return (
-      <div className='river-container'>
+      <div className='river-view-container'>
+        <div className='river-container'>
       <svg width='90%' height='90%' viewBox="0 0 100 100">
         {
-          hoveredObj.isHovered ? <p>{hoveredObj.name} , {hoveredObj.location}</p> : <p></p>
+          hoveredObj.isHovered ? <p>{hoveredObj.username} , {hoveredObj.location}</p> : <p></p>
         }
         <rect width="100%" height="100%" fill="black" />
-        {dataset.map(({x, y, name, location, status}, i) => (
+        {dataset.map(({x, y, username, location, current_activity}, i) => (
           <>
             <defs>
               <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
@@ -50,21 +52,21 @@ const Chart = (view, allUsersInAsana) => {
 
             <circle
               onMouseEnter={() => {
-                console.log(name, location, status);
+                console.log(username, location, current_activity);
                 updateHovered({
                   isHovered: true,
-                  name,
+                  username,
                   location,
-                  status
+                  current_activity
                 })
               }}
               onMouseLeave={() => {
-                console.log(name, location, status);
+                console.log(username, location, current_activity);
                 updateHovered({
                   isHovered: false,
-                  name,
+                  username,
                   location,
-                  status
+                  current_activity
                 })
               }}
               cx={x}
@@ -76,33 +78,18 @@ const Chart = (view, allUsersInAsana) => {
         ))}
       </svg>
       </div>
+      <div className='river-users-info'>
+        <div className='users-info'>
+          {hoveredObj.isHovered ?
+          <div>{hoveredObj.username}: {hoveredObj.current_activity} in {hoveredObj.location}</div>
+          : <span className='placeholder'>Hover over the dots in the river to see other users' status</span>
+          }
+          </div>
+      </div>
+      </div>
     )
 }
 
 export default Chart;
 
-
-
-const dummyUsers = [
-  {
-    name: "Liam",
-    location: "NYC",
-    status: "Chilllllllllin"
-  },
-  {
-    name: "Bobbito",
-    location: "Cali",
-    status: "Shredding gnar"
-  },
-  {
-    name: "Nuri",
-    location: "NYC",
-    status: "Just vibingggg"
-  },
-  {
-    name: "Trent",
-    location: "NYC",
-    status: "Beep booping"
-  }
-];
 
