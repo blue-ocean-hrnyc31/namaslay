@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function signUp(firstName, lastName, username, password, email) {
+function signUp(firstName, lastName, username, password, email, handleLog) {
   return axios
     .post('/signUp', {
       firstName,

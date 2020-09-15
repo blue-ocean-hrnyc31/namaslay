@@ -3,6 +3,7 @@ import { logIn } from '../apiHelpers';
 import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import { AuthContext } from './auth.js';
+import '../stylesheets/loginSignup.scss';
 
 class Login extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class Login extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    logIn(this.state.username, this.state.password)
+    logIn(this.state.username, this.state.password, this.props.handleUser)
       .then((status) => {
         if (status === 200) {
           this.props.handleLog(true); // set app logged in state to true
@@ -49,10 +50,10 @@ class Login extends React.Component {
     }
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <form id='login' onSubmit={this.handleSubmit}>
           <h3>Login</h3>
           <label>
-            Username:
+            <p>Username:</p>
             <input
               type='text'
               name='username'
@@ -62,20 +63,20 @@ class Login extends React.Component {
           </label>
 
           <label>
-            Password:
+            <p>Password:</p>
             <input
-              type='text'
+              type='password'
               name='password'
               onChange={this.handleChange}
               value={this.state.password}
             />
           </label>
-          <input type='submit' value='Submit' />
+          <input id='button' type='submit' value='Submit' />
+          <Link id='link' to='/signup'>Don't have an account?</Link>
+          {this.state.error && (
+            <div>The username or password provided were incorrect!</div>
+          )}
         </form>
-        <Link to='/signup'>Don't have an account?</Link>
-        {this.state.error && (
-          <div>The username or password provided were incorrect!</div>
-        )}
       </>
     );
   }

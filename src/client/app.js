@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-import React from "react";
-import "./stylesheets/app.scss";
+import React, { useState } from 'react';
+import './stylesheets/app.scss';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import LeaderBoard from "./leaderBoard/index.js";
 import Home from "./Home.js";
 import Events from "./buletinBoard/Calendar.js";
-=======
-import React, { useState } from 'react';
-import './stylesheets/app.scss';
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,7 +21,8 @@ import { useCookies } from 'react-cookie';
 import Home from './Home.js';
 import MeditationRiver from './river/MeditationRiver.js';
 import AsanaRiver from './river/AsanaRiver.js';
->>>>>>> master
+import About from './about';
+
 
 const App = (props) => {
   // const [cookies, removeCookie] = useCookies();
@@ -35,35 +31,9 @@ const App = (props) => {
   const [authTokens, setAuthTokens] = useState(connectSID);
   const [isLoggedIn, setLogged] = useState(connectSID);
   const [isSignedUp, setSignup] = useState(false);
+  const [user, setUser] = useState({});
 
   return (
-<<<<<<< HEAD
-    <Router>
-      <div className="grid-container">
-        <header></header>
-        <div className="menu">
-          <Link to="/">Home</Link>
-          <Link to="/rivers">Meditation River</Link>
-          <Link to="/rivers">Asana River</Link>
-          <Link to="/bulletinboard">Upcoming Events</Link>
-          <Link to="/leaderboard">Leader Board</Link>
-          <Link to="/about">About</Link>
-          <Link to="/login">Log in</Link>
-        </div>
-        <div className="content">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/about"></Route>
-            <Route path="/leaderboard">
-              <LeaderBoard></LeaderBoard>
-            </Route>
-            <Route path="/bulletinboard">
-              <Events />
-            </Route>
-            <Route path="/login"></Route>
-            <Route path="/rivers"></Route>
-          </Switch>
-=======
     <AuthContext.Provider value={{ authTokens, setAuthTokens }}>
       <Router>
         <div className='grid-container'>
@@ -88,16 +58,16 @@ const App = (props) => {
           <div className='content'>
             <Switch>
               <Route exact path='/' component={Home} />
-              <Route path='/about'></Route>
+              <Route path='/about'><About /></Route>
               <Route path='/leaderboard'>
                 <LeaderBoard></LeaderBoard>
               </Route>
-
-              <Route path='/bulletinboard'></Route>
+              <Route path='/bulletinboard'><Events/></Route>
               <Route
                 path='/login'
                 render={(props) => (
                   <Login
+                    handleUser={setUser}
                     handleLog={setAuthTokens}
                     isLoggedIn={authTokens}
                     {...props}
@@ -137,7 +107,6 @@ const App = (props) => {
               </Route>
             </Switch>
           </div>
->>>>>>> master
         </div>
       </Router>
     </AuthContext.Provider>
