@@ -2,7 +2,7 @@ import axios from 'axios';
 
 function signUp(firstName, lastName, username, password, email, handleLog) {
   return axios
-    .post('/signUp', {
+    .post('http://localhost:5000/signUp', {
       firstName,
       lastName,
       username,

@@ -8,7 +8,7 @@ const pgSession = require('connect-pg-simple')(session);
 const passport = require('../auth/passport.config.js');
 const flash = require('connect-flash');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const pool = require('../db');
 
 app.use(express.static(path.join(__dirname, '../../dist')));
