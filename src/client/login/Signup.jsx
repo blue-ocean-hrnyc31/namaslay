@@ -163,28 +163,10 @@ class Signup extends React.Component {
             />
           </label>
           <label>
-            <p>Email:</p>
-            <input
-              type='email'
-              name='email'
-              onChange={this.handleChange}
-              className='login-input'
-            />
-          </label>
-          <label>
             <p>Location:</p>
             <input
               type='text'
               name='location'
-              onChange={this.handleChange}
-              className='login-input'
-            />
-          </label>
-          <label>
-            <p>Travels:</p>
-            <input
-              type='text'
-              name='travel'
               onChange={this.handleChange}
               className='login-input'
             />
