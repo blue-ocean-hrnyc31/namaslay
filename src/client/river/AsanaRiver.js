@@ -5,10 +5,18 @@ import axios from "axios"
 import moment from 'moment'
 const host = 'localhost:4444';
 
-const AsanaRiver = ({riverView, setRiverView}) => {
+const AsanaRiver = () => {
   const [chatInput, setChatInput] = useState('')
   const [chatStream, setChatStream] = useState([])
-  const [inRiver, setInRiver] = useState(false)
+  const [inRiver, setInRiver] = useState(false);
+  const [startTime, setStartTime] = useState(0);
+  const [allUsersInAsana, setAllUsersInAsana] = useState([]);
+  const [activityValue, setActivityValue] = useState("");
+
+
+  useEffect(() => {
+    fetchUsersInAsana();
+  }, []);
 
 
   /********************************************/
@@ -53,9 +61,43 @@ const AsanaRiver = ({riverView, setRiverView}) => {
     })
   }
 
+
+  /********************************************/
+  /****** Fetch all Users in the River! *******/
+  /********************************************/
+
+    const fetchUsersInAsana = () => {
+      return axios
+        .get("/user/asana")
+        .then(({ data }) => {
+          setAllUsersInAsana(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
   /********************************************/
   /***** Handler for River In/Out Button ******/
   /********************************************/
+
+
+  //when user enters, set the inAsana property to true and update the  activity in the user table in the database
+  const handleUserEnter = () => {
+    return axios
+      .patch("/user/enter-asana", {
+        current_river: "asana",
+        activity: activityValue,
+      })
+      .then(() => {
+        console.log("Successfully updated.");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
   const handlePracticeClick = () => {
     let enterRiver; // Retrieved from server
     let practicedTime; // Will this calculate if leaving river
@@ -66,33 +108,66 @@ const AsanaRiver = ({riverView, setRiverView}) => {
       return axios.post('/user/practicedTime', {
         practicedTime: practicedTime
       })
-      .then(()=>{
-        console.log('Successfully posted')
+      .then(() => {
+        console.log("Successfully updated.");
       })
-      .catch(err=> {
-        console.log(err)
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //when user exits, update the practiced time and reset the inAsana property to false in the user table in the database
+  const handleUserExit = (practicedTime) => {
+    return axios
+      .patch("/user/exit-asana", {
+        total_mins: total_mins + practicedTime,
+        current_river: null,
       })
+      .then(() => {
+        console.log("Successfully updated.");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //when start/end practice button is clicked, start/stop the timer, reset inRiver status for button rendering logic, handles user exit/enter, and refreshes the users in the river.
+  const handleClickPractice = () => {
+    if (inRiver) {
+      let practicedTime = Math.round((Date.now() - startTime) / 60000);
+      setInRiver(false);
+      handleUserExit(practicedTime);
+      fetchUsersInAsana();
     } else {
-      // If not in the river, enter and tell DB what enter time is
-      setInRiver(true)
-      enterRiver = moment();
+      setInRiver(true);
+      setStartTime(Date.now());
+      handleUserEnter();
+      fetchUsersInAsana();
     }
-  }
+  };
 
   return (
     <div className="practice-room-container">
       <div className="chart-conatainer">
-        <Chart view='asana'/>
+        <Chart allUsersInAsana={allUsersInAsana} />
+        <br />
+        <div className="center">
+          <input
+            className="activity-input"
+            type="text"
+            placeholder="What are you practicing today?"
+            value={activityValue}
+            onChange={(e) => setActivityValue(e.target.value)}
+          ></input>
+        </div>
         <br />
         <div className="center">
           {
-          <button className="practice-timer" onClick={handlePracticeClick}> {
-            !inRiver ?  'Start your practice'
-            :'End your practice'
+            <button className="practice-timer" onClick={handleClickPractice}>
+              {" "}
+              {!inRiver ? "Start your practice" : "End your practice"}
+            </button>
           }
-           </button>
-
-        }
         </div>
       </div>
       <div className="practice-board-container">
@@ -124,7 +199,7 @@ const AsanaRiver = ({riverView, setRiverView}) => {
       }
         </div>
       </div>
-      </div>
+    </div>
     </div>
   );
 };
@@ -132,7 +207,7 @@ const AsanaRiver = ({riverView, setRiverView}) => {
 export default AsanaRiver;
 
 const mockStreamData = [
-  {user: 'nuri' , post: 'Practicing vinyasa', postedAt: 'few seconds ago'},
-  {user: 'liam' , post: 'Practicing hatha', postedAt: '2 minutes ago'},
-  {user: 'jeremy' , post: 'Practicing bikram', postedAt: '5 minutes ago'},
-]
+  { user: "nuri", post: "Practicing vinyasa", postedAt: "few seconds ago" },
+  { user: "liam", post: "Practicing hatha", postedAt: "2 minutes ago" },
+  { user: "jeremy", post: "Practicing bikram", postedAt: "5 minutes ago" },
+];
