@@ -10,9 +10,9 @@ function signUp(firstName, lastName, username, password, email, handleLog) {
       email,
     })
     .then((response) => {
-      console.log('post /signup response:', response);
+      // console.log('post /signup response:', response);
       if (response.status === 201) {
-        console.log('successfully signed up');
+        // console.log('successfully signed up');
       }
       return response;
     });

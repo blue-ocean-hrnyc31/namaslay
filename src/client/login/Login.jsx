@@ -8,7 +8,7 @@ import '../stylesheets/loginSignup.scss';
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    console.log('login route props:', props);
+    // console.log('login route props:', props);
     this.state = {
       username: '',
       password: '',
@@ -36,7 +36,7 @@ class Login extends React.Component {
         }
       })
       .catch((err) => {
-        console.log('error logging in:', err);
+        // console.log('error logging in:', err);
         // HANDLE INCORRECT CREDENTIALS
         this.setState({ error: true });
       });

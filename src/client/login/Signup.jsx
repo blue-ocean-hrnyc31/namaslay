@@ -50,12 +50,12 @@ class Signup extends React.Component {
       })
       .catch((err) => {
         // HANDLE ERROR SIGNUP
-        console.log(err.response.data);
+        // console.log(err.response.data);
         this.setState({
           error: err.response.data.error,
         });
       });
-    console.log('these values have been submited', this.state);
+    // console.log('these values have been submited', this.state);
   }
 
   render() {
