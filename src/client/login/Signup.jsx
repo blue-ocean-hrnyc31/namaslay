@@ -1,5 +1,7 @@
 import React from 'react';
 import { signUp } from '../apiHelpers';
+import { Link } from 'react-router-dom';
+import '../stylesheets/loginSignup.scss';
 
 class Signup extends React.Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class Signup extends React.Component {
       username: '',
       password: '',
       email: '',
+      error: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,41 +29,60 @@ class Signup extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { firstName, lastName, username, password, email } = this.state;
-    signUp(firstName, lastName, username, password, email).then((err) => {
-      if (err) {
-        /* This IS TEMPORARY. MUST CHANGE!!!! */
-        console.log(err);
-      }
-    });
-    console.log('this values have been submited', this.state);
+    signUp(firstName, lastName, username, password, email)
+      .then((status) => {
+        if (status === 201) {
+          // HANDLE SUCCESSFUL SIGNUP
+          this.props.history.push('/login');
+        } else {
+          this.setState({
+            error: true,
+          });
+        }
+      })
+      .catch((err) => {
+        // HANDLE ERROR SIGNUP
+        console.log('error signing up:', err);
+        this.setState({
+          error: true,
+        });
+      });
+    console.log('these values have been submited', this.state);
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h3>Signup</h3>
-        <label>
-          First Name:
-          <input type='text' name='firstName' onChange={this.handleChange} />
-        </label>
-        <label>
-          Last Name:
-          <input type='text' name='lastName' onChange={this.handleChange} />
-        </label>
-        <label>
-          Username:
-          <input type='text' name='username' onChange={this.handleChange} />
-        </label>
-        <label>
-          Password:
-          <input type='password' name='password' onChange={this.handleChange} />
-        </label>
-        <label>
-          Email:
-          <input type='email' name='email' onChange={this.handleChange} />
-        </label>
-        <input type='submit' value='Submit' />
-      </form>
+      <>
+        <form onSubmit={this.handleSubmit}>
+          <h3>Signup</h3>
+          <label>
+            <p>First Name:</p>
+            <input type='text' name='firstName' onChange={this.handleChange} />
+          </label>
+          <label>
+            <p>Last Name:</p>
+            <input type='text' name='lastName' onChange={this.handleChange} />
+          </label>
+          <label>
+            <p>Username:</p>
+            <input type='text' name='username' onChange={this.handleChange} />
+          </label>
+          <label>
+            <p>Password:</p>
+            <input
+              type='password'
+              name='password'
+              onChange={this.handleChange}
+            />
+          </label>
+          <label>
+            <p>Email:</p>
+            <input type='email' name='email' onChange={this.handleChange} />
+          </label>
+          <input id='button' type='submit' value='Submit' />
+          <Link id='link' to='/login'>Already have an account?</Link>
+        </form>
+      </>
     );
   }
 }

@@ -1,69 +1,86 @@
 import React, { useState, useEffect } from "react";
 import Chart from "./index";
 import "../stylesheets/river.scss";
-import axios from "axios";
-import moment from "moment";
+import axios from "axios"
+import moment from 'moment'
+const host = 'localhost:4444';
 
 const AsanaRiver = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [postStream, setPostStream] = useState(mockStreamData);
+  const [chatInput, setChatInput] = useState('')
+  const [chatStream, setChatStream] = useState([])
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [allUsersInAsana, setAllUsersInAsana] = useState([]);
   const [activityValue, setActivityValue] = useState("");
 
+
   useEffect(() => {
     fetchUsersInAsana();
   }, []);
 
-  const handleInputChange = (e) => {
-    e.preventDefault();
-    setInputValue(e.target.value);
-  };
 
-  //fetch user posts in the stream
-  const fetchStream = () => {
-    return axios.get("/asana-river/stream");
-    console
-      .log(data)
-      .then(({ data }) => {
-        setPostStream(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  /********************************************/
+  /********** Fetch the Chat Stream! **********/
+  /********************************************/
+  const fetchChatStream = () => {
+    axios({
+      method: 'get',
+      url: `http://${host}/asana-river/chat`
+    })
+    .then(({data}) => {
+      console.log('Chat stream data:', data);
+      setChatStream(data);
+    })
+    .catch(err => {
+      console.log('Error in getting chat data:', err);
+      setChatStream(mockStreamData);
+    })
+  }
 
-  //post current user's practice to the stream
-  //need to get current user as prop
-  const handleInputSubmit = (e) => {
-    e.preventDefault();
-    return axios
-      .post("/asana-river/post", {
-        currentUser: "",
-        meditationPost: inputValue,
-        submitTime: moment(),
-      })
-      .then(() => {
-        setInputValue("");
-        fetchStream();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  /********************************************/
+  /******** Post Chat to Chat Stream! *********/
+  /********************************************/
+  const handleSendChat = () => {
+    //need to get current user as prop
+    axios({
+      method: 'post',
+      url: `http://${host}/asana-river/chat`,
+      data: {
+        currentUser: 'Bob', // From props hopefully
+        message: chatInput,
+        submitTime: moment()
+      }
+    })
+    .then(res => {
+      setChatInput('')
+      fetchChatStream();
+    })
+    .catch(err => {
+      fetchChatStream();
+      console.log(err)
+    })
+  }
 
-  //fetch all users in Asana River
-  const fetchUsersInAsana = () => {
-    return axios
-      .get("/user/asana")
-      .then(({ data }) => {
-        setAllUsersInAsana(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
+  /********************************************/
+  /****** Fetch all Users in the River! *******/
+  /********************************************/
+
+    const fetchUsersInAsana = () => {
+      return axios
+        .get("/user/asana")
+        .then(({ data }) => {
+          setAllUsersInAsana(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+  /********************************************/
+  /***** Handler for River In/Out Button ******/
+  /********************************************/
+
 
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
@@ -71,6 +88,25 @@ const AsanaRiver = () => {
       .patch("/user/enter-asana", {
         current_river: "asana",
         activity: activityValue,
+      })
+      .then(() => {
+        console.log("Successfully updated.");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+  const handlePracticeClick = () => {
+    let enterRiver; // Retrieved from server
+    let practicedTime; // Will this calculate if leaving river
+    if (inRiver){
+      // If currently in river, leave the river, update user's total time
+      practicedTime = moment().diff(enterRiver);
+      setInRiver(false)
+      return axios.post('/user/practicedTime', {
+        practicedTime: practicedTime
       })
       .then(() => {
         console.log("Successfully updated.");
@@ -135,42 +171,35 @@ const AsanaRiver = () => {
         </div>
       </div>
       <div className="practice-board-container">
-        <div className="practice-board">
-          <iframe
-            src="https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8"
-            width="300"
-            height="80"
-            frameBorder="0"
-            allowtransparency="true"
-            allow="encrypted-media"
-          ></iframe>
-          <h2>Tell us about today's practice</h2>
-          <input
-            className="practice-stream-input"
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-          ></input>
-          <input type="submit" onSubmit={handleInputSubmit}></input>
-          <br />
-          <br />
-          <div>
-            {postStream.length ? (
-              postStream.map((post) => {
-                return (
-                  <div className="practice-stream">
-                    {post.user}: {post.post}{" "}
-                    <span style={{ fontSize: "0.2em" }}>{post.postedAt}</span>
-                    <br />
-                  </div>
-                );
-              })
-            ) : (
-              <></>
-            )}
-          </div>
+        <div className='practice-board'>
+        <iframe src="https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8" width="300" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <h2>Tell us about today's practice</h2>
+      <input
+        className='practice-stream-input'
+        type='text'
+        value={chatInput}
+        onChange={(e) => {
+          setChatInput(e.target.value);
+        }}>
+
+        </input>
+      <button onClick={handleSendChat}>Submit</button>
+      <br/><br/>
+      <div>
+        {chatStream.length ?
+        chatStream.map(post => {
+          return (
+            <div className='practice-stream'>
+             {post.user}: {post.post} <span style={{fontSize:'0.2em'}}>{post.postedAt}</span>
+             <br/>
+            </div>
+          )
+        })
+        :<></>
+      }
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function signUp(firstName, lastName, username, password, email) {
+function signUp(firstName, lastName, username, password, email, handleLog) {
   return axios
     .post('/signUp', {
       firstName,
@@ -9,17 +9,12 @@ function signUp(firstName, lastName, username, password, email) {
       password,
       email,
     })
-    .then(({ data }) => {
-      console.log('response:', data);
-      if (data.hasOwnProperty('error')) {
-        console.log('error:', data.error);
-        return data.error;
-      } else {
-        console.log('successfully posted login credentials');
+    .then((response) => {
+      console.log('post /signup response:', response);
+      if (response.status === 201) {
+        console.log('successfully signed up');
       }
-    })
-    .catch((err) => {
-      console.log('error posting login credentials:', err);
+      return response.status;
     });
 }
 
