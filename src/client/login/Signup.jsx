@@ -12,8 +12,9 @@ class Signup extends React.Component {
       lastName: '',
       username: '',
       password: '',
+      confirmPassword: '',
       email: '',
-      error: false,
+      error: '',
       travel: '',
       certification: '',
     };
@@ -30,26 +31,31 @@ class Signup extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.state.password !== this.state.confirmPassword) {
+      return this.setState({
+        error: 'passwords do not match',
+      });
+    }
     const { firstName, lastName, username, password, email } = this.state;
     signUp(firstName, lastName, username, password, email)
-      .then((status) => {
-        if (status === 201) {
+      .then((response) => {
+        if (response.status === 201) {
           // HANDLE SUCCESSFUL SIGNUP
           this.props.history.push('/login');
         } else {
           this.setState({
-            error: true,
+            error: response.data.error,
           });
         }
       })
       .catch((err) => {
         // HANDLE ERROR SIGNUP
-        console.log('error signing up:', err);
+        // console.log(err.response.data);
         this.setState({
-          error: true,
+          error: err.response.data.error,
         });
       });
-    console.log('these values have been submited', this.state);
+    // console.log('these values have been submited', this.state);
   }
 
   render() {
@@ -57,40 +63,105 @@ class Signup extends React.Component {
       <>
         <form onSubmit={this.handleSubmit}>
           <h3>Signup</h3>
+          <div className='form-error'>
+            {this.state.error && this.state.error}
+          </div>
+
+          <div className='name-input'>
+            <label>
+              <p>First Name:</p>
+              <input
+                type='text'
+                name='firstName'
+                onChange={this.handleChange}
+                className='login-input'
+              />
+            </label>
+            <label>
+              <p>Last Name:</p>
+              <input
+                type='text'
+                name='lastName'
+                onChange={this.handleChange}
+                className='login-input'
+              />
+            </label>
+          </div>
+          <div className='username-email-input'>
+            <label>
+              <p>Username:</p>
+              <input
+                type='text'
+                name='username'
+                onChange={this.handleChange}
+                className={
+                  this.state.error.includes('username')
+                    ? 'login-input login-error'
+                    : 'login-input'
+                }
+              />
+            </label>
+            <label>
+              <p>Email:</p>
+              <input
+                type='email'
+                name='email'
+                onChange={this.handleChange}
+                className='login-input'
+              />
+            </label>
+          </div>
+          <div className='passwords-input'>
+            <label>
+              <p>Password:</p>
+              <input
+                type='password'
+                name='password'
+                onChange={this.handleChange}
+                className={
+                  this.state.error.includes('password')
+                    ? 'login-input login-error'
+                    : 'login-input'
+                }
+              />
+            </label>
+            <label>
+              <p>Confirm Password:</p>
+              <input
+                type='password'
+                name='confirmPassword'
+                onChange={this.handleChange}
+                className={
+                  this.state.error.includes('password')
+                    ? 'login-input login-error'
+                    : 'login-input'
+                }
+              />
+            </label>
+          </div>
+
           <label>
-            <p>First Name:</p>
-            <input type='text' name='firstName' onChange={this.handleChange} />
-          </label>
-          <label>
-            <p>Last Name:</p>
-            <input type='text' name='lastName' onChange={this.handleChange} />
-          </label>
-          <label>
-            <p>Username:</p>
-            <input type='text' name='username' onChange={this.handleChange} />
-          </label>
-          <label>
-            <p>Password:</p>
+            <p>Travels:</p>
             <input
-              type='password'
-              name='password'
+              type='text'
+              name='travel'
               onChange={this.handleChange}
+              className='login-input'
             />
           </label>
           <label>
-            <p>Email:</p>
-            <input type='email' name='email' onChange={this.handleChange} />
-          </label>
-          <label>
-            <p>Travels:</p>
-            <input type='text' name='travel' onChange={this.handleChange} />
-          </label>
-          <label>
             <p>Certification:</p>
-            <input type='text' name='certification' onChange={this.handleChange} />
+            <input
+              type='text'
+              name='certification'
+              onChange={this.handleChange}
+              className='login-input'
+            />
           </label>
           <input id='button' type='submit' value='Submit' />
-          <Link id='link' to='/login'>Already have an account?</Link>
+          <Link id='link' to='/login'>
+            Already have an account?
+          </Link>
         </form>
       </>
     );
@@ -98,7 +169,6 @@ class Signup extends React.Component {
 }
 
 export default Signup;
-
 
 // - Location (Geolocation based or manually entry)
 // - Travel history
