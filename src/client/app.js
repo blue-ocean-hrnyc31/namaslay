@@ -9,7 +9,7 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom';
-import { Signup, Login } from './login/index.jsx';
+import { Signup, Login, Logout } from './login/index.jsx';
 import Chart from './river/index.js';
 import { logOut } from './apiHelpers';
 import { AuthContext, useAuth } from './login/auth';
@@ -77,32 +77,18 @@ const App = (props) => {
               <Route path='/signup' render={(props) => <Signup {...props} />} />
 
               <Route path='/meditation-river'>
-                <MeditationRiver />
+                <MeditationRiver user={user}/>
               </Route>
 
               <Route path='/asana-river'>
-                <AsanaRiver />
+                <AsanaRiver user={user}/>
               </Route>
               <ProtectedRoute component={Admin} path='/admin' />
               <Route path='/logout'>
                 {(!authTokens || authTokens === 'undefined') && (
                   <Redirect to='/' />
                 )}
-                <button
-                  onClick={() => {
-                    logOut().then((login) => {
-                      if (!login) {
-                        setAuthTokens(false);
-                        // removeCookie('connect.sid');
-                        document.cookie =
-                          'connect.sid' +
-                          '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                      }
-                    });
-                  }}
-                >
-                  Log Out
-                </button>
+                <Logout setAuthTokens={setAuthTokens} />
               </Route>
             </Switch>
           </div>

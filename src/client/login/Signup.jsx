@@ -14,6 +14,8 @@ class Signup extends React.Component {
       password: '',
       email: '',
       error: false,
+      travel: '',
+      certification: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -79,6 +81,14 @@ class Signup extends React.Component {
             <p>Email:</p>
             <input type='email' name='email' onChange={this.handleChange} />
           </label>
+          <label>
+            <p>Travels:</p>
+            <input type='text' name='travel' onChange={this.handleChange} />
+          </label>
+          <label>
+            <p>Certification:</p>
+            <input type='text' name='certification' onChange={this.handleChange} />
+          </label>
           <input id='button' type='submit' value='Submit' />
           <Link id='link' to='/login'>Already have an account?</Link>
         </form>
@@ -88,3 +98,8 @@ class Signup extends React.Component {
 }
 
 export default Signup;
+
+
+// - Location (Geolocation based or manually entry)
+// - Travel history
+// - Certification
