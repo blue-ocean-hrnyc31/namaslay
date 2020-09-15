@@ -34,16 +34,16 @@ const LeaderBoard = (props) => {
       return (
         <span
           className='UserLevel'
-          style={{ color: '#FF0000', background: '#000' }}
+          style={{ color: '#FFD700', background: '#000', fontSize: '25px' }}
         >
           &#x950;
         </span>
       );
-    } else if (hours > 12) {
+    } else if (hours > 12 && hours < 24) {
       return (
         <span
           className='UserLevel'
-          style={{ color: '#C0C0C0', background: '#000' }}
+          style={{ color: '#C0C0C0', background: '#000', fontSize: '25px' }}
         >
           &#x950;
         </span>
@@ -52,7 +52,7 @@ const LeaderBoard = (props) => {
       return (
         <span
           className='UserLevel'
-          style={{ color: '#b08d57', background: '#000' }}
+          style={{ color: '#b08d57', background: '#000', fontSize: '25px' }}
         >
           &#x950;
         </span>
@@ -129,162 +129,162 @@ const dummyData = [
   },
   {
     userId: 1,
-    first_name: "John",
-    last_name: "Doe",
+    first_name: 'John',
+    last_name: 'Doe',
     total_mins: 50,
     visit_count: 3,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 2,
-    first_name: "Jane",
-    last_name: "Smith",
-    total_mins: 5,
+    first_name: 'Jane',
+    last_name: 'Smith',
+    total_mins: 780,
     visit_count: 1,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 3,
-    first_name: "Larry",
-    last_name: "Lambert",
+    first_name: 'Larry',
+    last_name: 'Lambert',
     total_mins: 500,
     visit_count: 10,
-    level: "gold",
+    level: 'gold',
   },
   {
     userId: 4,
-    first_name: "Stephen",
-    last_name: "Mark",
+    first_name: 'Stephen',
+    last_name: 'Mark',
     total_mins: 100,
     visit_count: 4,
-    level: "silver",
+    level: 'silver',
   },
   {
     userId: 5,
-    first_name: "Matt",
-    last_name: "Faris",
+    first_name: 'Matt',
+    last_name: 'Faris',
     total_mins: 5,
     visit_count: 2,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 1,
-    first_name: "John",
-    last_name: "Doe",
+    first_name: 'John',
+    last_name: 'Doe',
     total_mins: 50,
     visit_count: 3,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 2,
-    first_name: "Jane",
-    last_name: "Smith",
+    first_name: 'Jane',
+    last_name: 'Smith',
     total_mins: 5,
     visit_count: 1,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 3,
-    first_name: "Larry",
-    last_name: "Lambert",
+    first_name: 'Larry',
+    last_name: 'Lambert',
     total_mins: 500,
     visit_count: 10,
-    level: "gold",
+    level: 'gold',
   },
   {
     userId: 4,
-    first_name: "Stephen",
-    last_name: "Mark",
+    first_name: 'Stephen',
+    last_name: 'Mark',
     total_mins: 100,
     visit_count: 4,
-    level: "silver",
+    level: 'silver',
   },
   {
     userId: 5,
-    first_name: "Matt",
-    last_name: "Faris",
+    first_name: 'Matt',
+    last_name: 'Faris',
     total_mins: 5,
     visit_count: 2,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 1,
-    first_name: "John",
-    last_name: "Doe",
+    first_name: 'John',
+    last_name: 'Doe',
     total_mins: 50,
     visit_count: 3,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 2,
-    first_name: "Jane",
-    last_name: "Smith",
+    first_name: 'Jane',
+    last_name: 'Smith',
     total_mins: 5,
     visit_count: 1,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 3,
-    first_name: "Larry",
-    last_name: "Lambert",
+    first_name: 'Larry',
+    last_name: 'Lambert',
     total_mins: 500,
     visit_count: 10,
-    level: "gold",
+    level: 'gold',
   },
   {
     userId: 4,
-    first_name: "Stephen",
-    last_name: "Mark",
+    first_name: 'Stephen',
+    last_name: 'Mark',
     total_mins: 100,
     visit_count: 4,
-    level: "silver",
+    level: 'silver',
   },
   {
     userId: 5,
-    first_name: "Matt",
-    last_name: "Faris",
+    first_name: 'Matt',
+    last_name: 'Faris',
     total_mins: 5,
     visit_count: 2,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 1,
-    first_name: "John",
-    last_name: "Doe",
+    first_name: 'John',
+    last_name: 'Doe',
     total_mins: 50,
     visit_count: 3,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 2,
-    first_name: "Jane",
-    last_name: "Smith",
+    first_name: 'Jane',
+    last_name: 'Smith',
     total_mins: 5,
     visit_count: 1,
-    level: "bronze",
+    level: 'bronze',
   },
   {
     userId: 3,
-    first_name: "Larry",
-    last_name: "Lambert",
+    first_name: 'Larry',
+    last_name: 'Lambert',
     total_mins: 500,
     visit_count: 10,
-    level: "gold",
+    level: 'gold',
   },
   {
     userId: 4,
-    first_name: "Stephen",
-    last_name: "Mark",
+    first_name: 'Stephen',
+    last_name: 'Mark',
     total_mins: 100,
     visit_count: 4,
-    level: "silver",
+    level: 'silver',
   },
   {
     userId: 5,
-    first_name: "Matt",
-    last_name: "Faris",
+    first_name: 'Matt',
+    last_name: 'Faris',
     total_mins: 5,
     visit_count: 2,
-    level: "bronze",
+    level: 'bronze',
   },
 ];

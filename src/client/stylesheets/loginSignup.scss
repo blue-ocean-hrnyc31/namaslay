@@ -1,0 +1,31 @@
+form {
+  display: grid;
+  grid-template-rows: auto;
+  min-width: 400px;
+  max-width: 50vw;
+  margin: auto;
+
+  label {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    p {
+      margin: 0;
+      justify-self: right;
+    }
+  }
+
+  #button {
+    width: 30%;
+    justify-self: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  #link {
+    margin-top: 5px;
+    text-align: center;
+  }
+}

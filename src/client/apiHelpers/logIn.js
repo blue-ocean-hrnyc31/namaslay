@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function logIn(username, password) {
+function logIn(username, password, handleUser) {
   return axios
     .post('/login', {
       username,
@@ -10,6 +10,7 @@ function logIn(username, password) {
       console.log('post /login response:', response);
       if (response.status === 200) {
         console.log('post /login response:', response);
+        handleUser(response.data);
         return response.status;
       }
     });
