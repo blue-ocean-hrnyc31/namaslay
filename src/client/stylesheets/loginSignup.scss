@@ -7,8 +7,9 @@ form {
   text-align: center;
   border: 1px solid black;
   border-radius: 5px;
-  background: white;
   position: relative;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 2em;
 
   p {
     margin: 0;
@@ -18,7 +19,7 @@ form {
     margin-top: 20px;
   }
   .login-input {
-    width: 80%;
+    width: 90%;
     margin: {
       top: 10px;
       bottom: 10px;
@@ -35,8 +36,10 @@ form {
   #button {
     width: 30%;
     justify-self: center;
+    text-align: center;
     margin-top: 5px;
     margin-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
   }
 
   #link {
@@ -49,4 +52,23 @@ form {
     width: '100%';
     color: red;
   }
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.name-input {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.username-email-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.passwords-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

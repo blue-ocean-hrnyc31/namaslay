@@ -15,6 +15,8 @@ class Signup extends React.Component {
       confirmPassword: '',
       email: '',
       error: '',
+      travel: '',
+      certification: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -64,68 +66,94 @@ class Signup extends React.Component {
           <div className='form-error'>
             {this.state.error && this.state.error}
           </div>
+
+          <div className='name-input'>
+            <label>
+              <p>First Name:</p>
+              <input
+                type='text'
+                name='firstName'
+                onChange={this.handleChange}
+                className='login-input'
+              />
+            </label>
+            <label>
+              <p>Last Name:</p>
+              <input
+                type='text'
+                name='lastName'
+                onChange={this.handleChange}
+                className='login-input'
+              />
+            </label>
+          </div>
+          <div className='username-email-input'>
+            <label>
+              <p>Username:</p>
+              <input
+                type='text'
+                name='username'
+                onChange={this.handleChange}
+                className={
+                  this.state.error.includes('username')
+                    ? 'login-input login-error'
+                    : 'login-input'
+                }
+              />
+            </label>
+            <label>
+              <p>Email:</p>
+              <input
+                type='email'
+                name='email'
+                onChange={this.handleChange}
+                className='login-input'
+              />
+            </label>
+          </div>
+          <div className='passwords-input'>
+            <label>
+              <p>Password:</p>
+              <input
+                type='password'
+                name='password'
+                onChange={this.handleChange}
+                className={
+                  this.state.error.includes('password')
+                    ? 'login-input login-error'
+                    : 'login-input'
+                }
+              />
+            </label>
+            <label>
+              <p>Confirm Password:</p>
+              <input
+                type='password'
+                name='confirmPassword'
+                onChange={this.handleChange}
+                className={
+                  this.state.error.includes('password')
+                    ? 'login-input login-error'
+                    : 'login-input'
+                }
+              />
+            </label>
+          </div>
+
           <label>
-            <p>First Name:</p>
+            <p>Travels:</p>
             <input
               type='text'
-              name='firstName'
+              name='travel'
               onChange={this.handleChange}
               className='login-input'
             />
           </label>
           <label>
-            <p>Last Name:</p>
+            <p>Certification:</p>
             <input
               type='text'
-              name='lastName'
-              onChange={this.handleChange}
-              className='login-input'
-            />
-          </label>
-          <label>
-            <p>Username:</p>
-            <input
-              type='text'
-              name='username'
-              onChange={this.handleChange}
-              className={
-                this.state.error.includes('username')
-                  ? 'login-input login-error'
-                  : 'login-input'
-              }
-            />
-          </label>
-          <label>
-            <p>Password:</p>
-            <input
-              type='password'
-              name='password'
-              onChange={this.handleChange}
-              className={
-                this.state.error.includes('password')
-                  ? 'login-input login-error'
-                  : 'login-input'
-              }
-            />
-          </label>
-          <label>
-            <p>Confirm Password:</p>
-            <input
-              type='password'
-              name='confirmPassword'
-              onChange={this.handleChange}
-              className={
-                this.state.error.includes('password')
-                  ? 'login-input login-error'
-                  : 'login-input'
-              }
-            />
-          </label>
-          <label>
-            <p>Email:</p>
-            <input
-              type='email'
-              name='email'
+              name='certification'
               onChange={this.handleChange}
               className='login-input'
             />
@@ -141,3 +169,7 @@ class Signup extends React.Component {
 }
 
 export default Signup;
+
+// - Location (Geolocation based or manually entry)
+// - Travel history
+// - Certification

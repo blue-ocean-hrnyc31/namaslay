@@ -15,7 +15,7 @@ class Events extends React.Component {
     super(props);
     this.state = {
       modalIsOpen: false,
-      events: data,
+      events: [],
       selectedEvent: {},
     };
     this.setModalShow = this.setModalShow.bind(this);
@@ -26,17 +26,21 @@ class Events extends React.Component {
   }
 
   componentDidMount() {
-    // axios
-    //   .get("http://localhost:3000/events")
-    //   .then(({ data }) => {
-    //     console.log(data);
-    //     this.setState({
-    //       events: data,
-    //     });
-    //   })
-    //   .catch((err) => {
-    //     console.log("error getting events: ", err);
-    //   });
+    axios
+      .get(`http://34.229.137.235:4444/events`)
+      .then(({ data }) => {
+        let events;
+        for (let i = 0; i < data.length; i++) {
+          console.log("data: ", data[i]);
+        }
+        // this.setState({
+        //   events: data,
+        // });
+        console.log(this.state.events);
+      })
+      .catch((err) => {
+        console.log("error getting events: ", err);
+      });
   }
 
   setModalShow(bool) {
