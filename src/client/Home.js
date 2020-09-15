@@ -3,7 +3,8 @@ import "./stylesheets/home.scss";
 import meditationCircle from "./images/meditation-circle.png";
 import asanaCircle from "./images/asana-circle.png";
 import eventsCircle from "./images/events-circle.png";
-import GoCalendar from "react-icons/fa";
+import { GoCalendar } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 const Home = (props) => {
   const currentlyPracticing = 22;
@@ -29,14 +30,19 @@ const Home = (props) => {
         WILL GO. THIS IS WHERE INFO ABOUT ASANA WILL GO. THIS IS WHERE INFO
         ABOUT ASANA WILL GO. THIS IS WHERE INFO ABOUT ASANA WILL GO.
       </div>
-      <div className="F">Step into the Meditation River</div>
-      <div className="G">Step into the Asana River</div>
+      <Link to="/meditation-river">
+        <div className="F">Step into the Meditation River</div>
+      </Link>
+      <Link to="/asana-river">
+        <div className="G">Step into the Asana River</div>
+      </Link>
       <div className="H">
         <img src={eventsCircle} alt="clouds and mountains" width="300px"></img>
       </div>
       <div className="I">
         <h4>
-          <img src={GoCalendar} alt="calendar"></img>Upcoming Events
+          <GoCalendar />{" "}
+          Upcoming Events
         </h4>
         <ul>
           <li>event1</li>
