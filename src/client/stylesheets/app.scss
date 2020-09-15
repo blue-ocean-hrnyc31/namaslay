@@ -5,47 +5,31 @@ body,
   padding: 0;
   height: 100%;
 }
-header {
-  height: 200px;
-  background-image: url("../images/logo.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  grid-area: header;
-}
-.content {
-  background-image: url("../images/backgroung.jpg");
-  opacity: 70%;
-  height: 100%;
-}
 .grid-container {
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 0fr 0fr 0fr;
-  grid-template-rows: 1fr 0.5fr 3fr;
+  grid-template-rows: 1fr 0.5fr 5fr;
   gap: 1px 1px;
   grid-template-areas:
     "header . . ."
     "menu . . ."
     "content . . .";
 }
-
-* {
-  box-sizing: border-box;
+header {
+  height: 20vh;
+  background-image: url("../images/logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  grid-area: header;
 }
-
-
-h1 {
-  font: {
-    family: "Papyrus", sans-serif;
-  }
-}
-
 .menu {
+  height: 12vh;
   grid-area: menu;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   background: white;
-  padding: 20px;
   box-shadow: 0 4px 8px #00000030;
   a {
     display: block;
@@ -56,8 +40,18 @@ h1 {
     }
   }
 }
+
 .content {
+  background-image: url("../images/backgroung.jpg");
+  opacity: 70%;
+  min-height: 50vh;
   grid-area: content;
   padding: 30px;
-  height: 100%;
+  grid-template-columns: 1fr 1fr;
+}
+
+h1 {
+  font: {
+    family: "Papyrus", sans-serif;
+  }
 }

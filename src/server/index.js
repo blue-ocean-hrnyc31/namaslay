@@ -7,15 +7,16 @@ const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const passport = require('../auth/passport.config.js');
 const flash = require('connect-flash');
+const cors = require('cors');
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 const pool = require('../db');
 
 app.use(express.static(path.join(__dirname, '../../dist')));
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 app.use(
   session({
@@ -36,19 +37,13 @@ app.use(passport.session()); // required to persist login sessions
 app.use(flash());
 
 // use router
-const router = require('./routes/index.js')
+const router = require('./routes/index.js');
 app.use('/', router);
-
-
-
-
 
 app.get('*', (req, res) => {
   // Handles any requests that don't match the ones above
   res.sendFile('index.html', { root: path.join(__dirname, '../../dist/') });
 });
-
-
 
 app.listen(PORT, () => {
   console.log(`listening on port: ${PORT}`);
