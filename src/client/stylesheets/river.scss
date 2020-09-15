@@ -8,10 +8,33 @@
   .chart-container {
     grid-column: 1;
   }
+  .river-view-container {
+    display: grid;
+    grid-template-rows: 9fr, 1fr
+  }
   .river-container {
+    grid-row: 1;
     display: flex;
     justify-content: center;
     margin-top: 2em;
+  }
+  .river-users-info {
+    grid-row: 2;
+    display: flex;
+    justify-content: center;
+  }
+  .placeholder {
+    color: gray;
+  }
+  .users-info {
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: white;
+    width: 60%;
+    margin-top: 1em;
+    padding: .2em;
+    height: 1.8em;
+    text-align: center;
   }
   .practice-timer {
     font-size: 1.5em;
@@ -41,6 +64,11 @@
 
   .practice-stream-input {
     width: 80%;
+    border-radius: 5px;
+    margin-top: 1em;
+    padding: .2em;
+    height: 1.8em;
+    text-align: center;
   }
   .activity-input {
     width: 60%;

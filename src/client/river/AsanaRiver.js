@@ -5,18 +5,18 @@ import axios from "axios"
 import moment from 'moment'
 const host = 'localhost:4444';
 
-const AsanaRiver = ({userId}) => {
+const AsanaRiver = ({user}) => {
   const [chatInput, setChatInput] = useState('')
   const [chatStream, setChatStream] = useState([])
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [allUsersInAsana, setAllUsersInAsana] = useState([]);
+  const [allUsersInAsana, setAllUsersInAsana] = useState(dummyUsers);
   const [activityValue, setActivityValue] = useState("");
 
 
-  useEffect(() => {
-    fetchUsersInAsana();
-  }, []);
+  // useEffect(() => {
+  //   fetchUsersInAsana();
+  // }, []);
 
 
   /********************************************/
@@ -86,12 +86,13 @@ const AsanaRiver = ({userId}) => {
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${userId}`, {
+      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
         current_river: "asana",
         activity: activityValue,
       })
       .then(() => {
         console.log("Successfully updated.");
+        setActivityValue('')
       })
       .catch((err) => {
         console.log(err);
@@ -101,8 +102,8 @@ const AsanaRiver = ({userId}) => {
   //when user exits, update the practiced time and reset the inAsana property to false in the user table in the database
   const handleUserExit = (practicedTime) => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${userId}`, {
-        total_mins: total_mins + practicedTime,
+      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
+        total_mins: practicedTime,
         current_river: null,
       })
       .then(() => {
@@ -193,4 +194,27 @@ const mockStreamData = [
   { user: "nuri", content: "Practicing vinyasa", postedAt: "few seconds ago" },
   { user: "liam", content: "Practicing hatha", postedAt: "2 minutes ago" },
   { user: "jeremy", content: "Practicing bikram", postedAt: "5 minutes ago" },
+];
+
+const dummyUsers = [
+  {
+    username: "Liam",
+    location: "NYC",
+    current_activity: "Chilllllllllin",
+  },
+  {
+    username: "Bobbito",
+    location: "Cali",
+    current_activity: "Shredding gnar",
+  },
+  {
+    username: "Nuri",
+    location: "NYC",
+    current_activity: "Just vibingggg",
+  },
+  {
+    username: "Trent",
+    location: "NYC",
+    current_activity: "Beep booping",
+  },
 ];
