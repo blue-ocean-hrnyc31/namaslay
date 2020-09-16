@@ -15,11 +15,11 @@ const generateDataset = (userList) =>
       };
     });
 
-const Chart = ({ allUsersInAsana, allUsersInMeditation }) => {
-  const [dataset, setDataset] = useState(generateDataset(allUsersInAsana));
+const MeditationChart = ({ allUsersInMeditation }) => {
+  const [dataset, setDataset] = useState(generateDataset(allUsersInMeditation ));
   useEffect(() => {
-    setDataset(generateDataset(allUsersInAsana));
-  }, [allUsersInAsana]);
+    setDataset(generateDataset(allUsersInMeditation))
+  }, [allUsersInMeditation]);
 
   const [hoveredObj, updateHovered] = useState({
     isHovered: false,
@@ -110,7 +110,7 @@ const Chart = ({ allUsersInAsana, allUsersInMeditation }) => {
   );
 };
 
-export default Chart;
+export default MeditationChart;
 
 const dummyUsers = [
   {
