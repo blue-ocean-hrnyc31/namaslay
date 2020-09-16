@@ -4,6 +4,7 @@ import "../stylesheets/river.scss";
 import axios from "axios"
 import moment from 'moment'
 const host = 'localhost:4444';
+
 const user = {user_id: 3, username: 'LLamber', location: 'New Jersey', current_activity: null, current_river: null, total_mins: 800}
 const AsanaRiver = () => {
   const [chatInput, setChatInput] = useState('')
@@ -26,17 +27,17 @@ const AsanaRiver = () => {
   const fetchChatStream = () => {
     axios({
       method: 'get',
-      url: `http://${host}/asana-river/chat`
+      url: `http://${host}/asana-river/chat`,
     })
-    .then(({data}) => {
-      console.log('Chat stream data:', data);
-      setChatStream(data);
-    })
-    .catch(err => {
-      console.log('Error in getting chat data:', err);
-      setChatStream(mockStreamData);
-    })
-  }
+      .then(({ data }) => {
+        console.log('Chat stream data:', data);
+        setChatStream(data);
+      })
+      .catch((err) => {
+        console.log('Error in getting chat data:', err);
+        setChatStream(mockStreamData);
+      });
+  };
 
   /********************************************/
   /******** Post Chat to Chat Stream! *********/
@@ -96,6 +97,7 @@ const AsanaRiver = () => {
   /****** Fetch all Users in the River! *******/
   /********************************************/
 
+
     const fetchUsersInAsana = () => {
       const river='asana'
       return axios
@@ -112,10 +114,10 @@ const AsanaRiver = () => {
   /***** Handler for River In/Out Button ******/
   /********************************************/
 
-
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
     return axios
+
       .put(`http://${host}/asana-river/user/${user.user_id}`, {
         current_river: "asana",
         current_activity: activityValue
@@ -166,26 +168,26 @@ const AsanaRiver = () => {
       <div className="chart-conatainer">
         <AsanaChart allUsersInAsana={allUsersInAsana} />
         <br />
-        <div className="center">
+        <div className='center'>
           <input
-            className="activity-input"
-            type="text"
-            placeholder="What are you practicing today?"
+            className='activity-input'
+            type='text'
+            placeholder='What are you practicing today?'
             value={activityValue}
             onChange={(e) => setActivityValue(e.target.value)}
           ></input>
         </div>
         <br />
-        <div className="center">
+        <div className='center'>
           {
-            <button className="practice-timer" onClick={handleClickPractice}>
-              {" "}
-              {!inRiver ? "Start your practice" : "End your practice"}
+            <button className='practice-timer' onClick={handleClickPractice}>
+              {' '}
+              {!inRiver ? 'Start your practice' : 'End your practice'}
             </button>
           }
         </div>
       </div>
-      <div className="practice-board-container">
+      <div className='practice-board-container'>
         <div className='practice-board'>
         <iframe src="https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8" width="300" height="80" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         <h2>Tell us about today's practice</h2>
@@ -230,7 +232,6 @@ const AsanaRiver = () => {
         </div>
       </div>
     </div>
-    </div>
   );
 };
 
@@ -244,23 +245,23 @@ const mockStreamData = [
 
 const dummyUsers = [
   {
-    username: "Liam",
-    location: "NYC",
-    current_activity: "Chilllllllllin",
+    username: 'Liam',
+    location: 'NYC',
+    current_activity: 'Chilllllllllin',
   },
   {
-    username: "Bobbito",
-    location: "Cali",
-    current_activity: "Shredding gnar",
+    username: 'Bobbito',
+    location: 'Cali',
+    current_activity: 'Shredding gnar',
   },
   {
-    username: "Nuri",
-    location: "NYC",
-    current_activity: "Just vibingggg",
+    username: 'Nuri',
+    location: 'NYC',
+    current_activity: 'Just vibingggg',
   },
   {
-    username: "Trent",
-    location: "NYC",
-    current_activity: "Beep booping",
+    username: 'Trent',
+    location: 'NYC',
+    current_activity: 'Beep booping',
   },
 ];
