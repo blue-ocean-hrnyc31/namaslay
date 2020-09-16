@@ -36,7 +36,7 @@ class Login extends React.Component {
         }
       })
       .catch((err) => {
-        // console.log('error logging in:', err);
+        console.log('error logging in:', err);
         // HANDLE INCORRECT CREDENTIALS
         this.setState({ error: true });
       });
@@ -45,7 +45,7 @@ class Login extends React.Component {
   render() {
     const token = this.context.authTokens;
     const setAuthTokens = this.context.setAuthTokens;
-    if (token && token !== 'undefined') {
+    if (token) {
       return <Redirect to='/' />;
     }
     return (

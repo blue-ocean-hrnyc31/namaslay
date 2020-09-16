@@ -2,9 +2,10 @@
   display: grid;
   grid-template-rows: repeat(8 1fr);
   grid-template-columns: 1fr 1fr;
-  grid-gap: 15px;
+  grid-gap: 10px;
   font-size: large;
-
+  margin-top: 40px;
+  margin-bottom: 40px;
   .A {
     padding-top: 20px;
     background-color: rgba(255, 255, 255, 0.5);
@@ -26,6 +27,7 @@
     font-size: 30px;
   }
   .C {
+    padding-top: 10px;
     background-color: rgba(255, 255, 255, 0.5);
     border: solid 1px white;
     grid-column: 1/2;
@@ -44,7 +46,9 @@
     }
     grid-column: 2/3;
     grid-row: 2/9;
-    width: 100%;
+    div {
+      padding: 4px;
+    }
   }
 }
 
@@ -60,6 +64,7 @@
 }
 .aboutFooter {
   margin-top: 20px;
+  padding-top: 15px;
   position: relative;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.5);

@@ -64,7 +64,7 @@ const LeaderBoard = (props) => {
     <div className='leaderboard'>
       <table>
         <tbody>
-          <tr className="topRow">
+          <tr className='topRow'>
             <th className='levelEntry'>Level</th>
             <th className='nameEntry'>User</th>
             <th className='visitEntry'>Times Meditated</th>
