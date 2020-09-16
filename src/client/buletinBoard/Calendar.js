@@ -83,7 +83,8 @@ class Events extends React.Component {
           <Calendar
             localizer={localizer}
             defaultDate={new Date()}
-            defaultView='month'
+            defaultView="month"
+            views={["month", "agenda"]}
             events={this.state.events}
             onSelectEvent={(selected) =>
               this.setState({ selectedEvent: selected })
