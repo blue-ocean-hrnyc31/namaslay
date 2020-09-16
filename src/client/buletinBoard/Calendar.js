@@ -54,6 +54,7 @@ class Events extends React.Component {
   }
 
   submitNewEntry(entry) {
+    console.log(entry);
     axios
       .post(`http://34.229.137.235:4444/events`, {
         title: entry.title,
@@ -61,7 +62,7 @@ class Events extends React.Component {
         start: entry.start,
         end: entry.end,
         location: entry.location,
-        event_host: entry.event_host,
+        host: entry.event_host,
       })
       .then(() => {
         console.log("new entry posted successfully!");
