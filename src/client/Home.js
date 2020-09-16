@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./stylesheets/home.scss";
 import meditationCircle from "./images/meditation-circle.png";
 import asanaCircle from "./images/asana-circle.png";
 import eventsCircle from "./images/events-circle.png";
 import { GoCalendar } from "react-icons/go";
 import { Link } from "react-router-dom";
+import { countPracticing } from "./apiHelpers";
 
 const Home = (props) => {
-  const currentlyPracticing = 22;
+  const [currentlyPracticing, setCurrentlyPracticing] = useState("");
+  useEffect(() => {
+    countPracticing()
+    .then((number) => {
+      setCurrentlyPracticing(number);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+  })
   return (
     <div className="home">
       <div className="A">
@@ -41,8 +51,7 @@ const Home = (props) => {
       </div>
       <div className="I">
         <h4>
-          <GoCalendar />{" "}
-          Upcoming Events
+          <GoCalendar /> Upcoming Events
         </h4>
         <ul>
           <li>event1</li>
