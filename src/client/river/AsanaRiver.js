@@ -47,9 +47,9 @@ const AsanaRiver = ({user}) => {
       method: 'post',
       url: `http://${host}/asana-river/chat`,
       data: {
-        currentUser: 'Bob', // From props hopefully
+        currentUser: 'Jeremy', // From props hopefully
         message: chatInput,
-        submitTime: moment()
+        submitTime: Date.now()
       }
     })
     .then(res => {
@@ -173,12 +173,18 @@ const AsanaRiver = ({user}) => {
       <br/><br/>
       <div>
         {chatStream.map((post, ind) => {
+
+
           return (
             <div
               className='practice-stream'
               key={ind}
             >
-             {post.user}: {post.content} <span style={{fontSize:'0.2em'}}>{post.postedAt}</span>
+             {post.username}: {post.content}
+             {" "}
+              <span style={{fontSize:'0.2em'}}>
+               {Math.floor((Date.now() - post.posted_at) / 1000 )} seconds ago
+              </span>
             <br/>
             </div>
           )
@@ -193,9 +199,9 @@ const AsanaRiver = ({user}) => {
 export default AsanaRiver;
 
 const mockStreamData = [
-  { user: "nuri", content: "Practicing vinyasa", postedAt: "few seconds ago" },
-  { user: "liam", content: "Practicing hatha", postedAt: "2 minutes ago" },
-  { user: "jeremy", content: "Practicing bikram", postedAt: "5 minutes ago" },
+  { username: "nuri", content: "Practicing vinyasa", posted_at: "few seconds ago" },
+  { username: "liam", content: "Practicing hatha", posted_at: "2 minutes ago" },
+  { username: "jeremy", content: "Practicing bikram", posted_at: "5 minutes ago" },
 ];
 
 const dummyUsers = [
