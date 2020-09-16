@@ -69,8 +69,8 @@ class Events extends React.Component {
         let events = data.map((event) => {
           event = {
             title: event.title,
-            start: event.start_time,
-            end: event.end_time,
+            startDate: new Date(event.start_time),
+            endDate: new Date(event.end_time),
             location: event.location,
             event_host: event.host,
             description: event.description,
