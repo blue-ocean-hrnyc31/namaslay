@@ -45,7 +45,7 @@ class Login extends React.Component {
   render() {
     const token = this.context.authTokens;
     const setAuthTokens = this.context.setAuthTokens;
-    if (token && token !== 'undefined') {
+    if (token) {
       return <Redirect to='/' />;
     }
     return (
