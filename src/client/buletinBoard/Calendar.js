@@ -42,11 +42,9 @@ class Events extends React.Component {
           acc.push(obj);
           return acc;
         }, []);
-        console.log(events);
         this.setState({
           events: events,
         });
-        console.log(this.state.events);
       })
       .catch((err) => {
         console.log('error getting events: ', err);
@@ -64,11 +62,27 @@ class Events extends React.Component {
         location: entry.location,
         host: entry.event_host,
       })
-      .then(() => {
-        console.log('new entry posted successfully!');
+      .then(({ data }) => {
+        console.log(data);
+        let events = data.map((event) => {
+          event = {
+            title: event.title,
+            start: event.start_time,
+            end: event.end_time,
+            location: event.location,
+            event_host: event.host,
+            description: event.description,
+          };
+          return event;
+        });
+        console.log(events);
+        this.setState({
+          events: events,
+        });
+        console.log(this.state.events);
       })
       .catch((err) => {
-        console.log('error submitting new entry: ', err);
+        console.log('error getting events: ', err);
       });
   }
 
