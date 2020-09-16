@@ -16,6 +16,7 @@ const AsanaRiver = () => {
 
   useEffect(() => {
     fetchUsersInAsana();
+    fetchChatStream();
   },[]);
   console.log(allUsersInAsana);
 
@@ -43,6 +44,11 @@ const AsanaRiver = () => {
   const handleSendChat = () => {
     // Might need to pass chat in for when user enters River
     // need to get current user as prop
+    if (chatInput === '') {
+      alert('Please enter something in your chat message!');
+      return ;
+    }
+
     axios({
       method: 'post',
       url: `http://${host}/asana-river/chat`,
