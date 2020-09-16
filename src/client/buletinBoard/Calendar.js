@@ -27,14 +27,16 @@ class Events extends React.Component {
   }
 
   componentDidMount() {
+    console.log('getting dates...');
     axios
       .get(`http://34.229.137.235:4444/events`)
       .then(({ data }) => {
+        console.log('data received...');
         let events = data.reduce((acc, cur) => {
           let obj = {
             title: cur.title,
-            start: cur.start_time,
-            end: cur.end_time,
+            startDate: new Date(cur.start_time),
+            endDate: new Date(cur.end_time),
             location: cur.location,
             event_host: cur.host,
             description: cur.description,
@@ -45,6 +47,7 @@ class Events extends React.Component {
         this.setState({
           events: events,
         });
+        console.log('events: ', this.state.events);
       })
       .catch((err) => {
         console.log('error getting events: ', err);
@@ -66,8 +69,8 @@ class Events extends React.Component {
         let events = data.map((event) => {
           event = {
             title: event.title,
-            start: event.start_time,
-            end: event.end_time,
+            startDate: new Date(event.start_time),
+            endDate: new Date(event.end_time),
             location: event.location,
             event_host: event.host,
             description: event.description,
@@ -95,11 +98,14 @@ class Events extends React.Component {
             localizer={localizer}
             defaultDate={new Date()}
             defaultView="month"
-            views={["month", "agenda"]}
+            views={["month", "day", "agenda"]}
             events={this.state.events}
             onSelectEvent={(selected) =>
               this.setState({ selectedEvent: selected })
             }
+            // components={{events: Event}}
+            startAccessor="startDate"
+            endAccessor="endDate"
           />
           <button className='add-event' onClick={() => this.setModalShow(true)}>
             New Event
