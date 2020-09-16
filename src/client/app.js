@@ -10,7 +10,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { Signup, Login, Logout, Admin } from './login/index.jsx';
-import Chart from './river/index.js';
 import { AuthContext, useAuth } from './login/auth';
 import ProtectedRoute from './login/protectedRoute';
 import Home from './Home.js';
