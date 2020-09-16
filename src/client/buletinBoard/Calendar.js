@@ -37,14 +37,14 @@ class Events extends React.Component {
             end: cur.end_time,
             location: cur.location,
             event_host: cur.host,
-            description: cur.description
+            description: cur.description,
           };
           acc.push(obj);
           return acc;
         }, []);
         console.log(events);
         this.setState({
-          events: events
+          events: events,
         });
         console.log(this.state.events);
       })
@@ -84,6 +84,7 @@ class Events extends React.Component {
             localizer={localizer}
             defaultDate={new Date()}
             defaultView="month"
+            views={["month", "agenda"]}
             events={this.state.events}
             onSelectEvent={(selected) =>
               this.setState({ selectedEvent: selected })
