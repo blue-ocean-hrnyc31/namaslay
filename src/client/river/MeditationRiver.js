@@ -125,6 +125,7 @@ const MeditationRiver = ({user}) => {
       .put(`http://${host}/meditation-river/user/${user.user_id}`, {
         total_mins: practicedTime,
         current_river: null,
+        current_activity: null,
       })
       .then(() => {
         console.log("Successfully updated.");

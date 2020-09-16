@@ -4,20 +4,20 @@ import "../stylesheets/river.scss";
 import axios from "axios"
 import moment from 'moment'
 const host = 'localhost:4444';
-
-const AsanaRiver = ({user}) => {
+const user = {user_id: 3, username: 'LLamber', location: 'New Jersey', current_activity: null, current_river: null, total_mins: 800}
+const AsanaRiver = () => {
   const [chatInput, setChatInput] = useState('')
   const [chatStream, setChatStream] = useState([])
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [allUsersInAsana, setAllUsersInAsana] = useState(dummyUsers);
+  const [allUsersInAsana, setAllUsersInAsana] = useState([]);
   const [activityValue, setActivityValue] = useState("");
 
 
-  // useEffect(() => {
-  //   fetchUsersInAsana();
-  // }, []);
-
+  useEffect(() => {
+    fetchUsersInAsana();
+  },[]);
+  console.log(allUsersInAsana);
 
   /********************************************/
   /********** Fetch the Chat Stream! **********/
@@ -46,7 +46,7 @@ const AsanaRiver = ({user}) => {
       method: 'post',
       url: `http://${host}/asana-river/chat`,
       data: {
-        currentUser: 'user.username',
+        currentUser: user.username,
         message: chatInput,
         submitTime: moment()
       }
@@ -71,7 +71,7 @@ const AsanaRiver = ({user}) => {
       data: {
         currentUser: user.username,
         message: 'Just entered the Asana River',
-        submitTime: moment()
+        submitTime: Date.now()
       }
     })
     .then(res => {
@@ -109,11 +109,12 @@ const AsanaRiver = ({user}) => {
     return axios
       .put(`http://${host}/asana-river/user/${user.user_id}`, {
         current_river: "asana",
-        current_activity: activityValue,
+        current_activity: activityValue
       })
       .then(() => {
         console.log("Successfully updated.");
         setActivityValue('')
+        fetchUsersInAsana();
       })
       .catch((err) => {
         console.log(err);
@@ -126,9 +127,11 @@ const AsanaRiver = ({user}) => {
       .put(`http://${host}/asana-river/user/${user.user_id}`, {
         total_mins: practicedTime,
         current_river: null,
+        current_activity: null,
       })
       .then(() => {
         console.log("Successfully updated.");
+        fetchUsersInAsana();
       })
       .catch((err) => {
         console.log(err);
@@ -141,12 +144,10 @@ const AsanaRiver = ({user}) => {
       let practicedTime = Math.round((Date.now() - startTime) / 60000);
       setInRiver(false);
       handleUserExit(practicedTime);
-      fetchUsersInAsana();
     } else {
       setInRiver(true);
       setStartTime(Date.now());
       handleUserEnter();
-      fetchUsersInAsana();
       handleSendChatUserEntrance()
     }
   };
