@@ -4,20 +4,20 @@ const passport = require('../../auth/passport.config.js');
 
 /**************************************
  **********    SIGNUP   ***************
-***************************************/
+ ***************************************/
 
-router.post( '/signup', require('./signupController').post );
-
+router.post('/signup', require('./signupController').post);
 
 /**************************************
  **********    LOGIN   ***************
-***************************************/
+ ***************************************/
 
-router.post( '/login',
-  passport.authenticate('local', { failureFlash: true,}),
+router.post(
+  '/login',
+  passport.authenticate('local', { failureFlash: true }),
   require('./loginController').post
 );
 
-router.post( '/logout', require('./logoutController.js').post );
+router.post('/logout', require('./logoutController.js').post);
 
 module.exports = router;

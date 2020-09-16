@@ -36,7 +36,7 @@ class Login extends React.Component {
         }
       })
       .catch((err) => {
-        // console.log('error logging in:', err);
+        console.log('error logging in:', err);
         // HANDLE INCORRECT CREDENTIALS
         this.setState({ error: true });
       });
