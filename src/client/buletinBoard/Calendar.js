@@ -55,7 +55,7 @@ class Events extends React.Component {
 
   submitNewEntry(entry) {
     axios
-      .post(`http://34.229.137.235:4444/events`, {
+      .post(`https://34.229.137.235:4444/events`, {
         title: entry.title,
         description: entry.description,
         start: entry.start,

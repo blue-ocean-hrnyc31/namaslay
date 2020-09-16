@@ -8,7 +8,7 @@ const LeaderBoard = (props) => {
   useEffect(() => {
     console.log('Mounting Leaderboard');
     axios
-      .get(`http://34.229.137.235:4444/leaders`)
+      .get(`https://34.229.137.235:4444/leaders`)
       .then((row) => {
         //console.log('Getting back data: ', row);
         // Set the new state with setLeader Function
@@ -64,7 +64,7 @@ const LeaderBoard = (props) => {
     <div className='leaderboard'>
       <table>
         <tbody>
-          <tr className="topRow">
+          <tr className='topRow'>
             <th className='levelEntry'>Level</th>
             <th className='nameEntry'>User</th>
             <th className='visitEntry'>Times Meditated</th>
