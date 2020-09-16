@@ -46,11 +46,11 @@ passport.use(
  */
 
 passport.serializeUser(function (user, done) {
-  done(null, user.id);
+  done(null, user.user_id);
 });
 
-passport.deserializeUser(function (id, done) {
-  User.findById(id)
+passport.deserializeUser(function (user_id, done) {
+  User.findById(user_id)
     .catch((err) => {
       done(err);
     })
