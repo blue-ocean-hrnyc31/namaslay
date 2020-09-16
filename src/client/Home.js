@@ -5,10 +5,11 @@ import asanaCircle from "./images/asana-circle.png";
 import eventsCircle from "./images/events-circle.png";
 import { GoCalendar } from "react-icons/go";
 import { Link } from "react-router-dom";
-import { countPracticing } from "./apiHelpers";
+import { countPracticing, getUpcoming } from "./apiHelpers";
 
 const Home = (props) => {
   const [currentlyPracticing, setCurrentlyPracticing] = useState("");
+  const [upcoming, setUpcoming] = useState({});
   useEffect(() => {
     countPracticing()
     .then((number) => {
@@ -17,6 +18,12 @@ const Home = (props) => {
     .catch((err) => {
       console.error(err);
     })
+    getUpcoming()
+    .then((response) => {
+      console.log("upcoming events response info : ", response);
+      // setUpcoming(response);
+    })
+    .catch(err => console.error(err));
   })
   return (
     <div className="home">

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import * as d3 from "d3";
+import Overlay from "react-bootstrap/Overlay";
+import Popover from "react-bootstrap/Popover";
+import river from "../images/river.jpg";
 
 const generateDataset = (userList) =>
   Array(userList.length)
@@ -16,9 +18,9 @@ const generateDataset = (userList) =>
     });
 
 const MeditationChart = ({ allUsersInMeditation }) => {
-  const [dataset, setDataset] = useState(generateDataset(allUsersInMeditation ));
+  const [dataset, setDataset] = useState(generateDataset(allUsersInMeditation));
   useEffect(() => {
-    setDataset(generateDataset(allUsersInMeditation))
+    setDataset(generateDataset(allUsersInMeditation));
   }, [allUsersInMeditation]);
 
   const [hoveredObj, updateHovered] = useState({
@@ -26,9 +28,8 @@ const MeditationChart = ({ allUsersInMeditation }) => {
     username: "No one",
     location: "No where",
     current_activity: "Not existing",
+    id: "",
   });
-
-  //console.log(dataset);
 
   return (
     <div className="river-view-container">
@@ -41,38 +42,46 @@ const MeditationChart = ({ allUsersInMeditation }) => {
           ) : (
             <p></p>
           )}
-          <rect width="100%" height="100%" fill="black" />
+          <defs>
+            <clipPath id="rectView">
+            <rect width="100%" height="100%" fill="black" />
+            </clipPath>
+          </defs>
+          <image
+            width="100%"
+            height="100%"
+            href={river}
+            clip-path="url(#rectView)"
+            preserveAspectRatio="none"
+          ></image>
           {dataset.map(({ x, y, username, location, current_activity }, i) => (
             <>
-              <defs>
-                <radialGradient
-                  id="grad1"
-                  cx="50%"
-                  cy="50%"
-                  r="50%"
-                  fx="50%"
-                  fy="50%"
-                >
-                  <stop
-                    offset="0%"
-                    stopColor="rgb(255,255,255)"
-                    stopOpacity="1"
-                  />
-                  <stop
-                    offset="100%"
-                    stopColor="rgb(0,0,255)"
-                    stopOpacity="0"
-                  />
-                </radialGradient>
+            <defs>
+              <radialGradient
+                id="grad1"
+                cx="50%"
+                cy="50%"
+                r="50%"
+                fx="50%"
+                fy="50%"
+              >
+                <stop
+                  offset="0%"
+                  stopColor="rgb(0,250,154)"
+                  stopOpacity="1"
+                />
+                <stop offset="100%" stopColor="rgb(0,0,154)" stopOpacity="0" />
+              </radialGradient>
               </defs>
-
               <circle
-                onMouseEnter={() => {
+                id={`circle-${i}`}
+                onMouseEnter={(e) => {
                   updateHovered({
                     isHovered: true,
                     username,
                     location,
                     current_activity,
+                    id: e.target,
                   });
                 }}
                 onMouseLeave={() => {
@@ -85,26 +94,27 @@ const MeditationChart = ({ allUsersInMeditation }) => {
                 }}
                 cx={x}
                 cy={y}
-                r="1.3"
+                r="2"
                 fill="url(#grad1)"
               />
             </>
           ))}
         </svg>
       </div>
-      <div className="river-users-info">
-        <div className="users-info">
-          {hoveredObj.isHovered ? (
-            <span>
-              {hoveredObj.username}: {hoveredObj.current_activity} in{" "}
+      <div>
+        <Overlay
+          show={hoveredObj.isHovered}
+          target={hoveredObj.id}
+          placement="top"
+        >
+          <Popover id="popover-contained">
+            <Popover.Title as="h3">
+              {hoveredObj.username} {""} {hoveredObj.current_activity} {""}
+              {" in "}
               {hoveredObj.location}
-            </span>
-          ) : (
-            <span className="placeholder">
-              Hover over the dots in the river to see other users' status
-            </span>
-          )}
-        </div>
+            </Popover.Title>
+          </Popover>
+        </Overlay>
       </div>
     </div>
   );

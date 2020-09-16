@@ -53,7 +53,6 @@ class Events extends React.Component {
   }
 
   submitNewEntry(entry) {
-    console.log(entry);
     axios
       .post(`http://34.229.137.235:4444/events`, {
         title: entry.title,
@@ -76,11 +75,9 @@ class Events extends React.Component {
           };
           return event;
         });
-        console.log(events);
         this.setState({
           events: events,
         });
-        console.log(this.state.events);
       })
       .catch((err) => {
         console.log("error getting events: ", err);

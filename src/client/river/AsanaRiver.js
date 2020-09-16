@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AsanaChart from './AsanaChart.js';
 import '../stylesheets/river.scss';
 import axios from 'axios';
-import moment from 'moment';
-const host = 'http://34.229.137.235:4444';
+const host = '34.229.137.235:4444';
 const user = {
   user_id: 3,
   username: 'LLamber',
@@ -22,8 +21,9 @@ const AsanaRiver = () => {
 
   useEffect(() => {
     fetchUsersInAsana();
+    fetchChatStream();
   }, []);
-  console.log(allUsersInAsana);
+  //console.log(allUsersInAsana);
 
   /********************************************/
   /********** Fetch the Chat Stream! **********/
@@ -48,20 +48,27 @@ const AsanaRiver = () => {
   /********************************************/
   const handleSendChat = () => {
     //need to get current user as prop
+    if (chatInput === '') {
+      alert('Please enter something in your chat message!');
+      return ;
+    }
+
     axios({
       method: 'post',
       url: `http://${host}/asana-river/chat`,
       data: {
         currentUser: user.username,
         message: chatInput,
-        submitTime: moment(),
+        submitTime: Date.now()
       },
     })
       .then((res) => {
+        console.log(`Successfully posted chat!`);
         setChatInput('');
         fetchChatStream();
       })
       .catch((err) => {
+        console.log(`Error in posting chat:`, err);
         fetchChatStream();
         console.log(err);
       });
@@ -183,6 +190,7 @@ const AsanaRiver = () => {
       </div>
       <div className='practice-board-container'>
         <div className='practice-board'>
+        <div className='embed-container'>
           <iframe
             src='https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8'
             width='300'
@@ -191,6 +199,7 @@ const AsanaRiver = () => {
             allowtransparency='true'
             allow='encrypted-media'
           ></iframe>
+          </div>
           <h2>Tell us about today's practice</h2>
           <input
             className='practice-stream-input'
@@ -239,9 +248,9 @@ const AsanaRiver = () => {
 export default AsanaRiver;
 
 const mockStreamData = [
-  { user: 'nuri', post: 'Practicing vinyasa', postedAt: 'few seconds ago' },
-  { user: 'liam', post: 'Practicing hatha', postedAt: '2 minutes ago' },
-  { user: 'jeremy', post: 'Practicing bikram', postedAt: '5 minutes ago' },
+  { username: 'nuri', content: 'Practicing vinyasa', posted_at: '1600224408891' },
+  { username: 'liam', content: 'Practicing hatha', posted_at: '1600224418891' },
+  { username: 'jeremy', content: 'Practicing bikram', posted_at: '1600224508891' },
 ];
 
 const dummyUsers = [
