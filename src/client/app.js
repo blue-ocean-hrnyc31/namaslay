@@ -8,6 +8,7 @@ import {
   Route,
   Link,
   Redirect,
+  useLocation
 } from 'react-router-dom';
 import { Signup, Login, Logout, Admin } from './login/index.jsx';
 import { AuthContext, useAuth } from './login/auth';
@@ -25,7 +26,6 @@ const App = (props) => {
   const [isLoggedIn, setLogged] = useState(connectSID);
   const [isSignedUp, setSignup] = useState(false);
   const [user, setUser] = useState({});
-
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens }}>
       <Router>
