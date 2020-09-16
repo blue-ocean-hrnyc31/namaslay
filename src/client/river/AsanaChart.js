@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Overlay from 'react-bootstrap/Overlay';
 import Popover from 'react-bootstrap/Popover';
-import * as d3 from 'd3';
+import river from "../images/river.jpg";
 
 const generateDataset = (userList) =>
   Array(userList.length)
@@ -31,7 +31,6 @@ const AsanaChart = ({ allUsersInAsana }) => {
     id: '',
   });
 
-  //console.log(dataset);
 
   return (
     <div className='river-view-container'>
@@ -44,7 +43,18 @@ const AsanaChart = ({ allUsersInAsana }) => {
           ) : (
             <p></p>
           )}
-          <rect width='100%' height='100%' fill='black' />
+          <defs>
+            <clipPath id="rectView">
+            <rect width="100%" height="100%" fill="black" />
+            </clipPath>
+          </defs>
+          <image
+            width="100%"
+            height="100%"
+            href={river}
+            clip-path="url(#rectView)"
+            preserveAspectRatio="none"
+          ></image>
           {dataset.map(({ x, y, username, location, current_activity }, i) => (
             <>
               <defs>
@@ -58,19 +68,19 @@ const AsanaChart = ({ allUsersInAsana }) => {
                 >
                   <stop
                     offset='0%'
-                    stopColor='rgb(255,255,255)'
+                    stopColor="rgb(0,250,154)"
                     stopOpacity='1'
                   />
                   <stop
                     offset='100%'
-                    stopColor='rgb(0,0,255)'
+                    stopColor="rgb(0,0,154)"
                     stopOpacity='0'
                   />
                 </radialGradient>
               </defs>
 
               <circle
-                onMouseEnter={() => {
+                onMouseEnter={(e) => {
                   updateHovered({
                     isHovered: true,
                     username,
@@ -89,7 +99,7 @@ const AsanaChart = ({ allUsersInAsana }) => {
                 }}
                 cx={x}
                 cy={y}
-                r='1.3'
+                r='2'
                 fill='url(#grad1)'
               />
             </>
