@@ -70,7 +70,7 @@ const AsanaChart = ({ allUsersInAsana }) => {
               </defs>
 
               <circle
-                onMouseEnter={() => {
+                onMouseEnter={(e) => {
                   updateHovered({
                     isHovered: true,
                     username,
