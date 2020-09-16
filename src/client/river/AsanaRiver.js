@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import AsanaChart from "./AsanaChart.js";
-import "../stylesheets/river.scss";
-import axios from "axios"
-import moment from 'moment'
-const host = 'localhost:4444';
+import React, { useState, useEffect } from 'react';
+import AsanaChart from './AsanaChart.js';
+import '../stylesheets/river.scss';
+import axios from 'axios';
+import moment from 'moment';
+const host = 'http://34.229.137.235:4444';
 const user = {
   user_id: 3,
   username: 'LLamber',
@@ -158,8 +158,8 @@ const AsanaRiver = () => {
   };
 
   return (
-    <div className="practice-room-container">
-      <div className="chart-conatainer">
+    <div className='practice-room-container'>
+      <div className='chart-conatainer'>
         <AsanaChart allUsersInAsana={allUsersInAsana} />
         <br />
         <div className='center'>
