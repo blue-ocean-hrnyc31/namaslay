@@ -3,7 +3,7 @@ import AsanaChart from './AsanaChart.js';
 import '../stylesheets/river.scss';
 import axios from 'axios';
 import moment from 'moment';
-const host = 'http://34.229.137.235:4444';
+const host = '34.229.137.235:4444';
 const user = {
   user_id: 3,
   username: 'LLamber',
@@ -24,7 +24,7 @@ const AsanaRiver = () => {
     fetchUsersInAsana();
     fetchChatStream();
   }, []);
-  console.log(allUsersInAsana);
+  //console.log(allUsersInAsana);
 
   /********************************************/
   /********** Fetch the Chat Stream! **********/
