@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Chart from "./index";
+import AsanaChart from "./AsanaChart.js";
 import "../stylesheets/river.scss";
 import axios from "axios"
 import moment from 'moment'
@@ -164,7 +164,7 @@ const AsanaRiver = () => {
   return (
     <div className="practice-room-container">
       <div className="chart-conatainer">
-        <Chart allUsersInAsana={allUsersInAsana} />
+        <AsanaChart allUsersInAsana={allUsersInAsana} />
         <br />
         <div className="center">
           <input
