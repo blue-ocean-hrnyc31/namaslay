@@ -26,6 +26,8 @@ const App = (props) => {
   const [isLoggedIn, setLogged] = useState(connectSID);
   const [isSignedUp, setSignup] = useState(false);
   const [user, setUser] = useState({});
+  const [redirectPath, setRedirectPath] = useState('/');
+
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens }}>
       <Router>
@@ -49,6 +51,7 @@ const App = (props) => {
                 path='/login'
                 render={(props) => (
                   <Login
+                    redirectPath={redirectPath}
                     handleUser={setUser}
                     handleLog={setAuthTokens}
                     isLoggedIn={authTokens}
@@ -58,14 +61,18 @@ const App = (props) => {
               />
 
               <Route path='/signup' render={(props) => <Signup {...props} />} />
-
-              <Route path='/meditation-river'>
-                <MeditationRiver user={user} />
-              </Route>
-
-              <Route path='/asana-river'>
-                <AsanaRiver user={user} />
-              </Route>
+              <ProtectedRoute
+                component={MeditationRiver}
+                user={user}
+                handlePath={setRedirectPath}
+                path='/meditation-river'
+              />
+              <ProtectedRoute
+                component={AsanaRiver}
+                user={user}
+                handlePath={setRedirectPath}
+                path='/asana-river'
+              />
               <ProtectedRoute component={Admin} path='/admin' />
               <Route path='/logout'>
                 {!authTokens && <Redirect to='/' />}

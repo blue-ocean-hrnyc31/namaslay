@@ -36,15 +36,18 @@ class NewEventModal extends React.Component {
     });
   }
 
-  handleStartChange(event) {
+  handleStartChange(value) {
     this.setState({
-      start: event.target.value,
+      start: value
+    });
+    this.setState({
+      end: value
     });
   }
 
-  handleEndChange(event) {
+  handleEndChange(value) {
     this.setState({
-      end: event.target.value,
+      end: value
     });
   }
 
@@ -109,11 +112,11 @@ class NewEventModal extends React.Component {
             </Form.Group>
             <Form.Group>
               <Form.Label>Event starts</Form.Label>
-              <DateTimePicker value={this.state.start} />
+              <DateTimePicker value={this.state.start} onChange={this.handleStartChange} />
             </Form.Group>
             <Form.Group>
               <Form.Label>Event ends</Form.Label>
-              <DateTimePicker value={this.state.start} />
+              <DateTimePicker value={this.state.start} onChange={this.handleEndChange} />
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlTextarea1">
               <Form.Label>Event location</Form.Label>
