@@ -8,7 +8,7 @@ const LeaderBoard = (props) => {
   useEffect(() => {
     console.log('Mounting Leaderboard');
     axios
-      .get(`https://34.229.137.235:4444/leaders`)
+      .get(`http://34.229.137.235:4444/leaders`)
       .then((row) => {
         //console.log('Getting back data: ', row);
         // Set the new state with setLeader Function

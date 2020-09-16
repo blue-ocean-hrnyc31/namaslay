@@ -23,7 +23,7 @@ const AsanaRiver = ({ user }) => {
   const fetchChatStream = () => {
     axios({
       method: 'get',
-      url: `https://${host}/asana-river/chat`,
+      url: `http://${host}/asana-river/chat`,
     })
       .then(({ data }) => {
         console.log('Chat stream data:', data);
@@ -43,7 +43,7 @@ const AsanaRiver = ({ user }) => {
     // need to get current user as prop
     axios({
       method: 'post',
-      url: `https://${host}/asana-river/chat`,
+      url: `http://${host}/asana-river/chat`,
       data: {
         currentUser: 'Bob', // From props hopefully
         message: chatInput,
@@ -66,7 +66,7 @@ const AsanaRiver = ({ user }) => {
 
   const fetchUsersInAsana = () => {
     return axios
-      .get(`https://${host}/asana-river/users`)
+      .get(`http://${host}/asana-river/users`)
       .then(({ data }) => {
         setAllUsersInAsana(data);
       })
@@ -82,7 +82,7 @@ const AsanaRiver = ({ user }) => {
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
     return axios
-      .patch(`https://${host}/asana-river/user-enter/${user.user_id}`, {
+      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
         current_river: 'asana',
         activity: activityValue,
       })
@@ -98,7 +98,7 @@ const AsanaRiver = ({ user }) => {
   //when user exits, update the practiced time and reset the inAsana property to false in the user table in the database
   const handleUserExit = (practicedTime) => {
     return axios
-      .patch(`https://${host}/asana-river/user-enter/${user.user_id}`, {
+      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
         total_mins: practicedTime,
         current_river: null,
       })
