@@ -13,7 +13,8 @@ const Home = (props) => {
   useEffect(() => {
     countPracticing()
     .then((number) => {
-      setCurrentlyPracticing(number);
+      // console.log(number[0].count);
+      setCurrentlyPracticing(number[0].count);
     })
     .catch((err) => {
       console.error(err);
