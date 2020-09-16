@@ -19,6 +19,8 @@ class Login extends React.Component {
   }
 
   handleChange(e) {
+    console.log('history', this.props.history);
+    console.log('location', this.props.location);
     const name = e.target.name;
     const newState = { [name]: e.target.value };
     this.setState(newState);
@@ -29,8 +31,12 @@ class Login extends React.Component {
     logIn(this.state.username, this.state.password, this.props.handleUser)
       .then((status) => {
         if (status === 200) {
-          this.props.handleLog(true); // set app logged in state to true
-          this.props.history.push('/');
+          this.props.handleLog(true);
+          console.log('history', this.props.history);
+          console.log('history.length', this.props.history.length);
+          // set app logged in state to true
+          this.props.history.push(this.props.redirectPath);
+          // this.props.history.goBack();
         } else {
           this.setState({ error: true });
         }
