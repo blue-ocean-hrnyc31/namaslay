@@ -2,7 +2,7 @@ import axios from 'axios';
 
 function logIn(username, password, handleUser) {
   return axios
-    .post('http://localhost:3000/login', {
+    .post('/login', {
       username,
       password,
     })

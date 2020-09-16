@@ -11,20 +11,17 @@ import {
   useLocation
 } from 'react-router-dom';
 import { Signup, Login, Logout, Admin } from './login/index.jsx';
-import Chart from './river/index.js';
 import { AuthContext, useAuth } from './login/auth';
 import ProtectedRoute from './login/protectedRoute';
 import Home from './Home.js';
 import MeditationRiver from './river/MeditationRiver.js';
 import AsanaRiver from './river/AsanaRiver.js';
 import About from './about';
-import ScrollToTop from "./ScrollToTop.js";
-import Menu from "./Menu";
+import ScrollToTop from './ScrollToTop.js';
+import Menu from './Menu';
 
 const App = (props) => {
-  // const [cookies, removeCookie] = useCookies();
-  // const connectSID = cookies['connect.sid'] || false;
-  const connectSID = document.cookie.includes("connect.sid") || false;
+  const connectSID = document.cookie.includes('connect.sid') || false;
   const [authTokens, setAuthTokens] = useState(connectSID);
   const [isLoggedIn, setLogged] = useState(connectSID);
   const [isSignedUp, setSignup] = useState(false);
@@ -33,23 +30,23 @@ const App = (props) => {
     <AuthContext.Provider value={{ authTokens, setAuthTokens }}>
       <Router>
         <ScrollToTop />
-        <div className="grid-container">
+        <div className='grid-container'>
           <header></header>
           <Menu authTokens={authTokens} />
-          <div className="content">
+          <div className='content'>
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/about">
+              <Route exact path='/' component={Home} />
+              <Route path='/about'>
                 <About />
               </Route>
-              <Route path="/leaderboard">
+              <Route path='/leaderboard'>
                 <LeaderBoard />
               </Route>
-              <Route path="/bulletinboard">
+              <Route path='/bulletinboard'>
                 <Events />
               </Route>
               <Route
-                path="/login"
+                path='/login'
                 render={(props) => (
                   <Login
                     handleUser={setUser}
@@ -60,7 +57,7 @@ const App = (props) => {
                 )}
               />
 
-              <Route path="/signup" render={(props) => <Signup {...props} />} />
+              <Route path='/signup' render={(props) => <Signup {...props} />} />
 
               <Route path='/meditation-river'>
                 <MeditationRiver user={user} />
@@ -69,11 +66,9 @@ const App = (props) => {
               <Route path='/asana-river'>
                 <AsanaRiver user={user} />
               </Route>
-              <ProtectedRoute component={Admin} path="/admin" />
-              <Route path="/logout">
-                {(!authTokens || authTokens === "undefined") && (
-                  <Redirect to="/" />
-                )}
+              <ProtectedRoute component={Admin} path='/admin' />
+              <Route path='/logout'>
+                {!authTokens && <Redirect to='/' />}
                 <Logout setAuthTokens={setAuthTokens} />
               </Route>
             </Switch>

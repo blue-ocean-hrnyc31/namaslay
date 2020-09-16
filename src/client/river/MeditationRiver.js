@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Chart from "./index";
+import MeditationChart from "./MeditationChart.js";
 import "../stylesheets/river.scss";
 import axios from "axios"
 import moment from 'moment'
@@ -154,7 +154,7 @@ const MeditationRiver = ({user}) => {
   return (
     <div className="practice-room-container">
       <div className="chart-conatainer">
-        <Chart allUsersInMeditation={allUsersInMeditation} />
+        <MeditationChart allUsersInMeditation={dummyUsers} />
         <br />
         <div className="center">
           <input
