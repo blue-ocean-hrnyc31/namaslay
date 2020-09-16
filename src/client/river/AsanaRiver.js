@@ -239,9 +239,9 @@ const AsanaRiver = () => {
 export default AsanaRiver;
 
 const mockStreamData = [
-  { user: 'nuri', post: 'Practicing vinyasa', postedAt: 'few seconds ago' },
-  { user: 'liam', post: 'Practicing hatha', postedAt: '2 minutes ago' },
-  { user: 'jeremy', post: 'Practicing bikram', postedAt: '5 minutes ago' },
+  { username: 'nuri', content: 'Practicing vinyasa', posted_at: 'few seconds ago' },
+  { username: 'liam', content: 'Practicing hatha', posted_at: '2 minutes ago' },
+  { username: 'jeremy', content: 'Practicing bikram', posted_at: '5 minutes ago' },
 ];
 
 const dummyUsers = [
