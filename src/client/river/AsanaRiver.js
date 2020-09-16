@@ -4,20 +4,21 @@ import "../stylesheets/river.scss";
 import axios from "axios"
 import moment from 'moment'
 const host = 'localhost:4444';
-
-const AsanaRiver = ({user}) => {
+const user = {user_id: 3, username: 'LLamber', location: 'New Jersey', current_activity: null, current_river: null, total_mins: 800}
+const AsanaRiver = () => {
   const [chatInput, setChatInput] = useState('')
   const [chatStream, setChatStream] = useState([])
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [allUsersInAsana, setAllUsersInAsana] = useState(dummyUsers);
+  const [allUsersInAsana, setAllUsersInAsana] = useState([]);
   const [activityValue, setActivityValue] = useState("");
 
 
-  // useEffect(() => {
-  //   fetchUsersInAsana();
-  // }, []);
-
+  useEffect(() => {
+    fetchUsersInAsana();
+    fetchChatStream();
+  },[]);
+  console.log(allUsersInAsana);
 
   /********************************************/
   /********** Fetch the Chat Stream! **********/
@@ -43,17 +44,46 @@ const AsanaRiver = ({user}) => {
   const handleSendChat = () => {
     // Might need to pass chat in for when user enters River
     // need to get current user as prop
+    if (chatInput === '') {
+      alert('Please enter something in your chat message!');
+      return ;
+    }
+
     axios({
       method: 'post',
       url: `http://${host}/asana-river/chat`,
       data: {
-        currentUser: 'Bob', // From props hopefully
+        currentUser: user.username,
         message: chatInput,
-        submitTime: moment()
+        submitTime: Date.now()
       }
     })
     .then(res => {
+      console.log(`Successfully posted chat!`);
       setChatInput('')
+      fetchChatStream();
+    })
+    .catch(err => {
+      console.log(`Error in posting chat!`);
+      fetchChatStream();
+      console.log(err)
+    })
+  }
+
+  /********************************************/
+  /**** Post User entrance to Chat Stream! ****/
+  /********************************************/
+  const handleSendChatUserEntrance = () => {
+    axios({
+      method: 'post',
+      url: `http://${host}/asana-river/chat`,
+      data: {
+        currentUser: user.username,
+        message: 'Just entered the Asana River',
+        submitTime: Date.now()
+      }
+    })
+    .then(res => {
       fetchChatStream();
     })
     .catch(err => {
@@ -62,14 +92,14 @@ const AsanaRiver = ({user}) => {
     })
   }
 
-
   /********************************************/
   /****** Fetch all Users in the River! *******/
   /********************************************/
 
     const fetchUsersInAsana = () => {
+      const river='asana'
       return axios
-        .get(`http://${host}/asana-river/users`)
+        .get(`http://${host}/asana-river/users/${river}`)
         .then(({ data }) => {
           setAllUsersInAsana(data);
         })
@@ -86,13 +116,14 @@ const AsanaRiver = ({user}) => {
   //when user enters, set the inAsana property to true and update the  activity in the user table in the database
   const handleUserEnter = () => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
+      .put(`http://${host}/asana-river/user/${user.user_id}`, {
         current_river: "asana",
-        activity: activityValue,
+        current_activity: activityValue
       })
       .then(() => {
         console.log("Successfully updated.");
         setActivityValue('')
+        fetchUsersInAsana();
       })
       .catch((err) => {
         console.log(err);
@@ -102,30 +133,31 @@ const AsanaRiver = ({user}) => {
   //when user exits, update the practiced time and reset the inAsana property to false in the user table in the database
   const handleUserExit = (practicedTime) => {
     return axios
-      .patch(`http://${host}/asana-river/user-enter/${user.user_id}`, {
+      .put(`http://${host}/asana-river/user/${user.user_id}`, {
         total_mins: practicedTime,
         current_river: null,
+        current_activity: null,
       })
       .then(() => {
         console.log("Successfully updated.");
+        fetchUsersInAsana();
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  //when start/end practice button is clicked, start/stop the timer, reset inRiver status for button rendering logic, handles user exit/enter, and refreshes the users in the river.
+  //when start/end practice button is clicked, start/stop the timer, reset inRiver status for button rendering logic, handles user exit/enter, send message to the chat stream, and refreshes the users in the river.
   const handleClickPractice = () => {
     if (inRiver) {
       let practicedTime = Math.round((Date.now() - startTime) / 60000);
       setInRiver(false);
       handleUserExit(practicedTime);
-      fetchUsersInAsana();
     } else {
       setInRiver(true);
       setStartTime(Date.now());
       handleUserEnter();
-      fetchUsersInAsana();
+      handleSendChatUserEntrance()
     }
   };
 
@@ -170,17 +202,31 @@ const AsanaRiver = ({user}) => {
       <button onClick={handleSendChat}>Submit</button>
       <br/><br/>
       <div>
-        {chatStream.length ?
-        chatStream.map(post => {
+        {chatStream.map((post, ind) => {
+          let secondsAgo = Math.floor((Date.now() - post.posted_at) / 1000) + 1;
+          let timeAgo;
+
+          if (secondsAgo < 60) {
+            timeAgo = secondsAgo + ' seconds ago';
+          } else if (secondsAgo >= 60 && secondsAgo < 3600) {
+            timeAgo = Math.floor(secondsAgo / 60) + ' minutes ago';
+          } else {
+            timeAgo = Math.floor(secondsAgo / 3600) + ' hours ago';
+          }
           return (
-            <div className='practice-stream'>
-             {post.user}: {post.content} <span style={{fontSize:'0.2em'}}>{post.postedAt}</span>
-             <br/>
+            <div
+              className='practice-stream'
+              key={ind}
+            >
+             {post.username}: {post.content}
+             {" "}
+              <span style={{fontSize:'0.2em'}}>
+               {timeAgo}
+              </span>
+            <br/>
             </div>
           )
-        })
-        :<></>
-      }
+        })}
         </div>
       </div>
     </div>
@@ -191,9 +237,9 @@ const AsanaRiver = ({user}) => {
 export default AsanaRiver;
 
 const mockStreamData = [
-  { user: "nuri", content: "Practicing vinyasa", postedAt: "few seconds ago" },
-  { user: "liam", content: "Practicing hatha", postedAt: "2 minutes ago" },
-  { user: "jeremy", content: "Practicing bikram", postedAt: "5 minutes ago" },
+  { username: "nuri", content: "Practicing vinyasa", posted_at: "few seconds ago" },
+  { username: "liam", content: "Practicing hatha", posted_at: "2 minutes ago" },
+  { username: "jeremy", content: "Practicing bikram", posted_at: "5 minutes ago" },
 ];
 
 const dummyUsers = [
