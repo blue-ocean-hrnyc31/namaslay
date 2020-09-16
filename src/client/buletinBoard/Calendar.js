@@ -1,13 +1,13 @@
-import React from "react";
-import Event from "./Event.js";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import "../stylesheets/events.scss";
-import axios from "axios";
-import NewEventModal from "./NewEventModal.js";
+import React from 'react';
+import Event from './Event.js';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import '../stylesheets/events.scss';
+import axios from 'axios';
+import NewEventModal from './NewEventModal.js';
 //sample data
-import data from "./data.js";
+import data from './data.js';
 const localizer = momentLocalizer(moment);
 
 class Events extends React.Component {
@@ -49,7 +49,7 @@ class Events extends React.Component {
         console.log(this.state.events);
       })
       .catch((err) => {
-        console.log("error getting events: ", err);
+        console.log('error getting events: ', err);
       });
   }
 
@@ -65,10 +65,10 @@ class Events extends React.Component {
         host: entry.event_host,
       })
       .then(() => {
-        console.log("new entry posted successfully!");
+        console.log('new entry posted successfully!');
       })
       .catch((err) => {
-        console.log("error submitting new entry: ", err);
+        console.log('error submitting new entry: ', err);
       });
   }
 
@@ -79,7 +79,7 @@ class Events extends React.Component {
   render() {
     return (
       <>
-        <div className="calendar">
+        <div className='calendar'>
           <Calendar
             localizer={localizer}
             defaultDate={new Date()}
@@ -90,7 +90,7 @@ class Events extends React.Component {
               this.setState({ selectedEvent: selected })
             }
           />
-          <button className="add-event" onClick={() => this.setModalShow(true)}>
+          <button className='add-event' onClick={() => this.setModalShow(true)}>
             New Event
           </button>
           <NewEventModal
@@ -99,7 +99,7 @@ class Events extends React.Component {
             submitNewEntry={this.submitNewEntry}
           />
         </div>
-        <div className="event-container">
+        <div className='event-container'>
           <Event selectedEvent={this.state.selectedEvent} />
         </div>
       </>

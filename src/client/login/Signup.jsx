@@ -38,24 +38,39 @@ class Signup extends React.Component {
         error: 'passwords do not match',
       });
     }
-    const { firstName,
+    const {
+      firstName,
       lastName,
       username,
       password,
       email,
       location,
       travel,
-      certification } = this.state;
+      certification,
+    } = this.state;
 
     const travelsArr = travel.split(', ');
     console.log(travelsArr);
 
-    signUp(firstName, lastName, username, password, email, location, travelsArr, certification)
+    signUp(
+      firstName,
+      lastName,
+      username,
+      password,
+      email,
+      location,
+      travelsArr,
+      certification
+    )
       .then((response) => {
         if (response.status === 201) {
           // HANDLE SUCCESSFUL SIGNUP
           this.props.history.push('/login');
         } else {
+          console.log(
+            'error occured while signing up:',
+            err.response.data.error
+          );
           this.setState({
             error: response.data.error,
           });
@@ -63,7 +78,7 @@ class Signup extends React.Component {
       })
       .catch((err) => {
         // HANDLE ERROR SIGNUP
-        // console.log(err.response.data);
+        console.log('error occured while signing up:', err.response.data);
         this.setState({
           error: err.response.data.error,
         });
@@ -191,4 +206,3 @@ class Signup extends React.Component {
 }
 
 export default Signup;
-

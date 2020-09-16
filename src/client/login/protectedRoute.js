@@ -11,11 +11,7 @@ const ProtectedRoute = ({ component: Component, isLoggedIn, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        authTokens && authTokens !== 'undefined' ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to='/login' />
-        )
+        authTokens ? <Component {...props} /> : <Redirect to='/login' />
       }
     />
   );
