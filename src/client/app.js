@@ -8,7 +8,7 @@ import {
   Route,
   Link,
   Redirect,
-  useLocation
+  useLocation,
 } from 'react-router-dom';
 import { Signup, Login, Logout, Admin } from './login/index.jsx';
 import { AuthContext, useAuth } from './login/auth';
@@ -34,7 +34,7 @@ const App = (props) => {
         <ScrollToTop />
         <div className='grid-container'>
           <header></header>
-          <Menu authTokens={authTokens} />
+          <Menu authTokens={authTokens} setAuthTokens={setAuthTokens} />
           <div className='content'>
             <Switch>
               <Route exact path='/' component={Home} />
