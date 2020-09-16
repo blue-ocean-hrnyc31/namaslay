@@ -28,7 +28,7 @@ class Events extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`https://34.229.137.235:4444/events`)
+      .get(`http://34.229.137.235:4444/events`)
       .then(({ data }) => {
         let events = data.reduce((acc, cur) => {
           let obj = {
@@ -55,7 +55,7 @@ class Events extends React.Component {
 
   submitNewEntry(entry) {
     axios
-      .post(`https://34.229.137.235:4444/events`, {
+      .post(`http://34.229.137.235:4444/events`, {
         title: entry.title,
         description: entry.description,
         start: entry.start,
