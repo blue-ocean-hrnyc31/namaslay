@@ -204,19 +204,31 @@ const AsanaRiver = () => {
           <br />
           <br />
           <div>
-            {chatStream.length ? (
-              chatStream.map((post) => {
-                return (
-                  <div className='practice-stream'>
-                    {post.user}: {post.post}{' '}
-                    <span style={{ fontSize: '0.2em' }}>{post.postedAt}</span>
-                    <br />
-                  </div>
-                );
-              })
-            ) : (
-              <></>
-            )}
+            {chatStream.map((post, ind) => {
+              let secondsAgo = Math.floor((Date.now() - post.posted_at) / 1000) + 1;
+              let timeAgo;
+
+              if (secondsAgo < 60) {
+                timeAgo = secondsAgo + ' seconds ago';
+              } else if (secondsAgo >= 60 && secondsAgo < 3600) {
+                timeAgo = Math.floor(secondsAgo / 60) + ' minutes ago';
+              } else {
+                timeAgo = Math.floor(secondsAgo / 3600) + ' hours ago';
+              }
+              return (
+                  <div
+                  className='practice-stream'
+                  key={ind}
+                >
+                {post.username}: {post.content}
+                {" "}
+                  <span style={{fontSize:'0.2em'}}>
+                  {timeAgo}
+                  </span>
+                <br/>
+                </div>
+              )})
+            }
           </div>
         </div>
       </div>
