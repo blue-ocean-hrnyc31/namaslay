@@ -4,18 +4,27 @@ import "../stylesheets/river.scss";
 import axios from "axios"
 import moment from 'moment'
 const host = 'localhost:4444';
+const user = {
+  user_id: 1,
+  username: 'jSmith',
+  location: 'New York City',
+  current_activity: null,
+  current_river: null,
+  total_mins: 430,
+};
 
 const MeditationRiver = ({user}) => {
   const [chatInput, setChatInput] = useState('')
   const [chatStream, setChatStream] = useState([])
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);
-  const [allUsersInMeditation, setAllUsersInMeditation] = useState(dummyUsers);
+  const [allUsersInMeditation, setAllUsersInMeditation] = useState([]);
   const [activityValue, setActivityValue] = useState("");
 
-   // useEffect(() => {
-  //   fetchUsersInMeditation();
-  // }, []);
+   useEffect(() => {
+    fetchUsersInMeditation()
+    fetchChatStream()
+  }, []);
 
 
   /********************************************/
@@ -70,7 +79,7 @@ const MeditationRiver = ({user}) => {
       data: {
         currentUser: user.username,
         message: 'Just entered the Asana River',
-        submitTime: moment()
+        submitTime: Date.now(),
       }
     })
     .then(res => {
@@ -113,6 +122,7 @@ const MeditationRiver = ({user}) => {
       .then(() => {
         console.log("Successfully updated.");
         setActivityValue('')
+        fetchUsersInMeditation();
       })
       .catch((err) => {
         console.log(err);
@@ -129,6 +139,7 @@ const MeditationRiver = ({user}) => {
       })
       .then(() => {
         console.log("Successfully updated.");
+        fetchUsersInMeditation();
       })
       .catch((err) => {
         console.log(err);
@@ -141,12 +152,10 @@ const MeditationRiver = ({user}) => {
       let practicedTime = Math.round((Date.now() - startTime) / 60000);
       setInRiver(false);
       handleUserExit(practicedTime);
-      fetchUsersInMeditation();
     } else {
       setInRiver(true);
       setStartTime(Date.now());
       handleUserEnter();
-      fetchUsersInMeditation();
       handleSendChatUserEntrance()
     }
   };
@@ -154,7 +163,7 @@ const MeditationRiver = ({user}) => {
   return (
     <div className="practice-room-container">
       <div className="chart-conatainer">
-        <MeditationChart allUsersInMeditation={dummyUsers} />
+        <MeditationChart allUsersInMeditation={allUsersInMeditation} />
         <br />
         <div className="center">
           <input
