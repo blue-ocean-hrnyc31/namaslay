@@ -65,16 +65,14 @@ const App = (props) => {
                 component={MeditationRiver}
                 user={user}
                 handlePath={setRedirectPath}
-                redirectPath={redirectPath}
                 path='/meditation-river'
               />
-              {/* <Route path='/meditation-river'>
-                <MeditationRiver user={user} />
-              </Route> */}
-
-              <Route path='/asana-river'>
-                <AsanaRiver user={user} />
-              </Route>
+              <ProtectedRoute
+                component={AsanaRiver}
+                user={user}
+                handlePath={setRedirectPath}
+                path='/asana-river'
+              />
               <ProtectedRoute component={Admin} path='/admin' />
               <Route path='/logout'>
                 {!authTokens && <Redirect to='/' />}
