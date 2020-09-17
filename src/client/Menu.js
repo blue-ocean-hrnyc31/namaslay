@@ -13,7 +13,7 @@ const Menu = (props) => {
       }
     });
   };
-  if (path !== '/') {
+  if (path === '/') {
     return (
       <div id='menu-wrapper'>
         <div className='menu'>
