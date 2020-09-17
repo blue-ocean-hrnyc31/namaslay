@@ -5,7 +5,7 @@ import axios from 'axios';
 import moment from 'moment';
 import Timer from 'react-compound-timer';
 
-const host = '34.229.137.235:4444';
+const host = 'localhost:4444';
 const user = {
   user_id: 1,
   username: 'jSmith',
