@@ -13,7 +13,7 @@ const user = {
   current_river: null,
   total_mins: 800,
 };
-const AsanaRiver = ({ user }) => {
+const AsanaRiver = () => {
   const [chatInput, setChatInput] = useState('');
   const [chatStream, setChatStream] = useState([]);
   const [inRiver, setInRiver] = useState(false);
@@ -22,11 +22,17 @@ const AsanaRiver = ({ user }) => {
   const [activityValue, setActivityValue] = useState('');
   const [displayTimer, setDisplayTimerVis] = useState(true);
 
-  console.log('Asana user', user);
+  const user = JSON.parse(window.localStorage.getItem('user'));
+  console.log('Asana user', user.username);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      fetchChatStream();
+    }, 1000);
+
     fetchUsersInAsana();
-    fetchChatStream();
+
+    return () => clearInterval(interval);
   }, []);
   //console.log(allUsersInAsana);
 
@@ -88,7 +94,29 @@ const AsanaRiver = ({ user }) => {
       url: `http://${host}/asana-river/chat`,
       data: {
         currentUser: user.username || 'Unknown',
-        message: 'Just entered the Asana River',
+        message: ' entered the Asana River',
+        submitTime: Date.now(),
+      },
+    })
+      .then((res) => {
+        fetchChatStream();
+      })
+      .catch((err) => {
+        fetchChatStream();
+        console.log(err);
+      });
+  };
+
+  /********************************************/
+  /****** Post User Exit to Chat Stream! ******/
+  /********************************************/
+  const handleSendChatUserExit = () => {
+    axios({
+      method: 'post',
+      url: `http://${host}/asana-river/chat`,
+      data: {
+        currentUser: user.username || 'Unknown',
+        message: ' left the Asana River',
         submitTime: Date.now(),
       },
     })
@@ -161,6 +189,7 @@ const AsanaRiver = ({ user }) => {
       let practicedTime = Math.round((Date.now() - startTime) / 60000);
       setInRiver(false);
       handleUserExit(practicedTime);
+      handleSendChatUserExit();
     } else {
       setInRiver(true);
       setStartTime(Date.now());
@@ -222,16 +251,6 @@ const AsanaRiver = ({ user }) => {
             ></iframe>
           </div>
           <h2>Tell us about today's practice</h2>
-          <input
-            className='practice-stream-input'
-            type='text'
-            value={chatInput}
-            onChange={(e) => {
-              setChatInput(e.target.value);
-            }}
-          ></input>
-          <button onClick={handleSendChat}>Submit</button>
-          <br />
           <br />
           <div className='chat-container'>
             {chatStream.map((post, ind) => {
@@ -257,13 +276,22 @@ const AsanaRiver = ({ user }) => {
                   >
                     {post.username}
                   </span>
-                  : {post.content}{' '}
+                  : {post.content}{' - '}
                   <span style={{ fontSize: '0.2em' }}>{timeAgo}</span>
                   <br />
                 </div>
               );
             })}
           </div>
+          <input
+            className='practice-stream-input'
+            type='text'
+            value={chatInput}
+            onChange={(e) => {
+              setChatInput(e.target.value);
+            }}
+          ></input>
+          <button onClick={handleSendChat}>Submit</button>
         </div>
       </div>
     </div>
