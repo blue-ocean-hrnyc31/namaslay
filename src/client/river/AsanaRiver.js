@@ -58,7 +58,7 @@ const AsanaRiver = ({user}) => {
       method: 'post',
       url: `http://${host}/asana-river/chat`,
       data: {
-        currentUser: user.username,
+        currentUser: user.username || 'Unknown',
         message: chatInput,
         submitTime: Date.now()
       },
@@ -83,7 +83,7 @@ const AsanaRiver = ({user}) => {
       method: 'post',
       url: `http://${host}/asana-river/chat`,
       data: {
-        currentUser: user.username,
+        currentUser: user.username || 'Unknown',
         message: 'Just entered the Asana River',
         submitTime: Date.now(),
       },
@@ -213,7 +213,7 @@ const AsanaRiver = ({user}) => {
           <button onClick={handleSendChat}>Submit</button>
           <br />
           <br />
-          <div>
+          <div className='chat-container'>
             {chatStream.map((post, ind) => {
               let secondsAgo = Math.floor((Date.now() - post.posted_at) / 1000) + 1;
               let timeAgo;
@@ -230,7 +230,12 @@ const AsanaRiver = ({user}) => {
                   className='practice-stream'
                   key={ind}
                 >
-                {post.username}: {post.content}
+                <span style={{
+                  fontWeight: 'bold',
+                  fontSize: '20px',
+                  textDecoration: 'underline'}}>
+                  {post.username}
+                </span>: {post.content}
                 {" "}
                   <span style={{fontSize:'0.2em'}}>
                   {timeAgo}
