@@ -28,11 +28,9 @@ class Events extends React.Component {
   }
 
   componentDidMount() {
-    console.log('getting dates...');
     axios
       .get(`http://34.229.137.235:4444/events`)
       .then(({ data }) => {
-        console.log('data received...');
         let events = data.reduce((acc, cur) => {
           let obj = {
             title: cur.title,
@@ -48,7 +46,6 @@ class Events extends React.Component {
         this.setState({
           events: events,
         });
-        console.log('events: ', this.state.events);
       })
       .catch((err) => {
         console.log("error getting events: ", err);
@@ -66,7 +63,6 @@ class Events extends React.Component {
         host: entry.event_host,
       })
       .then(({ data }) => {
-        console.log(data);
         let events = data.map((event) => {
           event = {
             title: event.title,
@@ -94,8 +90,9 @@ class Events extends React.Component {
   render() {
     return (
       <>
-        <div className="calendar">
+        <div className="calendar-container">
           <Calendar
+            className="calendar"
             selectable
             localizer={localizer}
             defaultDate={new Date()}
@@ -113,7 +110,7 @@ class Events extends React.Component {
             startAccessor="startDate"
             endAccessor="endDate"
           />
-          {this.props.isLoggedIn ? (
+          {this.props.isUserLogged ? (
             <button
               className="add-event"
               onClick={() => this.setModalShow(true)}
@@ -127,9 +124,9 @@ class Events extends React.Component {
             onHide={() => this.setModalShow(false)}
             submitNewEntry={this.submitNewEntry}
           />
-        </div>
-        <div className="event-container">
-          <Event selectedEvent={this.state.selectedEvent} />
+          <div className="event-container">
+            <Event selectedEvent={this.state.selectedEvent} />
+          </div>
         </div>
       </>
     );
