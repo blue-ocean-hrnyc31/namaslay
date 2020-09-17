@@ -37,14 +37,17 @@ const Home = (props) => {
         <img src={asanaCircle} alt="woman practicing yoga" width="300px"></img>
       </div>
       <div className="D">
-        THIS IS WHERE INFO ABOUT MEDITATION WILL GO. THIS IS WHERE INFO ABOUT
-        MEDITATION WILL GO. THIS IS WHERE INFO ABOUT MEDITATION WILL GO. THIS IS
-        WHERE INFO ABOUT MEDITATION WILL GO.
+        <p>
+          Meditation is a practice where an individual uses a technique to train attention and awareness, and achieve a mentally
+          clear and emotionally calm and stable state.
+        </p>
       </div>
       <div className="E">
-        THIS IS WHERE INFO ABOUT ASANA WILL GO. THIS IS WHERE INFO ABOUT ASANA
-        WILL GO. THIS IS WHERE INFO ABOUT ASANA WILL GO. THIS IS WHERE INFO
-        ABOUT ASANA WILL GO. THIS IS WHERE INFO ABOUT ASANA WILL GO.
+        <p>
+          An asana is a body posture, originally and still a general term for a
+          sitting meditation pose, and later extended in modern
+          yoga as exercise, to any type of pose or position.
+        </p>
       </div>
       <Link to="/meditation-river">
         <div className="F">Step into the Meditation River</div>
