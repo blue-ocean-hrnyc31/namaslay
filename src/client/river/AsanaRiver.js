@@ -18,7 +18,7 @@ const AsanaRiver = ({user}) => {
   const [startTime, setStartTime] = useState(0);
   const [allUsersInAsana, setAllUsersInAsana] = useState([]);
   const [activityValue, setActivityValue] = useState('');
-  console.log('Asana user', user);
+  console.log('Asana user', window.localStorage.getItem('user'));
 
   useEffect(() => {
     fetchUsersInAsana();
