@@ -8,6 +8,13 @@
     text-align: center;
     padding-top: 5px;
   }
+  .D,
+  .E {
+    padding: 2%;
+    p {
+      font-size: 30px;
+    }
+  }
   .A,
   .D,
   .E,
@@ -17,8 +24,8 @@
   }
   .F,
   .G {
+    padding: 2%;
     background-color: white;
-    width: 50%;
     left: 30%;
     width: 50%;
     margin: auto;
@@ -30,8 +37,10 @@
     background-color: lightblue;
   }
   .A {
+    padding: 2%;
     font-size: 25px;
     width: 80%;
+    line-height: 150%;
     margin: auto;
     grid-column: 1 / 3;
     grid-row: 1 / 3;
