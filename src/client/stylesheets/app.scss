@@ -1,3 +1,4 @@
+$font-stack: "Montserrat", sans-serif;
 html,
 body,
 #app {
@@ -5,6 +6,10 @@ body,
   padding: 0;
   height: 100%;
 }
+#root {
+  font: 100% $font-stack;
+}
+
 .grid-container {
   height: 100%;
   display: grid;
@@ -12,13 +17,13 @@ body,
   grid-template-rows: 1fr 0.5fr 5fr;
   gap: 1px 1px;
   grid-template-areas:
-    'header . . .'
-    'menu . . .'
-    'content . . .';
+    "header . . ."
+    "menu . . ."
+    "content . . .";
 }
 header {
   min-height: 20vh;
-  background-image: url('../images/logo.png');
+  background-image: url("../images/logo.png");
   background-repeat: no-repeat;
   background-position: center;
   grid-area: header;
@@ -42,16 +47,10 @@ header {
 // }
 
 .content {
-  background-image: url('../images/backgroung.jpg');
+  background-image: url("../images/backgroung.jpg");
   opacity: 70%;
   min-height: 50vh;
   grid-area: content;
   padding: 30px;
   grid-template-columns: 1fr 1fr;
-}
-
-h1 {
-  font: {
-    family: 'Papyrus', sans-serif;
-  }
 }
