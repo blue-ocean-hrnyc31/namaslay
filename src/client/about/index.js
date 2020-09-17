@@ -4,7 +4,6 @@ import Jeremy from "../images/jeremy.png";
 import Shannon from "../images/shannon.jpg";
 import Mike from "../images/mike.jpg";
 
-
 const About = (props) => {
   return (
     <div>
@@ -24,21 +23,26 @@ const About = (props) => {
         </div>
         <div className="D">
           <div>
-            <img src={Jeremy} alt="individual" width="80px"></img>{"  "}
+            <img src={Jeremy} alt="individual" width="80px"></img>
+            {"  "}
             <p>INFO ABOUT THIS PERSON</p>
           </div>
           <div>
-            <img src={Shannon} alt="woman" width="80px"></img>{"  "}
+            <img src={Shannon} alt="woman" width="80px"></img>
+            {"  "}
             <p>INFO ABOUT THIS PERSON</p>
           </div>
           <div>
-            <img src={Mike} alt="man" width="80px"></img>{"  "}
+            <img src={Mike} alt="man" width="80px"></img>
+            {"  "}
             <p>INFO ABOUT THIS PERSON</p>
           </div>{" "}
         </div>
       </div>
       <div className="aboutFooter">
-        <h2>"Yoga does not just change the way we see things, it transforms the person who sees."<br/>- B.K.S. lyengar</h2>
+        "Yoga does not just change the way we see things, it transforms the
+        person who sees."
+        <br />- B.K.S. lyengar
       </div>
     </div>
   );
