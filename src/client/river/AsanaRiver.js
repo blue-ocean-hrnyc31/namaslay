@@ -11,13 +11,14 @@ const user = {
   current_river: null,
   total_mins: 800,
 };
-const AsanaRiver = () => {
+const AsanaRiver = ({user}) => {
   const [chatInput, setChatInput] = useState('');
   const [chatStream, setChatStream] = useState([]);
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [allUsersInAsana, setAllUsersInAsana] = useState([]);
   const [activityValue, setActivityValue] = useState('');
+  console.log('Asana user', user);
 
   useEffect(() => {
     fetchUsersInAsana();
