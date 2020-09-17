@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../stylesheets/leaderboard.scss";
+import { useLocation } from "react-router-dom";
 
 const LeaderBoard = (props) => {
   const [leaders, setLeaders] = useState(dummyData);
-
   useEffect(() => {
     getLeaderBoardInfo();
-    setInterval(() => {
+    const interval = setInterval(() => {
       getLeaderBoardInfo();
-    }, 60000);
+    }, 6000);
+    return () => clearInterval(interval);
   }, []);
   function getLeaderBoardInfo() {
     console.log("Updating Leaderboard");
@@ -68,16 +69,16 @@ const LeaderBoard = (props) => {
 
   return (
     <div>
-        <table>
-          <tbody>
+      <table>
+        <tbody>
           <tr className="topRow">
-              <th className="levelEntry">Level</th>
-              <th className="nameEntry">User</th>
-              <th className="visitEntry">Times Meditated</th>
-              <th className="minsEntry">Total Time</th>
-            </tr>
-          </tbody>
-        </table>
+            <th className="levelEntry">Level</th>
+            <th className="nameEntry">User</th>
+            <th className="visitEntry">Times Meditated</th>
+            <th className="minsEntry">Total Time</th>
+          </tr>
+        </tbody>
+      </table>
       <div className="leaderboard">
         <table>
           <tbody>

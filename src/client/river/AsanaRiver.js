@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import AsanaChart from './AsanaChart.js';
 import '../stylesheets/river.scss';
 import axios from 'axios';
-import moment from 'moment';
 const host = '34.229.137.235:4444';
 const user = {
   user_id: 3,
@@ -191,6 +190,7 @@ const AsanaRiver = () => {
       </div>
       <div className='practice-board-container'>
         <div className='practice-board'>
+        <div className='embed-container'>
           <iframe
             src='https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8'
             width='300'
@@ -199,6 +199,7 @@ const AsanaRiver = () => {
             allowtransparency='true'
             allow='encrypted-media'
           ></iframe>
+          </div>
           <h2>Tell us about today's practice</h2>
           <input
             className='practice-stream-input'

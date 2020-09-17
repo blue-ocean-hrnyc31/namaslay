@@ -45,7 +45,7 @@ const App = (props) => {
                 <LeaderBoard />
               </Route>
               <Route path='/bulletinboard'>
-                <Events />
+                <Events isUserLogged={authTokens} />
               </Route>
               <Route
                 path='/login'
@@ -74,10 +74,6 @@ const App = (props) => {
                 path='/asana-river'
               />
               <ProtectedRoute component={Admin} path='/admin' />
-              <Route path='/logout'>
-                {!authTokens && <Redirect to='/' />}
-                <Logout setAuthTokens={setAuthTokens} />
-              </Route>
             </Switch>
           </div>
         </div>

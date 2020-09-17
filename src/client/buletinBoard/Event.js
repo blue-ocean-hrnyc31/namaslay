@@ -4,6 +4,9 @@ const Event = ({ selectedEvent }) => {
   return (
     <div className="event">
       <div className="title">What's happening</div>
+      <div className="description">
+        <u>{selectedEvent.title}:</u>
+      </div>
       <div className="description">{selectedEvent.description}</div>
       <div className="title">Where</div>
       <div className="location">{selectedEvent.location}</div>
