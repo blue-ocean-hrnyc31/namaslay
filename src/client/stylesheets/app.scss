@@ -23,23 +23,23 @@ header {
   background-position: center;
   grid-area: header;
 }
-.menu {
-  height: 12vh;
-  grid-area: menu;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  background: white;
-  box-shadow: 0 4px 8px #00000030;
-  a {
-    display: block;
-    color: black;
-    &.active,
-    &:hover {
-      color: blue;
-    }
-  }
-}
+// .menu {
+//   height: 12vh;
+//   grid-area: menu;
+//   display: flex;
+//   justify-content: space-evenly;
+//   align-items: center;
+//   background: white;
+//   box-shadow: 0 4px 8px #00000030;
+//   a {
+//     display: block;
+//     color: black;
+//     &.active,
+//     &:hover {
+//       color: blue;
+//     }
+//   }
+// }
 
 .content {
   background-image: url('../images/backgroung.jpg');
