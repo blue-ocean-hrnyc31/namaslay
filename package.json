@@ -7,7 +7,8 @@
     "test": "test"
   },
   "precommit": [
-    "pre-commit-msg"
+    "pre-commit-msg",
+    "test"
   ],
   "scripts": {
     "test": "jest",
