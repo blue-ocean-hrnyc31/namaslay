@@ -14,6 +14,11 @@ router.post('/signup', require('./signupController').post);
 
 router.post(
   '/login',
+  (req, res, next) => {
+    console.log('post /login req.body:', req.body);
+    console.log('attempting to authenticate user...');
+    next();
+  },
   passport.authenticate('local', { failureFlash: true }),
   require('./loginController').post
 );
