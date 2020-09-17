@@ -26,8 +26,13 @@ const AsanaRiver = () => {
   console.log('Asana user', user.username);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      fetchChatStream();
+    }, 1000);
+
     fetchUsersInAsana();
-    fetchChatStream();
+
+    return () => clearInterval(interval);
   }, []);
   //console.log(allUsersInAsana);
 
@@ -89,7 +94,29 @@ const AsanaRiver = () => {
       url: `http://${host}/asana-river/chat`,
       data: {
         currentUser: user.username || 'Unknown',
-        message: 'Just entered the Asana River',
+        message: ' entered the Asana River',
+        submitTime: Date.now(),
+      },
+    })
+      .then((res) => {
+        fetchChatStream();
+      })
+      .catch((err) => {
+        fetchChatStream();
+        console.log(err);
+      });
+  };
+
+  /********************************************/
+  /****** Post User Exit to Chat Stream! ******/
+  /********************************************/
+  const handleSendChatUserExit = () => {
+    axios({
+      method: 'post',
+      url: `http://${host}/asana-river/chat`,
+      data: {
+        currentUser: user.username || 'Unknown',
+        message: ' left the Asana River',
         submitTime: Date.now(),
       },
     })
@@ -162,6 +189,7 @@ const AsanaRiver = () => {
       let practicedTime = Math.round((Date.now() - startTime) / 60000);
       setInRiver(false);
       handleUserExit(practicedTime);
+      handleSendChatUserExit();
     } else {
       setInRiver(true);
       setStartTime(Date.now());
