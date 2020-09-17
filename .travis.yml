@@ -1,5 +1,14 @@
 language: node_js
 node_js:
   - stable
+install:
+  - npm install
+before_script:
+  - npm start &
 script:
   - npm run build
+after_script:
+    - killall -9 node
+cache:
+  directories:
+    - "node_modules"
