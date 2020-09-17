@@ -20,6 +20,7 @@ const MeditationRiver = ({user}) => {
   const [startTime, setStartTime] = useState(0);
   const [allUsersInMeditation, setAllUsersInMeditation] = useState([]);
   const [activityValue, setActivityValue] = useState("");
+  console.log('Meditation user', user);
 
    useEffect(() => {
     fetchUsersInMeditation()
