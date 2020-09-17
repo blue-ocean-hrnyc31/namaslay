@@ -65,11 +65,28 @@
     grid-row: 8 / 10;
   }
   .I {
+    padding-top: 5%;
     grid-column: 2 / 3;
     grid-row: 8 / 10;
   }
 }
 
+.upcoming {
+  margin-top: 5%;
+  text-align: left;
+  .uRows {
+    line-height: 30px;
+    .uDate {
+      width: 10%;
+    }
+    .uEvent {
+      width: 60%;
+      span {
+        text-decoration: underline;
+      }
+    }
+  }
+}
 .logout-btn {
   cursor: pointer;
 }
