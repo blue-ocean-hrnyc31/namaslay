@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./stylesheets/app.scss";
 import LeaderBoard from "./leaderBoard/index.js";
-import Events from "./buletinBoard/Calendar.js";
+import Events from "./buletinBoard/Events.js";
 import {
   BrowserRouter as Router,
   Switch,
