@@ -22,7 +22,7 @@ const AsanaRiver = ({ user }) => {
   const [activityValue, setActivityValue] = useState('');
   const [displayTimer, setDisplayTimerVis] = useState(true);
 
-  console.log('Asana user', user);
+  console.log('Asana user', window.localStorage.getItem('user'));
 
   useEffect(() => {
     fetchUsersInAsana();
