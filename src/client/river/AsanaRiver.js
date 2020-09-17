@@ -22,8 +22,8 @@ const AsanaRiver = () => {
   const [activityValue, setActivityValue] = useState('');
   const [displayTimer, setDisplayTimerVis] = useState(true);
 
-  console.log('Asana user', window.localStorage.getItem('user'));
-  const user = window.localStorage.getItem('user');
+  const user = JSON.parse(window.localStorage.getItem('user'));
+  console.log('Asana user', user.username);
 
   useEffect(() => {
     fetchUsersInAsana();
@@ -248,7 +248,7 @@ const AsanaRiver = () => {
                   >
                     {post.username}
                   </span>
-                  : {post.content}{' '}
+                  : {post.content}{' - '}
                   <span style={{ fontSize: '0.2em' }}>{timeAgo}</span>
                   <br />
                 </div>
