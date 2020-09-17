@@ -13,7 +13,7 @@ const user = {
   current_river: null,
   total_mins: 800,
 };
-const AsanaRiver = ({ user }) => {
+const AsanaRiver = () => {
   const [chatInput, setChatInput] = useState('');
   const [chatStream, setChatStream] = useState([]);
   const [inRiver, setInRiver] = useState(false);
@@ -23,6 +23,7 @@ const AsanaRiver = ({ user }) => {
   const [displayTimer, setDisplayTimerVis] = useState(true);
 
   console.log('Asana user', window.localStorage.getItem('user'));
+  const user = window.localStorage.getItem('user');
 
   useEffect(() => {
     fetchUsersInAsana();
