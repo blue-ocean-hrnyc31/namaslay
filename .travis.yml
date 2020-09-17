@@ -15,7 +15,7 @@ jobs:
     - stage: build
       script: npm run build
     - stage: test
-      script: npm test-ci
+      script: npm run test-ci
 after_script:
     - killall -9 node
 cache:
