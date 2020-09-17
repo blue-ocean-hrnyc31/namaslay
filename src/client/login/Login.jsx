@@ -32,8 +32,8 @@ class Login extends React.Component {
       .then((status) => {
         if (status === 200) {
           this.props.handleLog(true);
-          console.log('history', this.props.history);
-          console.log('history.length', this.props.history.length);
+          // console.log('history', this.props.history);
+          // console.log('history.length', this.props.history.length);
           // set app logged in state to true
           this.props.history.push(this.props.redirectPath);
           // this.props.history.goBack();
