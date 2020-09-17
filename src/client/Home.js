@@ -38,15 +38,16 @@ const Home = (props) => {
       </div>
       <div className="D">
         <p>
-          Meditation is a practice where an individual uses a technique to train attention and awareness, and achieve a mentally
-          clear and emotionally calm and stable state.
+          Meditation is a practice where an individual uses a technique to train
+          attention and awareness, and achieve a mentally clear and emotionally
+          calm and stable state.
         </p>
       </div>
       <div className="E">
         <p>
           An asana is a body posture, originally and still a general term for a
-          sitting meditation pose, and later extended in modern
-          yoga as exercise, to any type of pose or position.
+          sitting meditation pose, and later extended in modern yoga as
+          exercise, to any type of pose or position.
         </p>
       </div>
       <Link to="/meditation-river">
@@ -59,9 +60,11 @@ const Home = (props) => {
         <img src={eventsCircle} alt="clouds and mountains" width="300px"></img>
       </div>
       <div className="I">
-        <h4>
-          <GoCalendar /> Upcoming Events
-        </h4>
+        <Link to="/bulletinboard">
+          <h4>
+            <GoCalendar /> Upcoming Events
+          </h4>
+        </Link>
         <table className="upcoming">
           <tbody>
             {upcoming.length > 0 &&
