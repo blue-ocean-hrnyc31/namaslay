@@ -1,23 +1,5 @@
-os: osx
 language: node_js
 node_js:
-  - node
-addons:
-  chrome: stable
-before_install:
-  - "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --headless --disable-gpu --remote-debugging-port=9222 http://localhost &"
-install:
-  - npm install
-before_script:
-  - npm start &
-jobs:
-  include:
-    - stage: build
-      script: npm run build
-    - stage: test
-      script: npm run test-ci
-after_script:
-    - killall -9 node
-cache:
-  directories:
-    - "node_modules"
+  - stable
+script:
+  - npm run build
