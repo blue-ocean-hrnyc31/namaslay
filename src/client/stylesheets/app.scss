@@ -12,15 +12,16 @@ body,
   grid-template-rows: 1fr 0.5fr 5fr;
   gap: 1px 1px;
   grid-template-areas:
-    'header . . .'
-    'menu . . .'
-    'content . . .';
+    "header . . ."
+    "menu . . ."
+    "content . . .";
 }
 header {
   min-height: 20vh;
-  background-image: url('../images/logo.png');
+  background-image: url("../images/logo.png");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
   grid-area: header;
 }
 // .menu {
@@ -42,7 +43,7 @@ header {
 // }
 
 .content {
-  background-image: url('../images/backgroung.jpg');
+  background-image: url("../images/backgroung.jpg");
   opacity: 70%;
   min-height: 50vh;
   grid-area: content;
@@ -52,6 +53,6 @@ header {
 
 h1 {
   font: {
-    family: 'Papyrus', sans-serif;
+    family: "Papyrus", sans-serif;
   }
 }

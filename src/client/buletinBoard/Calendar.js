@@ -97,7 +97,7 @@ class Events extends React.Component {
             localizer={localizer}
             defaultDate={new Date()}
             defaultView="month"
-            views={["month", "day", "agenda"]}
+            views={["month", "day"]}
             events={this.state.events}
             onSelectEvent={(selected) =>
               this.setState({ selectedEvent: selected })
@@ -106,7 +106,6 @@ class Events extends React.Component {
               this.setState({ selectedDate: date });
             }}
             date={this.state.selectedDay}
-            // components={{events: Event}}
             startAccessor="startDate"
             endAccessor="endDate"
           />
