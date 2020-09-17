@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import "./stylesheets/app.scss";
-import LeaderBoard from "./leaderBoard/index.js";
-import Events from "./buletinBoard/Calendar.js";
+import React, { useState } from 'react';
+import './stylesheets/app.scss';
+import LeaderBoard from './leaderBoard/index.js';
+import Events from './buletinBoard/Calendar.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,46 +9,46 @@ import {
   Link,
   Redirect,
   useLocation,
-} from "react-router-dom";
-import { Signup, Login, Logout, Admin } from "./login/index.jsx";
-import { AuthContext, useAuth } from "./login/auth";
-import ProtectedRoute from "./login/protectedRoute";
-import Home from "./Home.js";
-import MeditationRiver from "./river/MeditationRiver.js";
-import AsanaRiver from "./river/AsanaRiver.js";
-import About from "./about";
-import ScrollToTop from "./ScrollToTop.js";
-import Menu from "./Menu";
+} from 'react-router-dom';
+import { Signup, Login, Logout, Admin } from './login/index.jsx';
+import { AuthContext, useAuth } from './login/auth';
+import ProtectedRoute from './login/protectedRoute';
+import Home from './Home.js';
+import MeditationRiver from './river/MeditationRiver.js';
+import AsanaRiver from './river/AsanaRiver.js';
+import About from './about';
+import ScrollToTop from './ScrollToTop.js';
+import Menu from './Menu';
 
 const App = (props) => {
-  const connectSID = document.cookie.includes("connect.sid") || false;
+  const connectSID = document.cookie.includes('connect.sid') || false;
   const [authTokens, setAuthTokens] = useState(connectSID);
   const [isLoggedIn, setLogged] = useState(connectSID);
   const [isSignedUp, setSignup] = useState(false);
   const [user, setUser] = useState({});
-  const [redirectPath, setRedirectPath] = useState("/");
+  const [redirectPath, setRedirectPath] = useState('/');
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens }}>
       <Router>
         <ScrollToTop />
-        <div className="grid-container">
+        <div className='grid-container'>
           <header></header>
-          <Menu authTokens={authTokens} />
-          <div className="content">
+          <Menu authTokens={authTokens} setAuthTokens={setAuthTokens} />
+          <div className='content'>
             <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/about">
+              <Route exact path='/' component={Home} />
+              <Route path='/about'>
                 <About />
               </Route>
-              <Route path="/leaderboard">
+              <Route path='/leaderboard'>
                 <LeaderBoard />
               </Route>
-              <Route path="/bulletinboard">
+              <Route path='/bulletinboard'>
                 <Events isUserLogged={authTokens} />
               </Route>
               <Route
-                path="/login"
+                path='/login'
                 render={(props) => (
                   <Login
                     redirectPath={redirectPath}
@@ -60,24 +60,20 @@ const App = (props) => {
                 )}
               />
 
-              <Route path="/signup" render={(props) => <Signup {...props} />} />
+              <Route path='/signup' render={(props) => <Signup {...props} />} />
               <ProtectedRoute
                 component={MeditationRiver}
                 user={user}
                 handlePath={setRedirectPath}
-                path="/meditation-river"
+                path='/meditation-river'
               />
               <ProtectedRoute
                 component={AsanaRiver}
                 user={user}
                 handlePath={setRedirectPath}
-                path="/asana-river"
+                path='/asana-river'
               />
-              <ProtectedRoute component={Admin} path="/admin" />
-              <Route path="/logout">
-                {!authTokens && <Redirect to="/" />}
-                <Logout setAuthTokens={setAuthTokens} />
-              </Route>
+              <ProtectedRoute component={Admin} path='/admin' />
             </Switch>
           </div>
         </div>
