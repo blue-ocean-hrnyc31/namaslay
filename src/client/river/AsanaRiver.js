@@ -222,16 +222,6 @@ const AsanaRiver = ({ user }) => {
             ></iframe>
           </div>
           <h2>Tell us about today's practice</h2>
-          <input
-            className='practice-stream-input'
-            type='text'
-            value={chatInput}
-            onChange={(e) => {
-              setChatInput(e.target.value);
-            }}
-          ></input>
-          <button onClick={handleSendChat}>Submit</button>
-          <br />
           <br />
           <div className='chat-container'>
             {chatStream.map((post, ind) => {
@@ -264,6 +254,15 @@ const AsanaRiver = ({ user }) => {
               );
             })}
           </div>
+          <input
+            className='practice-stream-input'
+            type='text'
+            value={chatInput}
+            onChange={(e) => {
+              setChatInput(e.target.value);
+            }}
+          ></input>
+          <button onClick={handleSendChat}>Submit</button>
         </div>
       </div>
     </div>

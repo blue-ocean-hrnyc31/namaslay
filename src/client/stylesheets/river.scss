@@ -97,8 +97,10 @@
 
 .chat-container {
   width: 450px;
-  height: 600px;
+  height: 550px;
   overflow-x: hidden;
   overflow-y: auto;
   text-align:justify;
+  display: flex;
+  flex-direction: column-reverse;
 }
