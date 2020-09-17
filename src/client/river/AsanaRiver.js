@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import AsanaChart from './AsanaChart.js';
 import '../stylesheets/river.scss';
 import axios from 'axios';
+import Timer from 'react-compound-timer';
+
 const host = '34.229.137.235:4444';
 const user = {
   user_id: 3,
@@ -11,13 +13,15 @@ const user = {
   current_river: null,
   total_mins: 800,
 };
-const AsanaRiver = ({user}) => {
+const AsanaRiver = ({ user }) => {
   const [chatInput, setChatInput] = useState('');
   const [chatStream, setChatStream] = useState([]);
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);
   const [allUsersInAsana, setAllUsersInAsana] = useState([]);
   const [activityValue, setActivityValue] = useState('');
+  const [displayTimer, setDisplayTimerVis] = useState(true);
+
   console.log('Asana user', user);
 
   useEffect(() => {
@@ -51,7 +55,7 @@ const AsanaRiver = ({user}) => {
     //need to get current user as prop
     if (chatInput === '') {
       alert('Please enter something in your chat message!');
-      return ;
+      return;
     }
 
     axios({
@@ -60,7 +64,7 @@ const AsanaRiver = ({user}) => {
       data: {
         currentUser: user.username || 'Unknown',
         message: chatInput,
-        submitTime: Date.now()
+        submitTime: Date.now(),
       },
     })
       .then((res) => {
@@ -163,6 +167,7 @@ const AsanaRiver = ({user}) => {
       handleUserEnter();
       handleSendChatUserEntrance();
     }
+    setDisplayTimerVis(!displayTimer);
   };
 
   return (
@@ -170,15 +175,30 @@ const AsanaRiver = ({user}) => {
       <div className='chart-conatainer'>
         <AsanaChart allUsersInAsana={allUsersInAsana} />
         <br />
-        <div className='center'>
-          <input
-            className='activity-input'
-            type='text'
-            placeholder='What are you practicing today?'
-            value={activityValue}
-            onChange={(e) => setActivityValue(e.target.value)}
-          ></input>
-        </div>
+        {displayTimer ? (
+          <div className='center'>
+            <input
+              className='activity-input'
+              type='text'
+              placeholder='What are you practicing today?'
+              value={activityValue}
+              onChange={(e) => setActivityValue(e.target.value)}
+            ></input>
+          </div>
+        ) : (
+          <div className='center'>
+            <Timer initialTime={0} startImmediately={true}>
+              {({ start, stop }) => (
+                <React.Fragment>
+                  <div className='practice-board'>
+                    <Timer.Hours /> hours <Timer.Minutes /> minutes{' '}
+                    <Timer.Seconds /> seconds
+                  </div>
+                </React.Fragment>
+              )}
+            </Timer>
+          </div>
+        )}
         <br />
         <div className='center'>
           {
@@ -191,15 +211,15 @@ const AsanaRiver = ({user}) => {
       </div>
       <div className='practice-board-container'>
         <div className='practice-board'>
-        <div className='embed-container'>
-          <iframe
-            src='https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8'
-            width='300'
-            height='80'
-            frameBorder='0'
-            allowtransparency='true'
-            allow='encrypted-media'
-          ></iframe>
+          <div className='embed-container'>
+            <iframe
+              src='https://open.spotify.com/embed/playlist/3SwVxW3qgPEytBEV4DQ8i8'
+              width='300'
+              height='80'
+              frameBorder='0'
+              allowtransparency='true'
+              allow='encrypted-media'
+            ></iframe>
           </div>
           <h2>Tell us about today's practice</h2>
           <input
@@ -215,7 +235,8 @@ const AsanaRiver = ({user}) => {
           <br />
           <div className='chat-container'>
             {chatStream.map((post, ind) => {
-              let secondsAgo = Math.floor((Date.now() - post.posted_at) / 1000) + 1;
+              let secondsAgo =
+                Math.floor((Date.now() - post.posted_at) / 1000) + 1;
               let timeAgo;
 
               if (secondsAgo < 60) {
@@ -226,24 +247,22 @@ const AsanaRiver = ({user}) => {
                 timeAgo = Math.floor(secondsAgo / 3600) + ' hours ago';
               }
               return (
-                  <div
-                  className='practice-stream'
-                  key={ind}
-                >
-                <span style={{
-                  fontWeight: 'bold',
-                  fontSize: '20px',
-                  textDecoration: 'underline'}}>
-                  {post.username}
-                </span>: {post.content}
-                {" "}
-                  <span style={{fontSize:'0.2em'}}>
-                  {timeAgo}
+                <div className='practice-stream' key={ind}>
+                  <span
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: '20px',
+                      textDecoration: 'underline',
+                    }}
+                  >
+                    {post.username}
                   </span>
-                <br/>
+                  : {post.content}{' '}
+                  <span style={{ fontSize: '0.2em' }}>{timeAgo}</span>
+                  <br />
                 </div>
-              )})
-            }
+              );
+            })}
           </div>
         </div>
       </div>
@@ -254,9 +273,17 @@ const AsanaRiver = ({user}) => {
 export default AsanaRiver;
 
 const mockStreamData = [
-  { username: 'nuri', content: 'Practicing vinyasa', posted_at: '1600224408891' },
+  {
+    username: 'nuri',
+    content: 'Practicing vinyasa',
+    posted_at: '1600224408891',
+  },
   { username: 'liam', content: 'Practicing hatha', posted_at: '1600224418891' },
-  { username: 'jeremy', content: 'Practicing bikram', posted_at: '1600224508891' },
+  {
+    username: 'jeremy',
+    content: 'Practicing bikram',
+    posted_at: '1600224508891',
+  },
 ];
 
 const dummyUsers = [
