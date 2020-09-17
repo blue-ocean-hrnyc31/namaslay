@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../stylesheets/leaderboard.scss";
-import { useLocation } from "react-router-dom";
 
 const LeaderBoard = (props) => {
   const [leaders, setLeaders] = useState(dummyData);
@@ -13,12 +12,9 @@ const LeaderBoard = (props) => {
     return () => clearInterval(interval);
   }, []);
   function getLeaderBoardInfo() {
-    console.log("Updating Leaderboard");
     axios
       .get(`http://34.229.137.235:4444/leaders`)
       .then((row) => {
-        //console.log('Getting back data: ', row);
-        // Set the new state with setLeader Function
         setLeaders(row.data);
       })
       .catch((err) => {
@@ -82,12 +78,6 @@ const LeaderBoard = (props) => {
       <div className="leaderboard">
         <table>
           <tbody>
-            {/* <tr className="topRow">
-              <th className="levelEntry">Level</th>
-              <th className="nameEntry">User</th>
-              <th className="visitEntry">Times Meditated</th>
-              <th className="minsEntry">Total Time</th>
-            </tr> */}
             {leaders.map((leader, i) => (
               <tr className="tableRow" key={`row${i}`}>
                 <td className="levelEntry">{userLevel(leader.total_mins)}</td>

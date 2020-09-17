@@ -9,23 +9,21 @@ import { countPracticing, getUpcoming } from "./apiHelpers";
 
 const Home = (props) => {
   const [currentlyPracticing, setCurrentlyPracticing] = useState("");
-  const [upcoming, setUpcoming] = useState({});
+  const [upcoming, setUpcoming] = useState(dummyData);
   useEffect(() => {
     countPracticing()
-    .then((number) => {
-      // console.log(number[0].count);
-      setCurrentlyPracticing(number[0].count);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
+      .then((number) => {
+        setCurrentlyPracticing(number[0].count);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     getUpcoming()
-    .then((response) => {
-      console.log("upcoming events response info : ", response);
-      // setUpcoming(response);
-    })
-    .catch(err => console.error(err));
-  })
+      .then((response) => {
+        setUpcoming(response);
+      })
+      .catch((err) => console.error(err));
+  }, []);
   return (
     <div className="home">
       <div className="A">
@@ -61,14 +59,34 @@ const Home = (props) => {
         <h4>
           <GoCalendar /> Upcoming Events
         </h4>
-        <ul>
-          <li>event1</li>
-          <li>event2</li>
-          <li>event3</li>
-        </ul>
+        <table className="upcoming">
+          <tbody>
+            {upcoming.length > 0 &&
+              upcoming.map((event, i) => (
+                <tr className="uRows" key={i}>
+                  <td className="uDate">{event.start_time.slice(5, 10)}</td>
+                  <td className="uEvent">
+                    <span>{event.title}</span> hosted by {event.host}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
 export default Home;
+
+const dummyData = [
+  {
+    description: "Cool vibes drum session remote",
+    end_time: "2020-09-18T14:47:10.754Z",
+    host: "Patrick Swazye",
+    id: 5,
+    location: "zoom",
+    start_time: "2020-09-18T14:47:10.754Z",
+    title: "Drum Circle",
+  },
+];
