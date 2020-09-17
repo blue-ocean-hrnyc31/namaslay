@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../stylesheets/events.scss";
 import axios from "axios";
 import NewEventModal from "./NewEventModal.js";
+import Upcoming from './Upcoming.jsx';
 //sample data
 import data from "./data.js";
 const localizer = momentLocalizer(moment);
@@ -129,7 +130,9 @@ class Events extends React.Component {
           />
         </div>
         <div className="event-container">
-          <Event selectedEvent={this.state.selectedEvent} />
+          {Object.keys(this.state.selectedEvent).length ? 
+          <Event selectedEvent={this.state.selectedEvent} /> :
+          <Upcoming selectedEvent={this.state.selectedEvent} />}
         </div>
       </>
     );
