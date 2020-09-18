@@ -94,31 +94,28 @@
     height: 100%;
   }
 
-
-div.slide-up {
-  animation: 5s slide-up;
-  margin-top:0%;
-}
-
-@keyframes slide-up {
-  from {
-    margin-top: 100%;
-    height: 300%;
-  }
-
-  to {
+  div.slide-up {
+    animation: 5s slide-up;
     margin-top: 0%;
-    height: 100%;
   }
-}
 
-}
+  @keyframes slide-up {
+    from {
+      margin-top: 100%;
+      height: 300%;
+    }
 
-.chat-container {
-  width: 100%;
-  height: 550px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  text-align:justify;
+    to {
+      margin-top: 0%;
+      height: 100%;
+    }
+  }
 
+  .chat-container {
+    width: 100%;
+    height: 550px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: justify;
+  }
 }
