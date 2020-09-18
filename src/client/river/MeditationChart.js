@@ -17,7 +17,7 @@ const generateDataset = (userList) =>
       };
     });
 
-const MeditationChart = ({ allUsersInMeditation }) => {
+const MeditationChart = ({ allUsersInMeditation, user }) => {
   const [dataset, setDataset] = useState(generateDataset(allUsersInMeditation));
   useEffect(() => {
     setDataset(generateDataset(allUsersInMeditation));
@@ -55,26 +55,52 @@ const MeditationChart = ({ allUsersInMeditation }) => {
             preserveAspectRatio="none"
           ></image>
           {dataset.map(({ x, y, username, location, current_activity }, i) => (
-            <>
-            <defs>
-              <radialGradient
-                id="grad1"
-                cx="50%"
-                cy="50%"
-                r="50%"
-                fx="50%"
-                fy="50%"
-              >
-                <stop
-                  offset="0%"
-                  stopColor="rgb(0,250,154)"
-                  stopOpacity="1"
-                />
-                <stop offset="100%" stopColor="rgb(0,0,154)" stopOpacity="0" />
-              </radialGradient>
+           <>
+              <defs>
+
+                  <radialGradient
+                    id="grad1"
+                    cx="50%"
+                    cy="50%"
+                    r="50%"
+                    fx="50%"
+                    fy="50%"
+                  >
+                    <stop
+                      offset="0%"
+                      stopColor="rgb(255,255,153)"
+                      stopOpacity="1"
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor="rgb(0,0,153)"
+                      stopOpacity="0"
+                    />
+                  </radialGradient>
+
+                  <radialGradient
+                    id="grad2"
+                    cx="50%"
+                    cy="50%"
+                    r="50%"
+                    fx="50%"
+                    fy="50%"
+                  >
+                    <stop
+                      offset="0%"
+                      stopColor="rgb(0,255,255)"
+                      stopOpacity="1"
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor="rgb(0,0,255)"
+                      stopOpacity="0"
+                    />
+                  </radialGradient>
+
               </defs>
+
               <circle
-                id={`circle-${i}`}
                 onMouseEnter={(e) => {
                   updateHovered({
                     isHovered: true,
@@ -94,9 +120,18 @@ const MeditationChart = ({ allUsersInMeditation }) => {
                 }}
                 cx={x}
                 cy={y}
-                r="2"
-                fill="url(#grad1)"
-              />
+                r="2.5"
+                fill= {username === user.username ?"url(#grad1)":"url(#grad2)"}
+              >
+                <animate
+                  attributeName="r"
+                  values="2;2.5"
+                  begin="0s"
+                  dur="4s"
+                  calcMode="discrete"
+                  repeatCount="indefinite"
+                />
+              </circle>
             </>
           ))}
         </svg>

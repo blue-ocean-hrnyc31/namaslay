@@ -31,10 +31,10 @@ describe('Home Page', () => {
     await browser.close();
   });
 
-  it('should render two links in the home page', async () => {
+  it('should render ten links in the home page', async () => {
     const links = await page.$$('a');
     //console.log(links.length);
-    expect(links.length).toBe(9);
+    expect(links.length).toBe(10);
   });
 });
 

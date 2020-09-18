@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../stylesheets/events.scss";
 import axios from "axios";
 import NewEventModal from "./NewEventModal.js";
+import Upcoming from "./Upcoming.jsx";
 //sample data
 import data from "./data.js";
 const localizer = momentLocalizer(moment);
@@ -28,11 +29,9 @@ class Events extends React.Component {
   }
 
   componentDidMount() {
-    console.log('getting dates...');
     axios
       .get(`http://34.229.137.235:4444/events`)
       .then(({ data }) => {
-        console.log('data received...');
         let events = data.reduce((acc, cur) => {
           let obj = {
             title: cur.title,
@@ -48,7 +47,6 @@ class Events extends React.Component {
         this.setState({
           events: events,
         });
-        console.log('events: ', this.state.events);
       })
       .catch((err) => {
         console.log("error getting events: ", err);
@@ -66,7 +64,6 @@ class Events extends React.Component {
         host: entry.event_host,
       })
       .then(({ data }) => {
-        console.log(data);
         let events = data.map((event) => {
           event = {
             title: event.title,
@@ -94,42 +91,53 @@ class Events extends React.Component {
   render() {
     return (
       <>
-        <div className="calendar">
-          <Calendar
-            selectable
-            localizer={localizer}
-            defaultDate={new Date()}
-            defaultView="month"
-            views={["month", "day", "agenda"]}
-            events={this.state.events}
-            onSelectEvent={(selected) =>
-              this.setState({ selectedEvent: selected })
-            }
-            onNavigate={(date) => {
-              this.setState({ selectedDate: date });
-            }}
-            date={this.state.selectedDay}
-            // components={{events: Event}}
-            startAccessor="startDate"
-            endAccessor="endDate"
-          />
-          {this.props.isLoggedIn ? (
-            <button
-              className="add-event"
-              onClick={() => this.setModalShow(true)}
-            >
-              New Event
-            </button>
-          ) : null}
-
+        <div className="calendar-container">
+          <div className="calendar">
+            <Calendar
+              selectable
+              localizer={localizer}
+              defaultDate={new Date()}
+              defaultView="month"
+              views={["month", "day", "agenda"]}
+              events={this.state.events}
+              onSelectEvent={(selected) =>
+                this.setState({ selectedEvent: selected })
+              }
+              onNavigate={(date) => {
+                this.setState({ selectedDate: date });
+              }}
+              date={this.state.selectedDay}
+              startAccessor="startDate"
+              endAccessor="endDate"
+            />
+            {this.props.isUserLogged ? (
+              <button
+                className="add-event"
+                onClick={() => this.setModalShow(true)}
+              >
+                New Event
+              </button>
+            ) : (
+              <button
+                className="add-event"
+                onClick={() => this.setModalShow(true)}
+              >
+                New Event
+              </button>
+            )}
+          </div>
           <NewEventModal
             show={this.state.modalIsOpen}
             onHide={() => this.setModalShow(false)}
             submitNewEntry={this.submitNewEntry}
           />
-        </div>
-        <div className="event-container">
-          <Event selectedEvent={this.state.selectedEvent} />
+          <div className="event-container">
+            {Object.keys(this.state.selectedEvent).length ? (
+              <Event selectedEvent={this.state.selectedEvent} />
+            ) : (
+              <Upcoming selectedEvent={this.state.selectedEvent} />
+            )}
+          </div>
         </div>
       </>
     );
