@@ -114,7 +114,7 @@ const MeditationRiver = () => {
       url: `http://${host}/meditation-river/chat`,
       data: {
         currentUser: user.username || 'Unknown',
-        message: ' entered the Asana River',
+        message: ' entered the Meditation River',
         submitTime: Date.now(),
       },
     })
