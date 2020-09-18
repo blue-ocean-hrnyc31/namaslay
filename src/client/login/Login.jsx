@@ -47,6 +47,8 @@ class Login extends React.Component {
         console.log(err.response.status);
         // HANDLE INCORRECT CREDENTIALS
         this.setState({ error: err.response.status });
+        document.cookie =
+          'connect.sid' + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
       });
   }
 
