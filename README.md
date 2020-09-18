@@ -47,8 +47,6 @@ npm run build-dev
 By leveraging Webpack's hot module replacement, any changes to the client code will be automatically reflected in the browser.
 By using nodemon, any changes to the server will be made immediately present.
 
-> > > > > > > master
-
 ---
 
 To run tests:
