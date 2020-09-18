@@ -6,7 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../stylesheets/events.scss";
 import axios from "axios";
 import NewEventModal from "./NewEventModal.js";
-import Upcoming from './Upcoming.jsx';
+import Upcoming from "./Upcoming.jsx";
 //sample data
 import data from "./data.js";
 const localizer = momentLocalizer(moment);
@@ -92,43 +92,52 @@ class Events extends React.Component {
     return (
       <>
         <div className="calendar-container">
-          <Calendar
-            className="calendar"
-            selectable
-            localizer={localizer}
-            defaultDate={new Date()}
-            defaultView="month"
-            views={["month", "day"]}
-            events={this.state.events}
-            onSelectEvent={(selected) =>
-              this.setState({ selectedEvent: selected })
-            }
-            onNavigate={(date) => {
-              this.setState({ selectedDate: date });
-            }}
-            date={this.state.selectedDay}
-            startAccessor="startDate"
-            endAccessor="endDate"
-          />
-          {this.props.isUserLogged ? (
-            <button
-              className="add-event"
-              onClick={() => this.setModalShow(true)}
-            >
-              New Event
-            </button>
-          ) : null}
-
+          <div className="calendar">
+            <Calendar
+              selectable
+              localizer={localizer}
+              defaultDate={new Date()}
+              defaultView="month"
+              views={["month", "day", "agenda"]}
+              events={this.state.events}
+              onSelectEvent={(selected) =>
+                this.setState({ selectedEvent: selected })
+              }
+              onNavigate={(date) => {
+                this.setState({ selectedDate: date });
+              }}
+              date={this.state.selectedDay}
+              startAccessor="startDate"
+              endAccessor="endDate"
+            />
+            {this.props.isUserLogged ? (
+              <button
+                className="add-event"
+                onClick={() => this.setModalShow(true)}
+              >
+                New Event
+              </button>
+            ) : (
+              <button
+                className="add-event"
+                onClick={() => this.setModalShow(true)}
+              >
+                New Event
+              </button>
+            )}
+          </div>
           <NewEventModal
             show={this.state.modalIsOpen}
             onHide={() => this.setModalShow(false)}
             submitNewEntry={this.submitNewEntry}
           />
-        </div>
-        <div className="event-container">
-          {Object.keys(this.state.selectedEvent).length ? 
-          <Event selectedEvent={this.state.selectedEvent} /> :
-          <Upcoming selectedEvent={this.state.selectedEvent} />}
+          <div className="event-container">
+            {Object.keys(this.state.selectedEvent).length ? (
+              <Event selectedEvent={this.state.selectedEvent} />
+            ) : (
+              <Upcoming selectedEvent={this.state.selectedEvent} />
+            )}
+          </div>
         </div>
       </>
     );

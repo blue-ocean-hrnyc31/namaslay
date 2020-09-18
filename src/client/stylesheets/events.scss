@@ -9,7 +9,7 @@
 
 .calendar {
   height: 70vh;
-  width: 80vh;
+  width: 40vw;
   grid-area: calendar;
   background-color: whitesmoke;
   justify-items: center;
@@ -19,6 +19,8 @@
 }
 
 .event-container {
+  height: 50vh;
+  width: 40vw;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -69,8 +71,9 @@
 }
 
 .add-event {
-  padding: 5px;
-  margin: 25px;
+  padding: 7px;
+  margin: 20px;
+  width: 10em;
 }
 
 .upcoming-table {
@@ -79,7 +82,7 @@
 .date-header {
   float: left;
   width: 10%;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
   padding: 0px 10px 20px 10px;
   margin-right: 20px;
@@ -89,7 +92,7 @@
 .description-header {
   float: left;
   width: 70%;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
   padding: 0px 10px 20px 10px;
   margin-right: 20px;
@@ -102,14 +105,14 @@
   text-align: left;
   padding: 0px 10px 50px 10px;
   margin-right: 20px;
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 .description-column {
   float: left;
   width: 70%;
   text-align: left;
   padding: 0px 10px 50px 10px;
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 .row:after {
@@ -118,3 +121,20 @@
   clear: both;
 }
 
+@media only screen and (max-width: 768px) {
+  .calendar-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .event {
+    font-size: calc(1rem + ((1vw - 7.68px) * 0.6944));
+    min-height: 0vw;
+  }
+}
+@media (min-width: 1920px) {
+  .event {
+    font-size: 24px;
+  }
+}
