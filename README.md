@@ -1,29 +1,37 @@
 # Namaslay
+
+We are go for launch: http://go-with-the-flow.herokuapp.com/asana-river
+
 [![Build Status](https://travis-ci.com/blue-ocean-hrnyc31/namaslay-client.svg?branch=master)](https://travis-ci.com/blue-ocean-hrnyc31/namaslay-client)
 [![GitHub contributors](https://img.shields.io/github/contributors/blue-ocean-hrnyc31/namaslay-client)](https://github.com/blue-ocean-hrnyc31/namaslay-client/edit/master/README.md)
 [![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/blue-ocean-hrnyc31/namaslay-client)](https://github.com/blue-ocean-hrnyc31/namaslay-client/pulls)
 [![Heroku](https://pyheroku-badge.herokuapp.com/?app=go-with-the-flow&style=flat)](http://go-with-the-flow.herokuapp.com/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/blue-ocean-hrnyc31/namaslay-client)
 
-## Clone the repo
+## Clone the Repo
+
 ```
 git clone https://github.com/blue-ocean-hrnyc31/namaslay-client.git
 ```
 
 ## Development
-1.  Install the dependencies:  
+
+1.  Install the dependencies:
+
 ```
 npm install
 ```
 
 2.  Create a .env file in the project's root directory with the appropriate information
 
-3.  Start the server:  
+3.  Start the server:
+
 ```
 npm start
 ```
 
-4.  Start the webpack development server and build the development bundle:  
+4.  Start the webpack development server and build the development bundle:
+
 ```
 npm run build-dev
 ```
@@ -32,36 +40,52 @@ npm run build-dev
 
 6.  Pop those bottles!
 
-___
+---
 
-Any changes to the client code will be automatically reflected in the browser by leveraging Wepack's hot module replacement.  
-Any changes to the server will be immediately present by using nodemon.   
+<<<<<<< HEAD
+Any changes to the client code will be automatically reflected in the browser by leveraging Wepack's hot module replacement.
+Any changes to the server will be immediately present by using nodemon.
+=======
 
-___
+### Notes
 
-To run tests:  
+By leveraging Webpack's hot module replacement, any changes to the client code will be automatically reflected in the browser.
+By using nodemon, any changes to the server will be made immediately present.
+
+> > > > > > > master
+
+---
+
+To run tests:
+
 ```
 npm test
 ```
 
 To build the production bundle:
+
 ```
 npm run build
 ```
 
 ## Deployment
-To deploy to Heroku  
+
+To deploy to Heroku
+
 1.  Pull down the most recent version of master
+
 ```
 git pull origin master
 ```
 
 2.  Run:
+
 ```
 heroku login
 ```
 
-3.  Run:  
+3.  Run:
+
 ```
 heroku create
 ```
