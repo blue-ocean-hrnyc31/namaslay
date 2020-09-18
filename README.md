@@ -1,6 +1,6 @@
 # Namaslay
 
-We are go for launch: http://go-with-the-flow.herokuapp.com/
+We are go for launch: http://go-with-the-flow.herokuapp.com/  
 [![Build Status](https://travis-ci.com/blue-ocean-hrnyc31/namaslay-client.svg?branch=master)](https://travis-ci.com/blue-ocean-hrnyc31/namaslay-client)
 [![GitHub contributors](https://img.shields.io/github/contributors/blue-ocean-hrnyc31/namaslay-client)](https://github.com/blue-ocean-hrnyc31/namaslay-client/edit/master/README.md)
 [![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/blue-ocean-hrnyc31/namaslay-client)](https://github.com/blue-ocean-hrnyc31/namaslay-client/pulls)
