@@ -26,7 +26,7 @@ npm start
 npm run build-dev
 ```
 
-5.  Navigate to [htttp:localhost:9000](localhost:9000)
+5.  Navigate to [http:localhost:9000](localhost:9000)
 
 6.  Pop those bottles!
 
