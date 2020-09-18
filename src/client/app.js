@@ -23,8 +23,6 @@ import Menu from "./Menu";
 const App = (props) => {
   const connectSID = document.cookie.includes("connect.sid") || false;
   const [authTokens, setAuthTokens] = useState(connectSID);
-  const [isLoggedIn, setLogged] = useState(connectSID);
-  const [isSignedUp, setSignup] = useState(false);
   const [user, setUser] = useState({});
   const [redirectPath, setRedirectPath] = useState("/");
 
