@@ -36,7 +36,8 @@ npm run build-dev
 
 ___
 
-By leveraging Webpack's hot module replacement, any changes to the client code will be automatically reflected in the browser.
+### Notes
+By leveraging Webpack's hot module replacement, any changes to the client code will be automatically reflected in the browser.  
 By using nodemon, any changes to the server will be made immediately present.
 
 ___
