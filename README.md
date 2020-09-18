@@ -6,7 +6,9 @@
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/blue-ocean-hrnyc31/namaslay-client)
 
 ## Clone the repo
-`git clone https://github.com/blue-ocean-hrnyc31/namaslay-client.git`
+```
+git clone https://github.com/blue-ocean-hrnyc31/namaslay-client.git
+```
 
 ## Development
 1.  Install the dependencies:  
