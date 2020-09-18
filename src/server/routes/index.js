@@ -17,9 +17,10 @@ router.post(
   (req, res, next) => {
     console.log('post /login req.body:', req.body);
     console.log('attempting to authenticate user...');
+    console.log("response.get('set-cookies'):", res.get('set-cookies'));
     next();
   },
-  passport.authenticate('local', { failureFlash: true }),
+  passport.authenticate('local'),
   require('./loginController').post
 );
 

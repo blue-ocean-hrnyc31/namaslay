@@ -12,7 +12,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-      error: '',
+      error: null,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -30,21 +30,23 @@ class Login extends React.Component {
     e.preventDefault();
     logIn(this.state.username, this.state.password, this.props.handleUser)
       .then((status) => {
+        console.log('status in login.jsx:', status);
         if (status === 200) {
           this.props.handleLog(true);
-          console.log('history', this.props.history);
-          console.log('history.length', this.props.history.length);
+          // console.log('history', this.props.history);
+          // console.log('history.length', this.props.history.length);
           // set app logged in state to true
           this.props.history.push(this.props.redirectPath);
           // this.props.history.goBack();
         } else {
-          this.setState({ error: true });
+          this.setState({ error: status });
         }
       })
       .catch((err) => {
-        console.log('error logging in:', err);
+        console.log('error logging in:');
+        console.log(err.response.status);
         // HANDLE INCORRECT CREDENTIALS
-        this.setState({ error: true });
+        this.setState({ error: err.response.status });
       });
   }
 
@@ -58,10 +60,13 @@ class Login extends React.Component {
       <>
         <form id='login' onSubmit={this.handleSubmit}>
           <h3>Login</h3>
-          {this.state.error && (
+          {this.state.error === 401 && (
             <div className='form-error'>
               The username or password provided were incorrect!
             </div>
+          )}
+          {this.state.error === 503 && (
+            <div className='form-error'>503 ERROR: SERVER</div>
           )}
           <input
             type='text'
