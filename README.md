@@ -26,7 +26,7 @@ npm start
 npm run build-dev
 ```
 
-5.  Navigate to [http://localhost:9000](localhost:9000)
+5.  Navigate to http://localhost:9000
 
 6.  Pop those bottles!
 
@@ -47,7 +47,7 @@ To build the production bundle:
 npm run build
 ```
 
-### Deployment
+## Deployment
 To deploy to Heroku  
 1.  Pull down the most recent version of master
 ```
