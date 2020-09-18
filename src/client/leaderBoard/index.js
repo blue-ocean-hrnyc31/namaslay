@@ -65,16 +65,18 @@ const LeaderBoard = (props) => {
 
   return (
     <div>
-      <table>
-        <tbody>
-          <tr className="topRow">
-            <th className="levelEntry">Level</th>
-            <th className="nameEntry">User</th>
-            <th className="visitEntry">Times Meditated</th>
-            <th className="minsEntry">Total Time</th>
-          </tr>
-        </tbody>
-      </table>
+      <div id="topTable">
+        <table>
+          <tbody className="topTableBody">
+            <tr className="topRow">
+              <th className="levelEntry">Level</th>
+              <th className="nameEntry">User</th>
+              <th className="visitEntry">Times Meditated</th>
+              <th className="minsEntry">Total Time</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div className="leaderboard">
         <table>
           <tbody>
