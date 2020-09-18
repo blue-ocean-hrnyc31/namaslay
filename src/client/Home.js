@@ -9,23 +9,21 @@ import { countPracticing, getUpcoming } from "./apiHelpers";
 
 const Home = (props) => {
   const [currentlyPracticing, setCurrentlyPracticing] = useState("");
-  const [upcoming, setUpcoming] = useState({});
+  const [upcoming, setUpcoming] = useState(dummyData);
   useEffect(() => {
     countPracticing()
-    .then((number) => {
-      // console.log(number[0].count);
-      setCurrentlyPracticing(number[0].count);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
+      .then((number) => {
+        setCurrentlyPracticing(number[0].count);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     getUpcoming()
-    .then((response) => {
-      console.log("upcoming events response info : ", response);
-      // setUpcoming(response);
-    })
-    .catch(err => console.error(err));
-  })
+      .then((response) => {
+        setUpcoming(response);
+      })
+      .catch((err) => console.error(err));
+  }, []);
   return (
     <div className="home">
       <div className="A">
@@ -39,14 +37,18 @@ const Home = (props) => {
         <img src={asanaCircle} alt="woman practicing yoga" width="300px"></img>
       </div>
       <div className="D">
-        THIS IS WHERE INFO ABOUT MEDITATION WILL GO. THIS IS WHERE INFO ABOUT
-        MEDITATION WILL GO. THIS IS WHERE INFO ABOUT MEDITATION WILL GO. THIS IS
-        WHERE INFO ABOUT MEDITATION WILL GO.
+        <p>
+          Meditation is a practice where an individual uses a technique to train
+          attention and awareness, and achieve a mentally clear and emotionally
+          calm and stable state.
+        </p>
       </div>
       <div className="E">
-        THIS IS WHERE INFO ABOUT ASANA WILL GO. THIS IS WHERE INFO ABOUT ASANA
-        WILL GO. THIS IS WHERE INFO ABOUT ASANA WILL GO. THIS IS WHERE INFO
-        ABOUT ASANA WILL GO. THIS IS WHERE INFO ABOUT ASANA WILL GO.
+        <p>
+          An asana is a body posture, originally and still a general term for a
+          sitting meditation pose, and later extended in modern yoga as
+          exercise, to any type of pose or position.
+        </p>
       </div>
       <Link to="/meditation-river">
         <div className="F">Step into the Meditation River</div>
@@ -58,17 +60,39 @@ const Home = (props) => {
         <img src={eventsCircle} alt="clouds and mountains" width="300px"></img>
       </div>
       <div className="I">
-        <h4>
-          <GoCalendar /> Upcoming Events
-        </h4>
-        <ul>
-          <li>event1</li>
-          <li>event2</li>
-          <li>event3</li>
-        </ul>
+        <Link to="/bulletinboard">
+          <h4>
+            <GoCalendar /> Upcoming Events
+          </h4>
+        </Link>
+        <table className="upcoming">
+          <tbody>
+            {upcoming.length > 0 &&
+              upcoming.map((event, i) => (
+                <tr className="uRows" key={i}>
+                  <td className="uDate">{event.start_time.slice(5, 10)}</td>
+                  <td className="uEvent">
+                    <span>{event.title}</span> hosted by {event.host}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
 export default Home;
+
+const dummyData = [
+  {
+    description: "Cool vibes drum session remote",
+    end_time: "2020-09-18T14:47:10.754Z",
+    host: "Patrick Swazye",
+    id: 5,
+    location: "zoom",
+    start_time: "2020-09-18T14:47:10.754Z",
+    title: "Drum Circle",
+  },
+];

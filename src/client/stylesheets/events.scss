@@ -1,28 +1,120 @@
-.add-event {
-  padding: 5px;
-  margin: 25px;
+.calendar-container {
+  height: inherit;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 1px 1px;
+  grid-template-areas: "calendar event-container";
 }
+
 .calendar {
-  float: left;
-  width: 50%;
-  height: 55vh;
-  width: 70vh;
+  height: 70vh;
+  width: 80vh;
+  grid-area: calendar;
   background-color: whitesmoke;
   justify-items: center;
   padding: 1em;
   margin-left: 4em;
   text-align: center;
 }
-.event {
-  float: right;
-  height: 55vh;
-  width: 40%;
+
+.event-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 1px 1px;
+  grid-template-areas:
+    "title1"
+    "description"
+    "title2"
+    "location"
+    "title3"
+    "instructor";
+  grid-area: event-container;
   background-color: whitesmoke;
   opacity: 80%;
   margin-right: 5em;
   text-align: center;
+  height: 70vh;
 }
-.title {
+
+.title1 {
+  grid-area: title1;
   font-weight: bold;
   font-size: 2em;
 }
+
+.title2 {
+  grid-area: title2;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.title3 {
+  grid-area: title3;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.description {
+  grid-area: description;
+}
+
+.location {
+  grid-area: location;
+}
+
+.instructor {
+  grid-area: instructor;
+}
+
+.add-event {
+  padding: 5px;
+  margin: 25px;
+}
+
+.upcoming-table {
+  padding: 30px 3px 3px 50px;
+}
+.date-header {
+  float: left;
+  width: 10%;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0px 10px 20px 10px;
+  margin-right: 20px;
+  text-align: left;
+}
+
+.description-header {
+  float: left;
+  width: 70%;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0px 10px 20px 10px;
+  margin-right: 20px;
+  text-align: left;
+}
+
+.date-column {
+  float: left;
+  width: 10%;
+  text-align: left;
+  padding: 0px 10px 50px 10px;
+  margin-right: 20px;
+  font-size: 18px;
+}
+.description-column {
+  float: left;
+  width: 70%;
+  text-align: left;
+  padding: 0px 10px 50px 10px;
+  font-size: 18px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+

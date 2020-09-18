@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./stylesheets/app.scss";
 import LeaderBoard from "./leaderBoard/index.js";
 import Events from "./buletinBoard/Calendar.js";
@@ -19,7 +19,6 @@ import AsanaRiver from "./river/AsanaRiver.js";
 import About from "./about";
 import ScrollToTop from "./ScrollToTop.js";
 import Menu from "./Menu";
-import axios from "axios";
 
 const App = (props) => {
   const connectSID = document.cookie.includes("connect.sid") || false;
@@ -28,7 +27,6 @@ const App = (props) => {
   const [isSignedUp, setSignup] = useState(false);
   const [user, setUser] = useState({});
   const [redirectPath, setRedirectPath] = useState("/");
-
 
   return (
     <AuthContext.Provider value={{ authTokens, setAuthTokens }}>

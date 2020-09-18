@@ -1,8 +1,10 @@
 import React from 'react';
 import { logOut } from '../apiHelpers';
 import '../stylesheets/loginSignup.scss';
+import axios from 'axios'
 const host = "34.229.137.235:4444";
 const user = JSON.parse(window.localStorage.getItem("user"));
+
 
 const Logout = ({ setAuthTokens }) => {
   const handleLogout = () => {

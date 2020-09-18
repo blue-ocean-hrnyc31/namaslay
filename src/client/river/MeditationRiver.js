@@ -4,10 +4,20 @@ import "../stylesheets/river.scss";
 import axios from "axios";
 import moment from "moment";
 import Timer from "react-compound-timer";
-const host = "localhost:4444";
+
+
+const host = '34.229.137.235:4444';
+const user = {
+  user_id: 1,
+  username: 'jSmith',
+  location: 'New York City',
+  current_activity: null,
+  current_river: null,
+  total_mins: 430,
+};
 
 const MeditationRiver = () => {
-  const [chatInput, setChatInput] = useState("");
+  const [chatInput, setChatInput] = useState('');
   const [chatStream, setChatStream] = useState([]);
   const [inRiver, setInRiver] = useState(false);
   const [startTime, setStartTime] = useState(0);

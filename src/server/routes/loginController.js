@@ -1,6 +1,6 @@
 module.exports = {
   post: (req, res) => {
-    console.log('post /login req.user:', req.user);
+    console.log('authentication passed! sending back user info...');
     const {
       user_id,
       username,
