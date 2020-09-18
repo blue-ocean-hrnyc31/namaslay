@@ -117,14 +117,7 @@ class Events extends React.Component {
               >
                 New Event
               </button>
-            ) : (
-              <button
-                className="add-event"
-                onClick={() => this.setModalShow(true)}
-              >
-                New Event
-              </button>
-            )}
+            ) : null}
           </div>
           <NewEventModal
             show={this.state.modalIsOpen}
