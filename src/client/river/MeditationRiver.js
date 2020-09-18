@@ -15,7 +15,7 @@ const user = {
   total_mins: 430,
 };
 
-const MeditationRiver = ({ user }) => {
+const MeditationRiver = () => {
   const [chatInput, setChatInput] = useState('');
   const [chatStream, setChatStream] = useState([]);
   const [inRiver, setInRiver] = useState(false);
@@ -24,11 +24,37 @@ const MeditationRiver = ({ user }) => {
   const [activityValue, setActivityValue] = useState('');
   const [displayTimer, setDisplayTimerVis] = useState(true);
 
-  console.log('Meditation user', user);
+  const user = JSON.parse(window.localStorage.getItem('user'));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchChatStream();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     fetchUsersInMeditation();
-    fetchChatStream();
+    const intervalRiver = setInterval(() => {
+      fetchUsersInMeditation();
+    }, 30000);
+    return () => clearInterval(intervalRiver);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      return axios
+        .put(`http://${host}/meditation-river/user/${user.user_id}`, {
+          current_river: null,
+          current_activity: null,
+        })
+        .then(() => {
+          console.log('Successfully updated.');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
   }, []);
 
   /********************************************/
@@ -40,7 +66,6 @@ const MeditationRiver = ({ user }) => {
       url: `http://${host}/meditation-river/chat`,
     })
       .then(({ data }) => {
-        console.log('Chat stream data:', data);
         setChatStream(data);
       })
       .catch((err) => {
@@ -54,20 +79,27 @@ const MeditationRiver = ({ user }) => {
   /********************************************/
   const handleSendChat = () => {
     //need to get current user as prop
+    if (chatInput === '') {
+      alert('Please enter something in your chat message!');
+      return;
+    }
+
     axios({
       method: 'post',
       url: `http://${host}/meditation-river/chat`,
       data: {
-        currentUser: 'user.username',
+        currentUser: user.username || 'Unknown',
         message: chatInput,
-        submitTime: moment(),
+        submitTime: Date.now(),
       },
     })
       .then((res) => {
+        console.log(`Successfully posted chat!`);
         setChatInput('');
         fetchChatStream();
       })
       .catch((err) => {
+        console.log(`Error in posting chat:`, err);
         fetchChatStream();
         console.log(err);
       });
@@ -81,8 +113,30 @@ const MeditationRiver = ({ user }) => {
       method: 'post',
       url: `http://${host}/meditation-river/chat`,
       data: {
-        currentUser: user.username,
-        message: 'Just entered the Asana River',
+        currentUser: user.username || 'Unknown',
+        message: ' entered the Asana River',
+        submitTime: Date.now(),
+      },
+    })
+      .then((res) => {
+        fetchChatStream();
+      })
+      .catch((err) => {
+        fetchChatStream();
+        console.log(err);
+      });
+  };
+
+  /********************************************/
+  /****** Post User Exit to Chat Stream! ******/
+  /********************************************/
+  const handleSendChatUserExit = () => {
+    axios({
+      method: 'post',
+      url: `http://${host}/meditation-river/chat`,
+      data: {
+        currentUser: user.username || 'Unknown',
+        message: ` left the Meditation River`,
         submitTime: Date.now(),
       },
     })
@@ -155,20 +209,23 @@ const MeditationRiver = ({ user }) => {
       let practicedTime = Math.round((Date.now() - startTime) / 60000);
       setInRiver(false);
       handleUserExit(practicedTime);
+      handleSendChatUserExit();
     } else {
       setInRiver(true);
       setStartTime(Date.now());
       handleUserEnter();
       handleSendChatUserEntrance();
     }
-
     setDisplayTimerVis(!displayTimer);
   };
 
   return (
     <div className='practice-room-container'>
       <div className='chart-conatainer'>
-        <MeditationChart allUsersInMeditation={allUsersInMeditation} />
+        <MeditationChart
+          allUsersInMeditation={allUsersInMeditation}
+          user={user}
+        />
         <br />
         {displayTimer ? (
           <div className='center'>
@@ -206,7 +263,49 @@ const MeditationRiver = ({ user }) => {
       </div>
       <div className='practice-board-container'>
         <div className='practice-board'>
-          <h2>Tell us about today's practice</h2>
+          <p
+            style={{
+              fontWeight: 'bold',
+              fontSize: '1.7em',
+            }}
+          >
+            Tell us about today's practice
+          </p>
+
+          <div className='chat-container'>
+            <div className='slide-up'>
+              {chatStream.map((post, ind) => {
+                let secondsAgo =
+                  Math.floor((Date.now() - post.posted_at) / 1000) + 1;
+                let timeAgo;
+
+                if (secondsAgo < 60) {
+                  timeAgo = secondsAgo + ' seconds ago';
+                } else if (secondsAgo >= 60 && secondsAgo < 3600) {
+                  timeAgo = Math.floor(secondsAgo / 60) + ' minutes ago';
+                } else {
+                  timeAgo = Math.floor(secondsAgo / 3600) + ' hours ago';
+                }
+                return (
+                  <div className='practice-stream' key={ind}>
+                    <span
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: '1.3em',
+                        textDecoration: 'underline',
+                      }}
+                    >
+                      {post.username}
+                    </span>
+                    : {post.content}
+                    {' - '}
+                    <span style={{ fontSize: '0.2em' }}>{timeAgo}</span>
+                    <br />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
           <input
             className='practice-stream-input'
             type='text'
@@ -216,23 +315,6 @@ const MeditationRiver = ({ user }) => {
             }}
           ></input>
           <button onClick={handleSendChat}>Submit</button>
-          <br />
-          <br />
-          <div>
-            {chatStream.length ? (
-              chatStream.map((post) => {
-                return (
-                  <div className='practice-stream'>
-                    {post.user}: {post.post}{' '}
-                    <span style={{ fontSize: '0.2em' }}>{post.postedAt}</span>
-                    <br />
-                  </div>
-                );
-              })
-            ) : (
-              <></>
-            )}
-          </div>
         </div>
       </div>
     </div>
