@@ -3,7 +3,6 @@ import AsanaChart from "./AsanaChart.js";
 import "../stylesheets/river.scss";
 import axios from "axios";
 import Timer from "react-compound-timer";
-
 const host = "34.229.137.235:4444";
 
 const AsanaRiver = () => {
@@ -14,7 +13,6 @@ const AsanaRiver = () => {
   const [allUsersInAsana, setAllUsersInAsana] = useState([]);
   const [activityValue, setActivityValue] = useState("");
   const [displayTimer, setDisplayTimerVis] = useState(true);
-
   const user = JSON.parse(window.localStorage.getItem("user"));
 
   useEffect(() => {
@@ -41,6 +39,7 @@ const AsanaRiver = () => {
           current_activity: null,
         })
         .then(() => {
+          handleSendChatUserExit()
           console.log("Successfully updated.");
         })
         .catch((err) => {
@@ -333,28 +332,5 @@ const mockStreamData = [
     username: "jeremy",
     content: "Practicing bikram",
     posted_at: "1600224508891",
-  },
-];
-
-const dummyUsers = [
-  {
-    username: "Liam",
-    location: "NYC",
-    current_activity: "Chilllllllllin",
-  },
-  {
-    username: "Bobbito",
-    location: "Cali",
-    current_activity: "Shredding gnar",
-  },
-  {
-    username: "Nuri",
-    location: "NYC",
-    current_activity: "Just vibingggg",
-  },
-  {
-    username: "Trent",
-    location: "NYC",
-    current_activity: "Beep booping",
   },
 ];

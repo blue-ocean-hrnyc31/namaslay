@@ -7,7 +7,6 @@ const generateDataset = (userList) =>
   Array(userList.length)
     .fill(0)
     .map((e, i) => {
-      const randUserIndex = Math.floor(Math.random() * userList.length);
       return {
         x: Math.random() * 100,
         y: Math.random() * 100,
@@ -52,7 +51,7 @@ const AsanaChart = ({ allUsersInAsana, user}) => {
             width="100%"
             height="100%"
             href={river}
-            clip-path="url(#rectView)"
+            clipPath="url(#rectView)"
             preserveAspectRatio="none"
           ></image>
           {dataset.map(({ x, y, username, location, current_activity }, i) => (
@@ -155,26 +154,3 @@ const AsanaChart = ({ allUsersInAsana, user}) => {
 };
 
 export default AsanaChart;
-
-const dummyUsers = [
-  {
-    username: "Liam",
-    location: "NYC",
-    current_activity: "Chilllllllllin",
-  },
-  {
-    username: "Bobbito",
-    location: "Cali",
-    current_activity: "Shredding gnar",
-  },
-  {
-    username: "Nuri",
-    location: "NYC",
-    current_activity: "Just vibingggg",
-  },
-  {
-    username: "Trent",
-    location: "NYC",
-    current_activity: "Beep booping",
-  },
-];
