@@ -9,6 +9,3 @@ script:
   - npm run build
 after_script:
     - killall -9 node
-cache:
-  directories:
-    - "node_modules"
