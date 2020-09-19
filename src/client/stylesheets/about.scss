@@ -1,3 +1,5 @@
+@use 'defaults';
+
 .aboutContainer {
   display: grid;
   grid-template-rows: repeat(8 1fr);
@@ -7,9 +9,8 @@
   margin-top: 40px;
   margin-bottom: 40px;
   .A {
+    @include defaults.rounded;
     padding-top: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: solid 1px white;
     text-align: center;
     grid-column: 1/2;
     grid-row: 1/3;
@@ -17,10 +18,9 @@
     font-size: 30px;
   }
   .B {
+    @include defaults.rounded;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: solid 1px white;
     text-align: center;
     grid-column: 2/3;
     grid-row: 1/2;
@@ -28,18 +28,16 @@
     font-size: 30px;
   }
   .C {
+    @include defaults.rounded;
     padding-top: 6%;
     padding-bottom: 6%;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: solid 1px white;
     grid-column: 1/2;
     grid-row: 3/9;
     width: 100%;
     font-size: 20px;
   }
   .D {
-    background-color: rgba(255, 255, 255, 0.5);
-    border: solid 1px white;
+    @include defaults.rounded;
     padding: 20px;
     grid-column: 2/3;
     grid-row: 2/9;
@@ -85,6 +83,7 @@
 }
 
 .aboutHeader {
+  @include defaults.rounded;
   padding-top: 15px;
   padding-bottom: 15px;
   position: relative;
@@ -92,16 +91,13 @@
   font-size: 50px;
   left: 30%;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: solid 1px white;
 }
 .aboutFooter {
+  @include defaults.rounded;
   margin-top: 20px;
   padding-top: 15px;
   position: relative;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: solid 1px white;
   font-family: "Nothing You Could Do", cursive;
   font-size: 3em;
 }

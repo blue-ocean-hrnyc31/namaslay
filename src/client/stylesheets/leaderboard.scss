@@ -1,3 +1,5 @@
+@use './defaults';
+
 .tableRow {
   color: black;
 }
@@ -7,12 +9,10 @@ table {
   width: 90%;
 }
 .leaderboard {
+  @include defaults.rounded;
   margin-top: 10px;
   text-align: center;
   height: 450px;
-  background-color: rgba(255, 255, 255, 0.5);
-  border: solid 1px white;
-  border-radius: 10px;
   overflow: auto;
   table {
     tr {
@@ -47,10 +47,8 @@ table {
   width: 20%;
 }
 #topTable {
+  @include defaults.rounded;
   display: flex;
-  border-radius: 10px;
-  border: solid 1px white;
-  background-color: rgba(255, 255, 255, 0.5);
   text-align: center;
   margin: auto;
   line-height: 50px;
