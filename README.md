@@ -1,11 +1,15 @@
 # Namaslay
-
-We are go for launch: http://go-with-the-flow.herokuapp.com/  
+ 
 [![Build Status](https://travis-ci.com/blue-ocean-hrnyc31/namaslay-client.svg?branch=master)](https://travis-ci.com/blue-ocean-hrnyc31/namaslay-client)
 [![GitHub contributors](https://img.shields.io/github/contributors/blue-ocean-hrnyc31/namaslay-client)](https://github.com/blue-ocean-hrnyc31/namaslay-client/edit/master/README.md)
 [![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/blue-ocean-hrnyc31/namaslay-client)](https://github.com/blue-ocean-hrnyc31/namaslay-client/pulls)
-[![Heroku](https://pyheroku-badge.herokuapp.com/?app=go-with-the-flow&style=flat)](http://go-with-the-flow.herokuapp.com/)
 [![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://github.com/blue-ocean-hrnyc31/namaslay-client)
+
+## Introduction
+This project was a brief 1-week sprint where our team completed a web application MVP for a client. The multi-page application would serve as a place for yogis to safely gather, meditate, and share the zen of the Asana while SARS-CoV-2 was raging on.
+
+## Tech Stack
+React, React-Router, Docker, React-Bootstrap, D3, Express, PassportJS, PostgreSQL, Puppeteer, Jest, 
 
 ## Clone the Repo
 
@@ -89,3 +93,7 @@ heroku create
 6.  Click "open app" on the top right corner of your screen
 
 7.  Pop those bottles!
+
+
+## Future Work
+
