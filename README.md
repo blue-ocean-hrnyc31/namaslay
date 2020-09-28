@@ -95,4 +95,4 @@ heroku create
 
 
 ## Future Work
-Created a mesh network of WebRTC channels to host video chats
+Create a mesh network of WebRTC channels to host video chats
