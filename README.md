@@ -11,44 +11,43 @@ This project was a brief 1-week sprint where our team completed a web applicatio
 ## Tech Stack
 React, React-Router, Docker, React-Bootstrap, D3, Express, PassportJS, PostgreSQL, Puppeteer, Jest, 
 
-## Clone the Repo
+## Development
+1. Clone the repo
 
 ```
 git clone https://github.com/blue-ocean-hrnyc31/namaslay-client.git
 ```
 
-## Development
-
-1.  Install the dependencies:
+2.  Install the dependencies:
 
 ```
 npm install
 ```
 
-2.  Create a .env file in the project's root directory with the appropriate information
+3.  Create a .env file in the project's root directory with the appropriate information
 
-3.  Start the server:
+4.  Start the server:
 
 ```
 npm start
 ```
 
-4.  Start the webpack development server and build the development bundle:
+5.  Start the webpack development server and build the development bundle:
 
 ```
 npm run build-dev
 ```
 
-5.  Navigate to http://localhost:9000
+6.  Navigate to http://localhost:9000
 
-6.  Pop those bottles!
+7.  Pop those bottles!
 
 ---
 
 ### Notes
 
 By leveraging Webpack's hot module replacement, any changes to the client code will be automatically reflected in the browser.
-By using nodemon, any changes to the server will be made immediately present.
+By using nodemon, any changes to the server will be made immediately present as well.
 
 ---
 
@@ -96,4 +95,4 @@ heroku create
 
 
 ## Future Work
-
+Created a mesh network of WebRTC channels to host video chats
